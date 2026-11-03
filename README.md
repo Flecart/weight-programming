@@ -73,5 +73,5 @@ Appendix C.
 
 ## Licences
 
-- **The paper's logs, data and networks** are CC BY 4.0. The MinAtar source quoted in its prompts is GPL-3.0. Neither is redistributed here beyond the derived results; clone the original repo instead.
-- **The code in this repository** is by the author of the companion post.
+- **Material from the paper's repository** keeps its original licence. The saved prompts in `astra_eval/prompts/` and `astra_eval/runs/` contain the paper's released weights (CC BY 4.0). The request files in `opus_write/runs/` contain the MinAtar source quoted in Experiment 5's prompts (GPL-3.0).
+- **The code in this repository** has no licence chosen yet; add one before making the repository public.

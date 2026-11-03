@@ -53,51 +53,19 @@ Check [[#Appendix D Decoding Astra's Program]]. Such compilation would have take
 Since the games that were studied were easy to manage, this specific experiment is not that much surprising.
 We can actually study the *level of complexity* that a program needs to be before it breaks, even for complex frontier LLMs like Astra.
 
-## 3. Finding two: reading weights survived everything I threw at it, until runtime ran out
+## 3. Finding two: Models still have Complexity Limits
 
 Writing weights is compiling is an activity very similar to writing pure machine code. Just that this machine code instead of writing registers or memories writes numbers directly. It makes me wonder what computation as we know it today could have developed if we worked with such hardware instead of the Von Neumann Architecture. Some decisions in history have long influence.
 
 The idea in this section is finding the limit of complexity where recognizing the game was off-limits.
 
+From my experience in past work of my supervisor on simulation of programs with LLMs [[@malfaCodeSimulationProxy2025]], I knew there would be a point from where the behaviour starts to break. I tried to attack the most obvious direction I could find.
 
-Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights. That made me suspect a shortcut I could take away.
+I asked my agent to obfuscate the weights given for it to recognize using some stardard operations. Clearly it should not classify pure noise looking input as an atari game. But if there was a pattern, that should be retrieved. And looks like **cost of computing the inverse function raised reasoning length**, in a precise understandable manner. That is **reasoning grew sub-exponentially**, at about the square root of the operations needed ($\approx \text{operations}^{0.45}$):  
 
-### How it reads the weights
+![[ops_vs_reasoning_tokens.png| Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs 'by hand'; Line is median and band is 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
+In addition, it seemed to follow a procedure during decoding. So it correctly understood what was the *decompilation* process for a known forward process in this case.
 
-The first-layer weights are, in effect, **a picture of the game board**.
-- **Why:** the gradient of input i's row of W1 is $x_i \times$ (error signal). An input that is always 0 during training (no ball in row 9, no paddle in row 3) never moves from its small random start (about ±0.06–0.2). Inputs that are used grow large.
-- **Breakout's map:** the per-cell maximum |W1| shows the paddle row, the ball's flight area and the brick rows.
-
-```
-channel 0 (agent)          row 8:  4.1 2.8 1.9 2.4 1.1 1.5 3.1 4.7   everything else ~0.1–0.2
-channel 1 (moving objects) rows 1–7 large (up to 7.9)                 row 8 and below ~0.1
-channel 2 (reward targets) rows 1–3 large (up to 4.8)                 rows 4–9 ~0.1–0.2
-```
-
-- **The prompt labels the picture.** It names the channels: "agent", "moving objects", "reward targets".
-- **The output layer shows which actions matter:** only left/right for Breakout, mostly up for Freeway.
-- **A famous-game prior finishes the job.**
-
-So I expected that hiding the picture or the labels would break it.
-
-### What I tried
-
-Every obfuscation was stated truthfully in the prompt and left the network's function exactly unchanged, so a careful reader could always undo it:
-- **Rescaling:** input or output multiplied or divided by 10, with the weights adjusted to match.
-- **Scrambling the picture:** per-channel scales and offsets, flipping the board upside down, a random shuffle of all 500 inputs (with the full table given), and up to 250 rotations mixing pairs of inputs.
-- **Stacking:** shuffle, flip, scale and offset composed, four steps deep.
-- **Removing the meaning:** channels renamed "A–E", with no hint of what they are.
-
-**Astra named the right game 156 times out of 156.** Every table is in [[#Obfuscations that did not break it]].
-
-### What it taught me
-
-- **It decodes rather than guesses.** In one four-step answer I checked 10 input positions it mapped back. All 10 were exact, including the combined scale factor.
-- **It reads selectively.** About 1,500 tokens is far too little to undo a 500-entry table for all 16,000 weights. It decodes a small sample, typically 7–15 rows taken mostly from the top of the listing, and rebuilds the picture from those.
-- **Its effort follows how much there is to look up, not how much there is to compute.** Reasoning tokens track the length of the stated transformation (ρ = +0.45), not the size of the computation needed to undo it (ρ = +0.12).
-- **I was wrong about the prior.** Shuffling the board and removing the channel names were supposed to break it. They only lowered its confidence, from about 95% to 87%.
-
-None of these obfuscations was *hard to compute*: each one costs a lookup or a few multiplications per row. So the obvious next move was to keep the instructions short and make each row expensive to decode. That is where it finally breaks ([[#Breaking Weight Decompilation]]).
 
 ## Finding Three: Models Self Verify in Chain of Though
 
@@ -108,48 +76,6 @@ It might be possible that this was a **inherent defense to the collapse argument
 The point is that the paper's original argument of error is not so dooming for models, but at the same time it shows a clear limitation of putting logical reasoning into the CoT!
 More data  in [[#Faith and Fate Probing]].
 
-
-
-### Breaking Weight Decompilation
-From my experience in past work of my supervisor on simulation of programs with LLMs [[@malfaCodeSimulationProxy2025]], I knew there would be a point from where the behaviour starts to break. I tried to attack the most obvious direction I could find.
-
-I asked my agent to obfuscate the weights given for it to recognize. Clearly it should not classify pure noise looking input as an atari game. But if there was a pattern, that should be retrieved. And looks like **cost of computing the inverse function raised reasoning length**, in a precise understandable manner. That is **reasoning grew sub-exponentially**:  
-
-So I kept the description short and raised the computation. Every condition shuffles the 500 inputs by a rule stated in the prompt, not by a table. To decode any row, Astra has to run the rule by hand.
-
-
-
-![[ops_vs_reasoning_tokens.png]]
-
-*Figure: reasoning tokens per reply against the operations needed to decode one shuffled row (log scale). Blue: rules Astra can run by hand; the line joins each rule's median and the band covers the middle 50% of replies. Orange: SHA-256. Hollow dots are wrong answers.*
-
-*Astra thinks harder the more work a rule needs, until the work is impossible.* Each dot is one reply naming the game behind a shuffled network: 4 networks × 2 replies per rule, plus 3 per network for the unshuffled original. The x-axis is the number of operations needed to decode one input row, on a log scale; the y-axis is reasoning tokens.
-- **Blue (rules it can run by hand):** effort rises with the work, from about 1,000 tokens with no shuffle to about 11,000 at 32 rounds of multiply-add and XOR. The line joins the median of each rule.
-- **The growth is subexponential: roughly a square root.** Reasoning tokens grow as about ops^0.45 (95% CI 0.42–0.49, 76 replies including 64 rounds); an exponential fits worst. Each doubling of the work per row costs only about 37% more reasoning, plausibly because Astra decodes fewer rows as each gets more expensive. On plain arithmetic, where every step must be executed, growth is linear instead (see [[#Growth rate of reasoning effort]]). Neither comes close to exponential.
-- **Orange (SHA-256):** about a million operations per row, yet only about 400 tokens. Astra judges the hashing infeasible and gives up instead of trying.
-- **Hollow dots are wrong answers.** The two blue ones are both at 16 rounds:
-  - one Breakout reply never decoded a row and guessed "Space Invaders-style" at 82% confidence;
-  - one Pac-Man reply decoded 9 rows correctly, then misread the game as "Dodge" (45%).
-  The hollow orange dots are the SHA-256 replies that said "Undetermined" or named the wrong paddle game.
-
-What happened:
-
-- **It runs the rule by hand, correctly.** I checked every "p(j) = …" it wrote against the true permutation. All 62 were correct at 32 rounds and all 101 at 8 rounds; at 16 rounds, 50 of 52. That's dozens of rounds of multiply-add and XOR-shift on 9-bit numbers, in its head. Its reasoning sections read "Computing hex XOR samples", "Computing p13 value", "Correcting arithmetic mappings".
-- **Effort scales with the program it runs, up to about 15,000 tokens.** Across these 72 runs, reasoning tokens correlate with description length at ρ = 0.90.
-  - Within the XOR family, description and computation grow together, so that number alone can't separate them.
-  - SHA-256 separates them: almost no description, the most computation, and the *least* effort.
-- **SHA-256 is where it breaks.** It never tries to compute a hash. It spends about 400 tokens and writes that it cannot "honestly assign these rows to particular channels or grid locations without computing the permutation".
-  - With only the inputs hashed, it falls back on the unshuffled output layer and still names 3 of 4 games.
-  - With the output columns hashed too, accuracy drops to **2 of 8**, and most answers are "Undetermined" at confidence 0.
-- **Effort collapses at the limit.** On infeasible tasks Astra thinks less, not more: about 400 tokens instead of about 10,000. That is exactly the rise-then-drop pattern of *The Illusion of Thinking*. Here it shows up as an honest judgment of what's feasible, not a confused failure.
-- **Effort collapses at 128 rounds.** At 64 rounds Astra is still decoding by hand, spending the most of any run (up to 18,126 tokens), and its first arithmetic errors appear (34 of 41 decoded values correct). At 128 rounds, 7 of 8 replies stop after a few hundred tokens (median 506). One writes: *"I have not decoded the 128-round input permutation. Consequently, I cannot honestly assign the large first-layer weights to particular grid cells or channels."* Breakout, Pong and Freeway are still named correctly from the unshuffled output layer; Pac-Man fails.
-- **The breaking point, measured.** Effort collapses at about 2^18 operations in total (128 rounds). A logistic fit of correctness gives C₅₀ ≈ 2^20.4 (95% CI 2^19.5–2^22.7). Accuracy falls more slowly than effort, because the unshuffled output layer still carries three of the four games.
-
-**How hard was writing the Breakout network, on this scale?** Writing Experiment 5's Breakout network took Astra 16,828 reasoning tokens. Inverting the effort curve, that's the effort of decoding a shuffle of about 118–123 rounds. I then ran 128 rounds, and that is exactly where Astra stops computing and gives up. The paper's headline result sits right at the edge of Astra's reasoning budget.
-
-**The answer to the Hutter question.** Description length predicts effort when the program is runnable. Whether it can be done at all is set by runtime. Astra will execute a short program for as long as about 15,000 reasoning tokens allow. It refuses to start one it judges far beyond its budget, and that's where it breaks. This is Levin's picture rather than pure Kolmogorov: length + time, with a hard ceiling on time.
-
-**Not tested: games no model has seen.** I designed three (Corner Push, Mirror Twin, Charge Pad) to remove the famous-game prior entirely, but stopped their training before the networks were ready. The SHA-256 results already show how much Astra's recognition relies on structure it can actually decode. Unseen games remain the cleanest test of the prior and are left for future work.
 
 
 ## On the Limitations of Weight Programming
@@ -222,6 +148,78 @@ Astra's token counts from the paper's run records (`run.json` → `audit.usage`)
 Recognition is cheap (about 1,000 tokens). Compiling is expensive: about 20 reasoning tokens per weight entry written.
 
 
+### How Astra reads the weights, and what did not break it
+Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights. That made me suspect a shortcut I could take away.
+
+#### How it reads the weights
+
+The first-layer weights are, in effect, **a picture of the game board**.
+- **Why:** the gradient of input i's row of W1 is $x_i \times$ (error signal). An input that is always 0 during training (no ball in row 9, no paddle in row 3) never moves from its small random start (about ±0.06–0.2). Inputs that are used grow large.
+- **Breakout's map:** the per-cell maximum |W1| shows the paddle row, the ball's flight area and the brick rows.
+
+```
+channel 0 (agent)          row 8:  4.1 2.8 1.9 2.4 1.1 1.5 3.1 4.7   everything else ~0.1–0.2
+channel 1 (moving objects) rows 1–7 large (up to 7.9)                 row 8 and below ~0.1
+channel 2 (reward targets) rows 1–3 large (up to 4.8)                 rows 4–9 ~0.1–0.2
+```
+
+- **The prompt labels the picture.** It names the channels: "agent", "moving objects", "reward targets".
+- **The output layer shows which actions matter:** only left/right for Breakout, mostly up for Freeway.
+- **A famous-game prior finishes the job.**
+
+So I expected that hiding the picture or the labels would break it.
+
+#### What I tried
+
+Every obfuscation was stated truthfully in the prompt and left the network's function exactly unchanged, so a careful reader could always undo it:
+- **Rescaling:** input or output multiplied or divided by 10, with the weights adjusted to match.
+- **Scrambling the picture:** per-channel scales and offsets, flipping the board upside down, a random shuffle of all 500 inputs (with the full table given), and up to 250 rotations mixing pairs of inputs.
+- **Stacking:** shuffle, flip, scale and offset composed, four steps deep.
+- **Removing the meaning:** channels renamed "A–E", with no hint of what they are.
+
+**Astra named the right game 156 times out of 156.** Every table is in [[#Obfuscations that did not break it]].
+
+#### What it taught me
+
+- **It decodes rather than guesses.** In one four-step answer I checked 10 input positions it mapped back. All 10 were exact, including the combined scale factor.
+- **It reads selectively.** About 1,500 tokens is far too little to undo a 500-entry table for all 16,000 weights. It decodes a small sample, typically 7–15 rows taken mostly from the top of the listing, and rebuilds the picture from those.
+- **Its effort follows how much there is to look up, not how much there is to compute.** Reasoning tokens track the length of the stated transformation (ρ = +0.45), not the size of the computation needed to undo it (ρ = +0.12).
+- **I was wrong about the prior.** Shuffling the board and removing the channel names were supposed to break it. They only lowered its confidence, from about 95% to 87%.
+
+None of these obfuscations was *hard to compute*: each one costs a lookup or a few multiplications per row. So the obvious next move was to keep the instructions short and make each row expensive to decode. That is where it finally breaks ([[#Where it breaks: the full analysis]]).
+
+### Where it breaks: the full analysis
+
+So I kept the description short and raised the computation. Every condition shuffles the 500 inputs by a rule stated in the prompt, not by a table. To decode any row, Astra has to run the rule by hand.
+
+*Astra thinks harder the more work a rule needs, until the work is impossible* (figure in [[#3. Finding two: Models still have Complexity Limits]]). Each dot is one reply naming the game behind a shuffled network: 4 networks × 2 replies per rule, plus 3 per network for the unshuffled original. The x-axis is the number of operations needed to decode one input row, on a log scale; the y-axis is reasoning tokens.
+- **Blue (rules it can run by hand):** effort rises with the work, from about 1,000 tokens with no shuffle to about 11,000 at 32 rounds of multiply-add and XOR. The line joins the median of each rule.
+- **The growth is subexponential: roughly a square root.** Reasoning tokens grow as about ops^0.45 (95% CI 0.42–0.49, 76 replies including 64 rounds); an exponential fits worst. Each doubling of the work per row costs only about 37% more reasoning, plausibly because Astra decodes fewer rows as each gets more expensive. On plain arithmetic, where every step must be executed, growth is linear instead (see [[#Growth rate of reasoning effort]]). Neither comes close to exponential.
+- **Orange (SHA-256):** about a million operations per row, yet only about 400 tokens. Astra judges the hashing infeasible and gives up instead of trying.
+- **Hollow dots are wrong answers.** The two blue ones are both at 16 rounds:
+  - one Breakout reply never decoded a row and guessed "Space Invaders-style" at 82% confidence;
+  - one Pac-Man reply decoded 9 rows correctly, then misread the game as "Dodge" (45%).
+  The hollow orange dots are the SHA-256 replies that said "Undetermined" or named the wrong paddle game.
+
+What happened:
+
+- **It runs the rule by hand, correctly.** I checked every "p(j) = …" it wrote against the true permutation. All 62 were correct at 32 rounds and all 101 at 8 rounds; at 16 rounds, 50 of 52. That's dozens of rounds of multiply-add and XOR-shift on 9-bit numbers, in its head. Its reasoning sections read "Computing hex XOR samples", "Computing p13 value", "Correcting arithmetic mappings".
+- **Effort scales with the program it runs, up to about 15,000 tokens.** Across these 72 runs, reasoning tokens correlate with description length at ρ = 0.90.
+  - Within the XOR family, description and computation grow together, so that number alone can't separate them.
+  - SHA-256 separates them: almost no description, the most computation, and the *least* effort.
+- **SHA-256 is where it breaks.** It never tries to compute a hash. It spends about 400 tokens and writes that it cannot "honestly assign these rows to particular channels or grid locations without computing the permutation".
+  - With only the inputs hashed, it falls back on the unshuffled output layer and still names 3 of 4 games.
+  - With the output columns hashed too, accuracy drops to **2 of 8**, and most answers are "Undetermined" at confidence 0.
+- **Effort collapses at the limit.** On infeasible tasks Astra thinks less, not more: about 400 tokens instead of about 10,000. That is exactly the rise-then-drop pattern of *The Illusion of Thinking*. Here it shows up as an honest judgment of what's feasible, not a confused failure.
+- **Effort collapses at 128 rounds.** At 64 rounds Astra is still decoding by hand, spending the most of any run (up to 18,126 tokens), and its first arithmetic errors appear (34 of 41 decoded values correct). At 128 rounds, 7 of 8 replies stop after a few hundred tokens (median 506). One writes: *"I have not decoded the 128-round input permutation. Consequently, I cannot honestly assign the large first-layer weights to particular grid cells or channels."* Breakout, Pong and Freeway are still named correctly from the unshuffled output layer; Pac-Man fails.
+- **The breaking point, measured.** Effort collapses at about 2^18 operations in total (128 rounds). A logistic fit of correctness gives C₅₀ ≈ 2^20.4 (95% CI 2^19.5–2^22.7). Accuracy falls more slowly than effort, because the unshuffled output layer still carries three of the four games.
+
+**How hard was writing the Breakout network, on this scale?** Writing Experiment 5's Breakout network took Astra 16,828 reasoning tokens. Inverting the effort curve, that's the effort of decoding a shuffle of about 118–123 rounds. I then ran 128 rounds, and that is exactly where Astra stops computing and gives up. The paper's headline result sits right at the edge of Astra's reasoning budget.
+
+**The answer to the Hutter question.** Description length predicts effort when the program is runnable. Whether it can be done at all is set by runtime. Astra will execute a short program for as long as about 15,000 reasoning tokens allow. It refuses to start one it judges far beyond its budget, and that's where it breaks. This is Levin's picture rather than pure Kolmogorov: length + time, with a hard ceiling on time.
+
+**Not tested: games no model has seen.** I designed three (Corner Push, Mirror Twin, Charge Pad) to remove the famous-game prior entirely, but stopped their training before the networks were ready. The SHA-256 results already show how much Astra's recognition relies on structure it can actually decode. Unseen games remain the cleanest test of the prior and are left for future work.
+
 ### Obfuscations that did not break it
 
 These are the full results behind [[#3. Finding two: reading weights survived everything I threw at it, until runtime ran out]]. Every transformation is stated in the prompt and leaves the network's function unchanged.
@@ -287,9 +285,7 @@ Two exceptions:
 | … ×128 | 4,128 | 18.3 | 6/8 | 49.5 | **2,141** (median 506; 7 of 8 replies stop early) |
 | **Order by SHA-256** of "wp-" + j | 48 | 20.1 | **6/8** | **43.8** | **399** |
 | **SHA-256 on inputs and output columns** | 64 | 20.2 | **2/8** | **15.6** | **467** |
-![[breakout_obfuscation.gif]]
-
-*Figure: what Astra sees as the shuffle gets harder. Left, the Breakout network as shown: each tile is one input, its brightness the input's largest first-layer weight. Right, what decoding a sample of rows recovers. Unshuffled, the weights are literally a picture of the board.*
+![[breakout_obfuscation.gif|What Astra sees as the shuffle gets harder. Left: the Breakout network as shown, each tile one input, brightness its largest first-layer weight. Right: what decoding a sample of rows recovers. Unshuffled, the weights are literally a picture of the board.]]
 
 ### Growth rate of reasoning effort
 
@@ -318,22 +314,9 @@ For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, ex
 | n×n-digit multiplication | n = 2 … 120 | 16 → 29,280 | **32/33** (one digit wrong at 80×80) | 17 → 27,183 |
 | Best sum with no two adjacent numbers | length 5 … 2,560 | 17 → 7,682 | **25/25** | 16 → 13,538 |
 
-![[ff_accuracy.png]]
+![[ff_accuracy.png|Share of exact answers against Faith and Fate's computation-graph size |V|. Both tasks are perfect up to about |V| = 8,000. The DP sum breaks first (50% at about 15,000 nodes); multiplication holds to 120 digits and then stops answering. Dot size shows how many replies each point rests on.]]
 
-*Figure: share of exact answers against Faith and Fate's computation-graph size |V|, per task. Dot size shows how many replies each point rests on.*
-
-Both tasks are perfect up to about |V| = 8,000, and then they part ways:
-- **The DP sum breaks first.** It falls to 50% at 5,120 elements (|V| ≈ 15,000) and to 0 from 10,240 elements on.
-- **Multiplication holds on longer.** Its one dip, to 67% around |V| ≈ 13,000, is a single wrong digit in an 80×80 product. It is exact at 120×120 digits (|V| ≈ 29,000), then drops to 0 from 140 digits because every reply declines.
-- **So the two tasks break at different |V|,** about 15,000 against 30,000–40,000. If the graph size measured difficulty in a task-independent way, the two curves would fall together.
-
-![[ff_tokens.png]]
-
-*Figure: reasoning tokens per reply against |V|. Filled dots are exact answers, hollow dots wrong numbers, ✕ declines.*
-
-- **Effort grows steadily with the graph,** roughly in proportion to |V| (exponent 0.98 for multiplication, 0.94 for the DP sum), from a few dozen tokens up to about 27,000.
-- **The wrong answers sit at the top.** The DP sum's wrong numbers took 18,000–41,000 tokens, the most of any reply: Astra worked hard and still slipped somewhere in a 5,000-number sequence.
-- **The declines sit at the bottom right.** Past its limit Astra spends only 300–4,000 tokens, judges the job infeasible and says so, the same collapse seen with SHA-256.
+![[ff_tokens.png|Reasoning tokens per reply against |V|. Filled: exact answer; hollow: wrong number; ✕: declined. Effort grows linearly with |V| until the break, where the wrong DP answers spend the most (18–41k tokens) and the declines the least (300–4,000).]]
 
 - **It's still exact at 120×120-digit multiplication.** The only error was a single wrong digit in an 80×80 product (98.75% of digits right).
 - **It uses a cheaper representation.** Its reasoning summary reads "Calculating base-1000 product", then "Verifying multiplication result": it multiplies 3-digit chunks.

@@ -1,0 +1,11 @@
+# environments and caches
+.venv/
+.venv-api/
+venv/
+__pycache__/
+*.pyc
+# the paper's public log repo (367 MB of third-party data); clone it from GitHub instead (see README)
+repo/
+# draft backups and working copies
+blog/*.bak.md
+blog/companion_post.latest.md

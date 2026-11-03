@@ -149,7 +149,13 @@ What happened:
 
 The possibility of having LLMs writing weights directly it's still very surprising. I would say also a very creative idea, so my congrats to the authors too!
 However, this posts should highlight some of the inherent limitations of this novel technique:
-1. Compilation into a *weight program* is still limited by the complexity of such process. We have seen that reasoning length goes.
+Compilation into a *weight program* is still limited by the complexity of such process. We have seen that reasoning length increases sub-exponentially with increasing task complexity and drops when a task is outside the capability of the model.
+
+Given the results in experiments 6,7,8 in the post, it looks like **single model edits are within such complexity boundaries**, meaning the model can effectively edit some weights in a meaningful manner for optimization. This is a very interesting result.
+
+
+
+## Conclusions
 The complexity arguments in finding two make the case that 
 
 

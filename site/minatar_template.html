@@ -1,0 +1,207 @@
+<title>MinAtar Replays</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a dark console bench. Three game screens side by side, each with its own scorecard under it. Single dark look by choice. */
+:root {
+  color-scheme: dark;
+  --bg: #070a14;          /* bench */
+  --screen: #0b1020;      /* the game screen, as in the paper's player */
+  --panel: #111729;
+  --line: #222b44;
+  --fg: #e7eaf3;
+  --muted: #8d97b3;
+  --accent: #4c8dff;
+  --ok: #36d399;
+  --warn: #ffc23d;
+  --c-player: #4c8dff; --c-projectile: #f4f6ff; --c-danger: #ff5468; --c-reward: #ffc23d; --c-gauge: #36d399; --c-trail: #8d9cbf;
+  --display: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 36px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: grid; gap: 10px; margin-bottom: 22px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+.lede { margin: 0; max-width: 68ch; color: var(--muted); }
+.lede b { color: var(--fg); font-weight: 600; }
+.bar { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 12px; margin-bottom: 22px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+.sw.trail { width: 6px; height: 6px; opacity: .6; margin: 0 2.5px; }
+.globals { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+button, .seg button { font: 600 13px var(--display); color: var(--fg); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.game { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.ghead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.ghead h2 { margin: 0; font-size: 22px; font-weight: 700; }
+.pill { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px;
+  border: 1px solid currentColor; color: var(--ok); white-space: nowrap; }
+canvas { width: 100%; max-width: 100%; aspect-ratio: 1; display: block; background: var(--screen); border-radius: 6px; }
+.hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.hud div { background: var(--screen); border-radius: 6px; padding: 6px 8px; min-width: 0; }
+.hud small { display: block; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.hud b { font-size: 17px; font-weight: 600; }
+.controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.controls input[type=range] { flex: 1 1 120px; accent-color: var(--accent); min-width: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 5px 0; border-bottom: 1px solid var(--line); }
+th { font-weight: 400; color: var(--muted); }
+td { font-family: var(--mono); text-align: right; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+footer { margin-top: 28px; font-size: 13px; color: var(--muted); max-width: 80ch; display: grid; gap: 6px; }
+footer code { font-family: var(--mono); font-size: 12px; color: var(--fg); }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Experiment 5 · official MinAtar 1.0.15 · validated</div>
+    <h1>The networks Astra wrote, playing</h1>
+    <p class="lede">Each screen shows the 10&nbsp;×&nbsp;10 grid exactly as the network sees it, one colour per input channel. These are the three
+      600&nbsp;→&nbsp;32&nbsp;→&nbsp;32&nbsp;→&nbsp;6 networks GPT-6 Astra wrote weight by weight, with no training, run on the real game with the paper's protocol
+      (sticky actions 0.1, sampled actions). <b>All three reproduce the published scores.</b> Switch to <b>Random</b> to see a uniform random player on the same game.</p>
+  </header>
+
+  <div class="bar">
+    <div class="legend" aria-label="Channel colours">
+      <span><i class="sw" style="background:var(--c-player)"></i>player</span>
+      <span><i class="sw" style="background:var(--c-projectile)"></i>projectile</span>
+      <span><i class="sw" style="background:var(--c-danger)"></i>danger</span>
+      <span><i class="sw" style="background:var(--c-reward)"></i>reward</span>
+      <span><i class="sw" style="background:var(--c-gauge)"></i>gauge</span>
+      <span><i class="sw trail" style="background:var(--c-trail)"></i>trail</span>
+    </div>
+    <div class="globals">
+      <button id="allplay" type="button">Pause all</button>
+      <div class="seg" role="group" aria-label="Speed">
+        <button type="button" data-fps="8" id="sp1">Slow</button>
+        <button type="button" data-fps="15" id="sp2" aria-pressed="true">1×</button>
+        <button type="button" data-fps="40" id="sp3">Fast</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" id="games"></div>
+
+  <footer>
+    <p>Our score: mean ± standard error over 1,000 episodes of up to 10,000 steps. Paper: <code>exp5_write_from_scratch/eval/minatar_eval.json</code>.
+      z is the gap in combined standard errors. The replays are one 300-step episode per player, recorded with the same protocol.</p>
+    <p>Channel mapping follows each prompt's "How the 6 channels are built" line. In Seaquest, enemies are both danger and reward and are drawn red.
+      Where a cell is in several channels, the first of player, projectile, danger, reward, gauge, trail gives its colour.</p>
+  </footer>
+</div>
+
+<script>/*DATA*/</script>
+<script>
+(() => {
+  const D = window.MINATAR;
+  const B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  const DEC = Object.fromEntries([...B64].map((c, i) => [c, i]));
+  const ORDER = ["player", "projectile", "danger", "reward", "gauge", "trail"];
+  const css = getComputedStyle(document.documentElement);
+  const COL = Object.fromEntries(ORDER.map((o) => [o, css.getPropertyValue("--c-" + o).trim()]));
+  const SCREEN = css.getPropertyValue("--screen").trim();
+  const BIT = Object.fromEntries(D.channels.map((c, i) => [c, 1 << i]));
+  const ACT = ["no-op", "left", "up", "right", "down", "fire"];
+  const NAMES = { breakout: "Breakout", seaquest: "Seaquest", asterix: "Asterix" };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let fps = 15, globalPlay = !reduce;
+  const fmt = (x, d = 1) => Number(x).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const players = [];
+
+  for (const [key, g] of Object.entries(D.games)) {
+    const v = g.val;
+    const el = document.createElement("section");
+    el.className = "game";
+    el.innerHTML = `
+      <div class="ghead"><h2>${NAMES[key]}</h2><span class="pill">${v.verdict} · z ${v.z > 0 ? "+" : ""}${fmt(v.z, 2)}</span></div>
+      <canvas width="400" height="400" role="img" aria-label="${NAMES[key]} replay"></canvas>
+      <div class="hud"><div><small>Step</small><b data-k="step">0</b></div><div><small>Score</small><b data-k="score">0</b></div><div><small>Action</small><b data-k="act">–</b></div></div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Player">
+          <button type="button" id="${key}-net" aria-pressed="true">Astra's net</button>
+          <button type="button" id="${key}-rnd" aria-pressed="false">Random</button>
+        </div>
+        <button type="button" id="${key}-pp">Pause</button>
+        <input type="range" id="${key}-scrub" min="0" value="0" aria-label="${NAMES[key]} step">
+      </div>
+      <table>
+        <tr><th>Our run (1,000 eps)</th><td>${fmt(v.ours.mean)} ± ${fmt(v.ours.se)}</td></tr>
+        <tr><th>Paper</th><td>${fmt(v.reference.mean)} ± ${fmt(v.reference.se)}</td></tr>
+        <tr><th>Uniform random</th><td>${fmt(v.random.mean, 2)}</td></tr>
+        <tr><th>No-op</th><td>${fmt(v.noop.mean, 2)}</td></tr>
+        <tr><th>Mean episode length (ours / paper)</th><td>${fmt(v.ours.mean_len, 0)} / ${fmt(v.reference.mean_len, 0)}</td></tr>
+      </table>
+      <p class="note" data-k="epnote"></p>`;
+    document.getElementById("games").appendChild(el);
+
+    const cv = el.querySelector("canvas"), q = (k) => el.querySelector(`[data-k="${k}"]`);
+    const scrub = el.querySelector(`#${key}-scrub`), pp = el.querySelector(`#${key}-pp`);
+    const bNet = el.querySelector(`#${key}-net`), bRnd = el.querySelector(`#${key}-rnd`);
+    const P = { t: 0, ep: null, cum: null, playing: globalPlay, timer: null };
+
+    function load(kind) {
+      P.ep = g.episodes[kind]; P.t = 0;
+      P.cum = []; let s = 0; P.ep.rewards.forEach((r, i) => { P.cum.push(s); s += r; });
+      scrub.max = P.ep.frames.length - 1;
+      bNet.setAttribute("aria-pressed", kind === "network"); bRnd.setAttribute("aria-pressed", kind === "random");
+      const who = kind === "network" ? "Astra's network" : "Random player";
+      q("epnote").textContent = `${who}: ${fmt(P.ep.score, 0)} points in ${P.ep.steps} steps` +
+        (P.ep.ended ? ", then the game ended." : " (replay capped at 300 steps).");
+      draw();
+    }
+    function draw() {
+      const dpr = window.devicePixelRatio || 1, w = Math.round((cv.clientWidth || 300) * dpr);
+      if (cv.width !== w) { cv.width = w; cv.height = w; }
+      const c = cv.getContext("2d"), s = w / 10, f = P.ep.frames[P.t];
+      c.fillStyle = SCREEN; c.fillRect(0, 0, w, w);
+      for (let i = 0; i < 100; i++) {
+        const m = DEC[f[i]]; if (!m) continue;
+        const name = ORDER.find((o) => m & BIT[o]), pad = name === "trail" ? s * 0.3 : s * 0.08;
+        c.globalAlpha = name === "trail" ? 0.55 : 1; c.fillStyle = COL[name];
+        c.fillRect((i % 10) * s + pad, Math.floor(i / 10) * s + pad, s - 2 * pad, s - 2 * pad);
+      }
+      c.globalAlpha = 1;
+      q("step").textContent = P.t + 1; q("score").textContent = fmt(P.cum[P.t], 0);
+      const a = P.ep.actions[P.t], ex = P.ep.executed[P.t];
+      q("act").textContent = ACT[ex] + (a !== ex ? "*" : "");
+      scrub.value = P.t;
+    }
+    function tick() {
+      P.timer = null; if (!P.playing) return;
+      const T = P.ep.frames.length;
+      P.t = P.t + 1 < T ? P.t + 1 : 0; draw();
+      P.timer = setTimeout(tick, P.t === T - 1 ? 1500 : 1000 / fps);
+    }
+    function setPlay(on) {
+      P.playing = on; pp.textContent = on ? "Pause" : "Play";
+      if (on && !P.timer) P.timer = setTimeout(tick, 1000 / fps);
+      if (!on && P.timer) { clearTimeout(P.timer); P.timer = null; }
+    }
+    pp.onclick = () => setPlay(!P.playing);
+    bNet.onclick = () => load("network"); bRnd.onclick = () => load("random");
+    scrub.oninput = () => { P.t = +scrub.value; draw(); };
+    addEventListener("resize", draw);
+    load("network"); setPlay(globalPlay);
+    players.push(setPlay);
+  }
+
+  const all = document.getElementById("allplay");
+  all.textContent = globalPlay ? "Pause all" : "Play all";
+  all.onclick = () => { globalPlay = !globalPlay; all.textContent = globalPlay ? "Pause all" : "Play all"; players.forEach((f) => f(globalPlay)); };
+  document.querySelectorAll("[data-fps]").forEach((b) => b.onclick = () => {
+    fps = +b.dataset.fps; document.querySelectorAll("[data-fps]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  });
+})();
+</script>

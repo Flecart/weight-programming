@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 124.4,
+ "total_s": 124.4,
+ "status": "completed",
+ "response_id": "resp_0493a20b257f99a4016ae912d0acc48191bd259ffa9acdbc70",
+ "usage": {
+  "input_tokens": 91694,
+  "cached_input_tokens": 0,
+  "output_tokens": 3583,
+  "reasoning_output_tokens": 2293
+ },
+ "reasoning_summary": [
+  "**Verifying channel mapping**",
+  "**Locating relevant target rows****Inferring lane-object roles**",
+  "**Checking sample object positions****Checking reward-row vectors**",
+  "**Selecting robust examples****Verifying row-weight calculations**",
+  "**Checking mapped cell values**"
+ ],
+ "non_message_items": []
+}

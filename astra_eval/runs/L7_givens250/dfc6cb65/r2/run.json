@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 107.4,
+ "total_s": 107.4,
+ "status": "completed",
+ "response_id": "resp_0a1912ce69e333df016ae9130f8ba881918c81696f78234e7e",
+ "usage": {
+  "input_tokens": 95232,
+  "cached_input_tokens": 0,
+  "output_tokens": 3157,
+  "reasoning_output_tokens": 1815
+ },
+ "reasoning_summary": [
+  "**Locating the vertical paddle****Checking paddle row mapping**",
+  "**Locating left paddle****Reconstructing channel one**",
+  "**Checking reward-channel pairs**",
+  "**Reading grid and paddle**"
+ ],
+ "non_message_items": []
+}

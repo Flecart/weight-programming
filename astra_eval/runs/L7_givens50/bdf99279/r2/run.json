@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 88.2,
+ "total_s": 88.2,
+ "status": "completed",
+ "response_id": "resp_01bfaab640f0c548016ae912ed6154819181d21972ebad8bde",
+ "usage": {
+  "input_tokens": 83823,
+  "cached_input_tokens": 0,
+  "output_tokens": 2628,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Identifying inactive maze walls****Mapping early maze rows**",
+  "**Reconstructing obstacle sequence****Inferring a Pacman maze**",
+  "**Reconstructing mapped values****Checking action frequencies**"
+ ],
+ "non_message_items": []
+}

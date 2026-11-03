@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 60.9,
+ "total_s": 60.9,
+ "status": "completed",
+ "response_id": "resp_0cfe2cb7d0637afe016ae91293b76081918bcf8aadeb8585ea",
+ "usage": {
+  "input_tokens": 81602,
+  "cached_input_tokens": 0,
+  "output_tokens": 1595,
+  "reasoning_output_tokens": 515
+ },
+ "reasoning_summary": [
+  "**Identifying the left paddle****Checking the likely paddle****Interpreting paddle movement**"
+ ],
+ "non_message_items": []
+}

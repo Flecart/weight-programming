@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 58.9,
+ "total_s": 58.9,
+ "status": "completed",
+ "response_id": "resp_08c9b541e94d428d016ae9125668f081919d4a9e08ffdbb749",
+ "usage": {
+  "input_tokens": 86705,
+  "cached_input_tokens": 0,
+  "output_tokens": 1505,
+  "reasoning_output_tokens": 455
+ },
+ "reasoning_summary": [
+  "**Mapping Pong channels****Interpreting Pong dynamics**"
+ ],
+ "non_message_items": []
+}

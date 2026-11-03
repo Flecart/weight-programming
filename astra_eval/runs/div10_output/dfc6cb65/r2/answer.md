@@ -1,0 +1,18 @@
+Observations:
+- **Channel 0 — agent:** The large weights are concentrated along **column 1, across the playable rows**, rather than across the whole interior. At `(1,1)`, input 55 has weights including `2.697`, `-2.474`, and `-2.322`; at `(2,1)`, the agent weights include `-3.588` and `2.245`. By contrast, the agent weights at `(1,2)` begin `0.020, 0.066, -0.043, 0.091` and remain small. This strongly suggests a **player-controlled paddle on the left edge**, moving vertically.
+- **Channel 1 — moving objects:** Large, varied weights occupy the interior to the right of the agent. At `(1,2)`, input 61 includes `-3.169`, `-2.772`, and `-3.022`; at `(1,5)`, input 76 includes `2.305` and `3.278`. The network therefore tracks an object moving through a two-dimensional court, consistent with a **ball**, rather than merely tracking objects in one horizontal lane.
+- **Channel 2 — reward targets:** The interior weights look small and initialization-like: for example, at `(1,1)` they begin `0.073, 0.015, -0.076, 0.000`. There is instead a repeated structured pattern on the **right border**: at `(1,9)`, input 97 begins `0.028, -0.052, 0.203, 0.316`, with a similar pattern at `(2,9)`. This is compatible with a fixed scoring boundary, not scattered food or collectible targets. Because a fixed boundary acts like an additional bias, this evidence alone does not establish the reward rule.
+- **Channel 3 — obstacles:** The outer border has a repeated weight pattern, while interior obstacle weights are small. For example, at `(0,0)`, the obstacle weights include `0.275` toward hidden unit 3, `0.289` toward unit 20, and `-0.363` toward unit 24. The corresponding first-layer biases are `0.271`, `0.248`, and `-0.225`. This resemblance is expected for always-present border inputs; it does not indicate a learned interior maze.
+- **Channel 4 — previous frame:** Strong weights occur at previous paddle/ball locations. At `(1,1)`, input 59 includes `-1.578` and `1.031`; at `(1,5)`, input 79 includes `3.115`, `5.236`, and `3.913`. Previous positions matter substantially, consistent with estimating **ball direction and anticipating an interception**.
+- **Outputs:** Up and down are strongly differentiated, whereas no-op, left, and right have broadly similar output weights. For example, W3 row 18 is `[-13.99, -13.70, 15.87, -12.83, -12.15]`, strongly separating down; row 23 is `[12.86, 17.34, -9.53, 10.81, 10.53]`, strongly opposing down. The biases `[9.31, 12.61, 10.65, 8.61, 8.55]` modestly favor up, but after division by 10 their differences are small compared with the state-dependent contributions. This looks like a game with **two meaningful movement directions: up and down**.
+
+Reasoning:
+A left-edge agent, a moving object traversing the interior, substantial use of previous positions, and predominantly vertical control form a very strong **Pong signature**. Standard Breakout and falling-object catch games ordinarily require a bottom paddle and left/right control, the opposite geometry. Snake, maze navigation, and food collection would normally require agent-position sensitivity throughout the interior and meaningful movement on both axes.
+
+The weights identify the paddle-and-ball game much more securely than they identify its exact opponent behavior or reward schedule.
+
+Game: **Pong — a grid-based version with the player controlling the left-hand vertical paddle.**
+
+Description: The agent moves its paddle up and down to intercept and return the ball. It aims to score at the opposite side while preventing the ball from passing its own paddle; the weights do not uniquely reveal whether successful returns also receive reward.
+
+Confidence: **97%**

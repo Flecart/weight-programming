@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 65.4,
+ "total_s": 65.4,
+ "status": "completed",
+ "response_id": "resp_0a5d7c12e34883f2016ae90a3156708191972d6ffe5d83428f",
+ "usage": {
+  "input_tokens": 86294,
+  "cached_input_tokens": 0,
+  "output_tokens": 1737,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Locating the paddle****Mapping the right boundary****Identifying paddle and ball**"
+ ],
+ "non_message_items": []
+}

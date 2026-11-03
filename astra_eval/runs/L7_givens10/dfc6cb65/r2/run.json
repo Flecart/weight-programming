@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 76.6,
+ "total_s": 76.6,
+ "status": "completed",
+ "response_id": "resp_0a72651282f699b3016ae912d4a5dc81918428ef19360a7e86",
+ "usage": {
+  "input_tokens": 81648,
+  "cached_input_tokens": 0,
+  "output_tokens": 2035,
+  "reasoning_output_tokens": 884
+ },
+ "reasoning_summary": [
+  "**Checking inner agent values****Checking possible Pong layout****Checking ball history**",
+  "**Checking row calculations****Confirming Pong mechanics**"
+ ],
+ "non_message_items": []
+}

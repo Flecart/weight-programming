@@ -1,0 +1,1 @@
+**Locating the paddle****Mapping the right boundary****Identifying paddle and ball**

@@ -1,0 +1,31 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 218.5,
+ "total_s": 218.5,
+ "status": "completed",
+ "response_id": "resp_080171cf9656635f016ae91978e5dc81918f9658a733467858",
+ "usage": {
+  "input_tokens": 80352,
+  "cached_input_tokens": 0,
+  "output_tokens": 6147,
+  "reasoning_output_tokens": 4890
+ },
+ "reasoning_summary": [
+  "**Decoding sample grid****Decoding grid samples**",
+  "**Calculating channel values****Decoding channel values**",
+  "**Testing channel mappings****Inspecting channel obstacles**",
+  "**Decoding channel mappings****Decoding channel mappings**",
+  "**Checking lane patterns****Finding modular inverses**",
+  "**Tracing target weight location****Comparing decoded top-row weights**",
+  "**Calculating row patterns****Recomputing p18 match**",
+  "**Rechecking agent XOR calculations**",
+  "**Checking possible Frogger lanes****Checking upper-edge evidence**",
+  "**Manually decoding samples****Interpreting route cues**"
+ ],
+ "non_message_items": []
+}

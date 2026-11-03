@@ -1,0 +1,34 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 259.2,
+ "total_s": 259.2,
+ "status": "completed",
+ "response_id": "resp_08d2f2994d0ca525016ae919c08144819183bdb91df06e6a41",
+ "usage": {
+  "input_tokens": 80520,
+  "cached_input_tokens": 0,
+  "output_tokens": 7777,
+  "reasoning_output_tokens": 6622
+ },
+ "reasoning_summary": [
+  "**Testing permutation samples**",
+  "**Checking candidate character matches****Calculating p37 coordinates**",
+  "**Analyzing grid state**",
+  "**Mapping channel positions****Checking row1 terminal match**",
+  "**Computing p2 position**",
+  "**Checking p4 border value**",
+  "**Checking row hazards**",
+  "**Checking p23 row6 placement****Interpreting channel-2 reward overlap**",
+  "**Confirming position 17**",
+  "**Checking p10 sample****Checking crossing-game samples**",
+  "**Checking row values**",
+  "**Checking row 47 border****Mapping b1-like row 67**",
+  "**Checking decoded character****Comparing action logits**"
+ ],
+ "non_message_items": []
+}

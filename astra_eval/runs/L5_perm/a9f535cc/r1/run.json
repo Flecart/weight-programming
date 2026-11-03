@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 70.6,
+ "total_s": 70.6,
+ "status": "completed",
+ "response_id": "resp_01052641bd14e809016ae910153a708191985154f10e532206",
+ "usage": {
+  "input_tokens": 82235,
+  "cached_input_tokens": 0,
+  "output_tokens": 2298,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Locating agent row weights****Checking agent row weights**",
+  "**Analyzing agent movement****Checking target movement**"
+ ],
+ "non_message_items": []
+}

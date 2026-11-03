@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 43.8,
+ "total_s": 43.8,
+ "status": "completed",
+ "response_id": "resp_09c37df584ae79c7016ae91a15409c81919b3b0cd38c8df6fc",
+ "usage": {
+  "input_tokens": 81163,
+  "cached_input_tokens": 0,
+  "output_tokens": 1245,
+  "reasoning_output_tokens": 402
+ },
+ "reasoning_summary": [
+  "**Assessing a paddle game****Inferring a paddle game**"
+ ],
+ "non_message_items": []
+}

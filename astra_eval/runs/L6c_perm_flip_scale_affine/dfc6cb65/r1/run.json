@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 94.4,
+ "total_s": 94.4,
+ "status": "completed",
+ "response_id": "resp_057aed2a7798bf62016ae9118977f48191b06f15bf6122fc96",
+ "usage": {
+  "input_tokens": 91665,
+  "cached_input_tokens": 0,
+  "output_tokens": 2759,
+  "reasoning_output_tokens": 1448
+ },
+ "reasoning_summary": [
+  "**Identifying pong vertical**",
+  "**Recounting agent index mapping****Recounting indexed values**",
+  "**Comparing agent entries****Distinguishing Pong gameplay**"
+ ],
+ "non_message_items": []
+}

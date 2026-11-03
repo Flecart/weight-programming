@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 60.3,
+ "total_s": 60.3,
+ "status": "completed",
+ "response_id": "resp_0bdf310387c6c84a016ae90ca6c23081918fa5845420ed2ff9",
+ "usage": {
+  "input_tokens": 70308,
+  "cached_input_tokens": 0,
+  "output_tokens": 2000,
+  "reasoning_output_tokens": 979
+ },
+ "reasoning_summary": [
+  "**Locating the moving agent****Checking the left paddle**",
+  "**Mapping grid coordinates****Checking channel mapping**"
+ ],
+ "non_message_items": []
+}

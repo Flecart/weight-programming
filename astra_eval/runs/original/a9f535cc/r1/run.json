@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 72.5,
+ "total_s": 72.5,
+ "status": "completed",
+ "response_id": "resp_05a8aa61fd2e13d4016ae908ec6654819186d8854e0515ee8d",
+ "usage": {
+  "input_tokens": 70269,
+  "cached_input_tokens": 0,
+  "output_tokens": 1701,
+  "reasoning_output_tokens": 806
+ },
+ "reasoning_summary": [
+  "**Confirming channel mapping****Verifying channel mapping**",
+  "**Assessing game from weights****Inspecting agent weights**"
+ ],
+ "non_message_items": []
+}

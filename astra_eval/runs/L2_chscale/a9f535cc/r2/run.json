@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 46.5,
+ "total_s": 60.7,
+ "status": "completed",
+ "response_id": "resp_08cd9283e7e9d437016ae9105b962881918e8b77fedbf12aa6",
+ "usage": {
+  "input_tokens": 81540,
+  "cached_input_tokens": 0,
+  "output_tokens": 1243,
+  "reasoning_output_tokens": 216
+ },
+ "reasoning_summary": [
+  "**Identifying bottom-row breakout****Checking reward indices**"
+ ],
+ "non_message_items": []
+}

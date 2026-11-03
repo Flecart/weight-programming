@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 104.5,
+ "total_s": 104.5,
+ "status": "completed",
+ "response_id": "resp_01376ffba6f89b03016ae9114a93108191b89a03eacc9d499d",
+ "usage": {
+  "input_tokens": 82374,
+  "cached_input_tokens": 0,
+  "output_tokens": 3224,
+  "reasoning_output_tokens": 1941
+ },
+ "reasoning_summary": [
+  "**Locating the Pong paddle****Checking Pong paddle position**",
+  "**Checking row 28 values****Checking p347 border**",
+  "**Scoring candidate positions****Checking right-edge pattern**",
+  "**Identifying Pong state****Comparing Pong action values**"
+ ],
+ "non_message_items": []
+}

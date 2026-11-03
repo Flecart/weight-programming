@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 96.8,
+ "total_s": 96.8,
+ "status": "completed",
+ "response_id": "resp_01b3a8b97b5f1074016ae91183cfec81918378c31d063b0868",
+ "usage": {
+  "input_tokens": 82761,
+  "cached_input_tokens": 0,
+  "output_tokens": 2848,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Inferring from 100 mappings****Analyzing mapping matches**",
+  "**Checking interior lane obstacles****Counting top-row samples****Comparing first-100 samples**",
+  "**Calibrating Frogger rows****Tracing moving Frogger rows**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 145.8,
+ "total_s": 145.8,
+ "status": "completed",
+ "response_id": "resp_02d54b159bf00935016ae91747cb908191a88d66cd8bf38a5d",
+ "usage": {
+  "input_tokens": 81010,
+  "cached_input_tokens": 0,
+  "output_tokens": 3481,
+  "reasoning_output_tokens": 2303
+ },
+ "reasoning_summary": [
+  "**Decoding sample rows manually****Decoding sample rows**",
+  "**Comparing p6 cell weights****Calculating p30 cell mapping**",
+  "**Rewarding upper-row bricks**",
+  "**Verifying mapped coordinates****Comparing mapped reward rows**",
+  "**Double-checking weight mappings****Checking permuted weight rows**"
+ ],
+ "non_message_items": []
+}

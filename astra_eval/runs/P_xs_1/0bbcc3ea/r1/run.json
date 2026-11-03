@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 132.8,
+ "total_s": 149.6,
+ "status": "completed",
+ "response_id": "resp_07edf4ffbecff4c7016ae918095d688191921e57cf568450b8",
+ "usage": {
+  "input_tokens": 80310,
+  "cached_input_tokens": 0,
+  "output_tokens": 4219,
+  "reasoning_output_tokens": 2979
+ },
+ "reasoning_summary": [
+  "**Decoding encoded grid cells****Decoding more grid cells**",
+  "**Comparing horizontal car movement**",
+  "**Checking candidate positions****Checking repeated row**",
+  "**Computing inverse index mapping****Computing the inverse mapping**",
+  "**Checking sample row mapping****Comparing sample pairs**",
+  "**Checking sampled map rows****Interpreting action weights**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 140.0,
+ "total_s": 189.9,
+ "status": "completed",
+ "response_id": "resp_0b07d64dfb08a635016ae9183b55c48191ad079f98f5a4a532",
+ "usage": {
+  "input_tokens": 80970,
+  "cached_input_tokens": 0,
+  "output_tokens": 4017,
+  "reasoning_output_tokens": 3001
+ },
+ "reasoning_summary": [
+  "**Mapping samples manually****Computing permutation map**",
+  "**Analyzing reward channels****Checking channel 3 map**",
+  "**Computing position weights**",
+  "**Mapping Pacman state****Checking static obstacle weights**",
+  "**Interpreting reward weights****Checking decoded reward rows**",
+  "**Checking computed row values****Interpreting direction biases**"
+ ],
+ "non_message_items": []
+}

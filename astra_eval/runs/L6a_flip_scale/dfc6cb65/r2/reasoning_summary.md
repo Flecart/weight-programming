@@ -1,0 +1,1 @@
+**Identifying the left paddle****Checking the likely paddle****Interpreting paddle movement**

@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 160.7,
+ "total_s": 160.7,
+ "status": "completed",
+ "response_id": "resp_06202b701b9c59dc016ae919945e288191989df7290cd167f2",
+ "usage": {
+  "input_tokens": 81317,
+  "cached_input_tokens": 0,
+  "output_tokens": 4645,
+  "reasoning_output_tokens": 3624
+ },
+ "reasoning_summary": [
+  "**Computing permutation samples****Computing p2 samples**",
+  "**Computing p7 values**",
+  "**Computing p29 character**",
+  "**Checking row 29 boundary****Checking row 36 values**",
+  "**Testing another row candidate**",
+  "**Checking computed location**",
+  "**Finalizing grid channel evidence****Refining Pong evidence**"
+ ],
+ "non_message_items": []
+}

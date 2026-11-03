@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 133.1,
+ "total_s": 133.1,
+ "status": "completed",
+ "response_id": "resp_074aad8fc724359d016ae91920259081918d70f3be4b50e233",
+ "usage": {
+  "input_tokens": 80956,
+  "cached_input_tokens": 0,
+  "output_tokens": 3970,
+  "reasoning_output_tokens": 3017
+ },
+ "reasoning_summary": [
+  "**Decoding the sample rows**",
+  "**Computing XOR-derived placements**",
+  "",
+  "**Checking source indexing****Comparing maze cell sizes**",
+  "**Reconstructing maze samples****Comparing maze patterns****Assessing ruled-out options**",
+  "**Selecting move 3**"
+ ],
+ "non_message_items": []
+}

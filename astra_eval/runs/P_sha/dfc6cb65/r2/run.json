@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 53.4,
+ "total_s": 53.4,
+ "status": "completed",
+ "response_id": "resp_07bada4a82f4a624016ae919dfd8248191ac617f7125ccec20",
+ "usage": {
+  "input_tokens": 81033,
+  "cached_input_tokens": 0,
+  "output_tokens": 1325,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Inferring likely vertical Pong****Inferring vertical Pong****Inferring wall Pong**"
+ ],
+ "non_message_items": []
+}

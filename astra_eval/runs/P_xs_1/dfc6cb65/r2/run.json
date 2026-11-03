@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 112.7,
+ "total_s": 112.7,
+ "status": "completed",
+ "response_id": "resp_041159a11578bb72016ae9191c05848191bb44774155d58b7c",
+ "usage": {
+  "input_tokens": 81107,
+  "cached_input_tokens": 0,
+  "output_tokens": 2854,
+  "reasoning_output_tokens": 1784
+ },
+ "reasoning_summary": [
+  "**Decoding pong controls****Rechecking channel 2 mapping**",
+  "**Checking reward-grid samples****Checking reward-border rows**",
+  "**Checking row/channel indexing****Checking reward stripe pattern**",
+  "**Playing Pong-style paddle game**"
+ ],
+ "non_message_items": []
+}

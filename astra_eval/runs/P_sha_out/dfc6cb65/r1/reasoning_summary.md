@@ -1,0 +1,1 @@
+**Assessing paddle-game actions****Inferring paddle-game type****Inferring paddle-game type**

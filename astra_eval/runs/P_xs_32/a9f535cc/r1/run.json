@@ -1,0 +1,35 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 274.0,
+ "total_s": 274.0,
+ "status": "completed",
+ "response_id": "resp_069839aca2db479b016ae91747e86881918da1ed86ea4c8367",
+ "usage": {
+  "input_tokens": 81402,
+  "cached_input_tokens": 0,
+  "output_tokens": 8516,
+  "reasoning_output_tokens": 7250
+ },
+ "reasoning_summary": [
+  "**Decoding selected permutation rows**",
+  "**Computing the target mapping**",
+  "",
+  "**Checking the arithmetic****Inverting channel 0 sample**",
+  "**Calculating table entries****Checking channel row candidates**",
+  "",
+  "",
+  "**Calculating XOR value**",
+  "**Decoding more sample mappings****Checking row10 reward**",
+  "**Computing p10**",
+  "**Checking p33 assignment****Decoding another reward row**",
+  "**Computing numeric checks****Estimating row 39 reward**",
+  "",
+  "**Verifying p6 arithmetic****Rechecking summary arithmetic**"
+ ],
+ "non_message_items": []
+}

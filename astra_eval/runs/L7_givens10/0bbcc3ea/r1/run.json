@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 90.2,
+ "total_s": 90.2,
+ "status": "completed",
+ "response_id": "resp_00a7f0bab91bbe56016ae911a1088c81918fcd61cdc3a36698",
+ "usage": {
+  "input_tokens": 80929,
+  "cached_input_tokens": 0,
+  "output_tokens": 2643,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Mapping Frogger lanes****Parsing row 2 lane data**",
+  "**Comparing agent reward entries****Distinguishing Frogger from Freeway**",
+  "**Checking index 161 mapping****Comparing action-weight patterns**"
+ ],
+ "non_message_items": []
+}

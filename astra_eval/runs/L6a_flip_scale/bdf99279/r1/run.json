@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 71.0,
+ "total_s": 71.0,
+ "status": "completed",
+ "response_id": "resp_0ed8c959fba38bdc016ae91159e5248191b25d2212469aff23",
+ "usage": {
+  "input_tokens": 81192,
+  "cached_input_tokens": 0,
+  "output_tokens": 2144,
+  "reasoning_output_tokens": 1021
+ },
+ "reasoning_summary": [
+  "**Mapping active cells**",
+  "**Locating Pacman activations****Checking mapped Pacman weights**"
+ ],
+ "non_message_items": []
+}

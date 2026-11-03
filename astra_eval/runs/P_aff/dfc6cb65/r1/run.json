@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 72.0,
+ "total_s": 123.4,
+ "status": "completed",
+ "response_id": "resp_08ec91afb1a3957b016ae917c9e0c481919168218e239a9d66",
+ "usage": {
+  "input_tokens": 80983,
+  "cached_input_tokens": 0,
+  "output_tokens": 2229,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Identifying likely vertical paddle****Mapping early rows****Verifying paddle rows**",
+  "**Maintaining neutral horizontal input****Positioning left paddle**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 78.7,
+ "total_s": 78.7,
+ "status": "completed",
+ "response_id": "resp_085130203b9f5fbc016ae912cbe62081919ce910c0781bc2e7",
+ "usage": {
+  "input_tokens": 91665,
+  "cached_input_tokens": 0,
+  "output_tokens": 2337,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping the Pong paddle****Tracking interior movement**",
+  "**Recounting first-row indices****Comparing sampled weights****Interpreting Pong state**"
+ ],
+ "non_message_items": []
+}

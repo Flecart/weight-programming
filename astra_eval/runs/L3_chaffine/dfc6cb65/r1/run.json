@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 69.8,
+ "total_s": 69.8,
+ "status": "completed",
+ "response_id": "resp_0d416bb731ec31ab016ae911239abc8191a47d9ce787711c2a",
+ "usage": {
+  "input_tokens": 86705,
+  "cached_input_tokens": 0,
+  "output_tokens": 1794,
+  "reasoning_output_tokens": 713
+ },
+ "reasoning_summary": [
+  "**Checking paddle and reward****Mapping paddle and reward**",
+  "**Inferring the paddle’s objective**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 141.0,
+ "total_s": 141.0,
+ "status": "completed",
+ "response_id": "resp_024d02bae239749f016ae912bf869881919e690a120c437152",
+ "usage": {
+  "input_tokens": 82840,
+  "cached_input_tokens": 0,
+  "output_tokens": 4393,
+  "reasoning_output_tokens": 3106
+ },
+ "reasoning_summary": [
+  "**Reviewing large rows**",
+  "**Checking obstacle channel****Mapping channel patterns**",
+  "**Locating target row5c3**",
+  "**Checking row mapping****Checking maze obstacles**",
+  "**Checking fixed-corridor evidence****Comparing channel directions**",
+  "**Estimating obstacle-channel contributions****Checking maze-layout evidence**"
+ ],
+ "non_message_items": []
+}

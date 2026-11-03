@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 70.6,
+ "total_s": 70.6,
+ "status": "completed",
+ "response_id": "resp_02c24876ba56546b016ae912078a148191bfa5d68c287aa39f",
+ "usage": {
+  "input_tokens": 80800,
+  "cached_input_tokens": 0,
+  "output_tokens": 1992,
+  "reasoning_output_tokens": 936
+ },
+ "reasoning_summary": [
+  "**Verifying paddle and ball****Mapping paddle and wall**",
+  "**Verifying indexed channel values****Checking paddle-ball cues**"
+ ],
+ "non_message_items": []
+}

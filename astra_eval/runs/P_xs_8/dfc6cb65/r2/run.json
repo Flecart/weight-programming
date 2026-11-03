@@ -1,0 +1,34 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 256.3,
+ "total_s": 256.3,
+ "status": "completed",
+ "response_id": "resp_09ced12e88bf718d016ae91979bfc88191ae71600a8fbc83ba",
+ "usage": {
+  "input_tokens": 81205,
+  "cached_input_tokens": 0,
+  "output_tokens": 7958,
+  "reasoning_output_tokens": 6732
+ },
+ "reasoning_summary": [
+  "**Computing sample row mappings**",
+  "**Calculating p15 values****Finding high-row mapping**",
+  "**Computing p26 values**",
+  "**Deriving inverse round multipliers**",
+  "**Calculating inverse mapping****Computing modular inverses**",
+  "**Checking high-index row count**",
+  "",
+  "**Computing inverse, row count****Continuing inverse for 205**",
+  "**Locating row 412**",
+  "**Testing candidate columns****Mapping agent columns**",
+  "**Recounting active cells****Counting sampled values**",
+  "**Checking indexed values****Confirming p175 mapping**",
+  "**Identifying likely Pong paddle****Mapping sampled game rows**"
+ ],
+ "non_message_items": []
+}

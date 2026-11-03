@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 80.8,
+ "total_s": 80.8,
+ "status": "completed",
+ "response_id": "resp_089f45b96c076165016ae9097a59188191a41294a01427abbf",
+ "usage": {
+  "input_tokens": 70243,
+  "cached_input_tokens": 0,
+  "output_tokens": 1750,
+  "reasoning_output_tokens": 786
+ },
+ "reasoning_summary": [
+  "**Verifying maze cell counts****Checking obstacle pattern**",
+  "**Refining game interpretation**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 64.7,
+ "total_s": 64.7,
+ "status": "completed",
+ "response_id": "resp_0e2cc01fcdd0af7e016ae911697dcc8191b2dd517abf2c1ed4",
+ "usage": {
+  "input_tokens": 81128,
+  "cached_input_tokens": 0,
+  "output_tokens": 1698,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Identifying Frogger row mapping****Checking Frogger lane structure**"
+ ],
+ "non_message_items": []
+}

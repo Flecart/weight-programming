@@ -1,0 +1,30 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 216.5,
+ "total_s": 216.5,
+ "status": "completed",
+ "response_id": "resp_07c7c32b1469210c016ae91747d058819194bee0b0add005d4",
+ "usage": {
+  "input_tokens": 81178,
+  "cached_input_tokens": 0,
+  "output_tokens": 5515,
+  "reasoning_output_tokens": 4403
+ },
+ "reasoning_summary": [
+  "**Computing row permutation****Computing j7 permutation**",
+  "**Computing p43 mapping****Verifying row 43 count**",
+  "**Estimating agent sample****Computing candidate sequence**",
+  "**Sampling channel borders****Computing p67 value**",
+  "**Computing j48 candidate values****Computing j58 candidate values**",
+  "**Calculating transformed values****Recounting early indices**",
+  "**Checking p75 arithmetic****Computing row samples**",
+  "**Calculating p76 value****Checking row-eight structure**",
+  "**Analyzing sampled grid**"
+ ],
+ "non_message_items": []
+}

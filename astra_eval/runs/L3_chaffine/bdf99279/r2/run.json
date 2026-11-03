@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 84.6,
+ "total_s": 84.6,
+ "status": "completed",
+ "response_id": "resp_0298a74a4fddafdd016ae91276127881918c0d08bcf1ee5d94",
+ "usage": {
+  "input_tokens": 86708,
+  "cached_input_tokens": 0,
+  "output_tokens": 2686,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Checking Pacman wall indices**",
+  "**Analyzing Pacman reward channels****Comparing learned wall patterns**",
+  "**Analyzing localized reward features**"
+ ],
+ "non_message_items": []
+}

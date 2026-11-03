@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 177.0,
+ "total_s": 177.0,
+ "status": "completed",
+ "response_id": "resp_0321989d5eb61716016ae91747d4408191b36a7315a0212b40",
+ "usage": {
+  "input_tokens": 81066,
+  "cached_input_tokens": 0,
+  "output_tokens": 4754,
+  "reasoning_output_tokens": 3624
+ },
+ "reasoning_summary": [
+  "**Decoding p0 coordinates**",
+  "**Comparing prior game grids****Inverting known p values**",
+  "**Decoding grid cells**",
+  "**Calculating row 9, column 0**",
+  "**Decoding upper channel 2****Computing modular inverses**",
+  "**Locating p39’s destination****Reading W1 row47 values**",
+  "**Calculating breakout target****Comparing decoded row effects**"
+ ],
+ "non_message_items": []
+}

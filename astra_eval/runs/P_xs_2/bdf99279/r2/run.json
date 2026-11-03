@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 123.6,
+ "total_s": 123.6,
+ "status": "completed",
+ "response_id": "resp_066a4599e3e492e2016ae919462e748191adb63d5750cb2c6b",
+ "usage": {
+  "input_tokens": 80970,
+  "cached_input_tokens": 0,
+  "output_tokens": 3873,
+  "reasoning_output_tokens": 2588
+ },
+ "reasoning_summary": [
+  "**Decoding initial samples****Decoding grid samples**",
+  "**Decoding obstacle samples****Checking p4 obstacle decoding**",
+  "",
+  "**Analyzing spatial samples****Inferring maze-game layout**",
+  "**Mapping likely maze walls****Assessing pellet placement**"
+ ],
+ "non_message_items": []
+}

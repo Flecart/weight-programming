@@ -1,0 +1,40 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 323.0,
+ "total_s": 344.1,
+ "status": "completed",
+ "response_id": "resp_0597ef62628eace3016ae918b128908191b9fa856d8f8ec9bf",
+ "usage": {
+  "input_tokens": 81390,
+  "cached_input_tokens": 0,
+  "output_tokens": 10983,
+  "reasoning_output_tokens": 9840
+ },
+ "reasoning_summary": [
+  "**Computing permutation samples**",
+  "**Locating p17 agent position**",
+  "**Computing row 1 value****Assessing agent movement**",
+  "**Assessing p22**",
+  "**Calculating sample rewards**",
+  "**Tracking movement on grid****Computing sample inverses**",
+  "",
+  "",
+  "**Analyzing reward patterns****Comparing reward patterns**",
+  "**Computing obstacle weights****Checking p35 reward**",
+  "",
+  "**Analyzing reward structure****Identifying the game**",
+  "**Choosing p10 and p8**",
+  "",
+  "**Checking row values****Inferring mapped positions**",
+  "**Inferring the game environment****Verifying arithmetic checks**",
+  "**Checking row 7 obstacles****Checking obstacle-wall evidence**",
+  "",
+  "**Verifying quote indices****Assessing movement weights**"
+ ],
+ "non_message_items": []
+}

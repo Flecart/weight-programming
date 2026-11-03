@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 134.7,
+ "total_s": 262.5,
+ "status": "completed",
+ "response_id": "resp_0bd95ebb97c4f825016ae9187ac79c8191bac3a3f97e62f4e2",
+ "usage": {
+  "input_tokens": 81121,
+  "cached_input_tokens": 0,
+  "output_tokens": 3232,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Mapping Pong paddle inputs****Checking Pong channel mapping**",
+  "**Decoding agent positions**",
+  "**Checking right-wall goal****Solving channel mapping**",
+  "**Checking reward locations****Inferring likely Pong action**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 100.4,
+ "total_s": 179.1,
+ "status": "completed",
+ "response_id": "resp_018480b88927d2a1016ae91796695c81918487193d9c0481ec",
+ "usage": {
+  "input_tokens": 80968,
+  "cached_input_tokens": 0,
+  "output_tokens": 3106,
+  "reasoning_output_tokens": 2000
+ },
+ "reasoning_summary": [
+  "**Decoding initial sample rows**",
+  "**Verifying index counting**",
+  "**Classifying grid cells**",
+  "**Mapping brick-breaker rewards****Confirming brick-breaker rewards**"
+ ],
+ "non_message_items": []
+}

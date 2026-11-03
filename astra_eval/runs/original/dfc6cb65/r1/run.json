@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 69.5,
+ "total_s": 69.5,
+ "status": "completed",
+ "response_id": "resp_07de00a42560d8fd016ae90934dfe081919e15149d354b2b7d",
+ "usage": {
+  "input_tokens": 70243,
+  "cached_input_tokens": 0,
+  "output_tokens": 1657,
+  "reasoning_output_tokens": 728
+ },
+ "reasoning_summary": [
+  "**Identifying the vertical paddle****Confirming the vertical paddle**",
+  "**Checking reward-wall patterns****Qualifying reward inference**"
+ ],
+ "non_message_items": []
+}

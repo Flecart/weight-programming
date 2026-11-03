@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 77.0,
+ "total_s": 77.0,
+ "status": "completed",
+ "response_id": "resp_09bb328a975bf284016ae9114ef18c8191b526dd148ba29c2f",
+ "usage": {
+  "input_tokens": 81577,
+  "cached_input_tokens": 0,
+  "output_tokens": 2453,
+  "reasoning_output_tokens": 1195
+ },
+ "reasoning_summary": [
+  "**Checking grid reward pattern****Comparing channel weights**",
+  "**Examining top-row reward patterns**",
+  "**Checking top-edge structure**"
+ ],
+ "non_message_items": []
+}

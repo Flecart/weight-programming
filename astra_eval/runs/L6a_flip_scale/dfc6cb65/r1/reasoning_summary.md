@@ -1,0 +1,1 @@
+**Locating the Pong paddle****Checking the Pong boundary**

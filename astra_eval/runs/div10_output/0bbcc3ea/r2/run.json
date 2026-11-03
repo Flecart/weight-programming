@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 69.0,
+ "total_s": 69.0,
+ "status": "completed",
+ "response_id": "resp_04b1f53acea90b6b016ae90d129db8819183a700ee4660d5f9",
+ "usage": {
+  "input_tokens": 70280,
+  "cached_input_tokens": 0,
+  "output_tokens": 2172,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping moving hazard rows****Comparing repeated lane shifts**",
+  "**Mapping row eight entries****Analyzing game-state weights**"
+ ],
+ "non_message_items": []
+}

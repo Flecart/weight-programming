@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 78.7,
+ "total_s": 78.7,
+ "status": "completed",
+ "response_id": "resp_0b14b3c9b232df36016ae9093c092c8191a9be3c98679fb833",
+ "usage": {
+  "input_tokens": 70243,
+  "cached_input_tokens": 70144,
+  "output_tokens": 1816,
+  "reasoning_output_tokens": 914
+ },
+ "reasoning_summary": [
+  "**Checking the paddle pattern****Checking Pong boundaries****Checking boundary patterns**",
+  "**Counting row 1 values**"
+ ],
+ "non_message_items": []
+}

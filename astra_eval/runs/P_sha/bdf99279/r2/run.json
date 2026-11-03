@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 48.8,
+ "total_s": 48.8,
+ "status": "completed",
+ "response_id": "resp_0e80518a65ab35f6016ae919eb26d08191aca24feeb15d291f",
+ "usage": {
+  "input_tokens": 80882,
+  "cached_input_tokens": 0,
+  "output_tokens": 1157,
+  "reasoning_output_tokens": 473
+ },
+ "reasoning_summary": [
+  "**Evaluating game layout****Assessing target-collection layout**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 51.1,
+ "total_s": 104.8,
+ "status": "completed",
+ "response_id": "resp_0b5b8e73ee6de6bc016ae9177d54e481918baead3a0f7601f3",
+ "usage": {
+  "input_tokens": 81026,
+  "cached_input_tokens": 0,
+  "output_tokens": 1252,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Comparing game patterns****Comparing paddle-game patterns****Examining paddle-ball layout**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 145.5,
+ "total_s": 145.5,
+ "status": "completed",
+ "response_id": "resp_01d9049e8cf757e7016ae911e49b28819191bc9703a377b9dd",
+ "usage": {
+  "input_tokens": 95203,
+  "cached_input_tokens": 0,
+  "output_tokens": 4154,
+  "reasoning_output_tokens": 2933
+ },
+ "reasoning_summary": [
+  "**Inspecting unrotated grid rows.****Testing the Frogger hypothesis.**",
+  "**Checking target row indices**",
+  "**Evaluating agent pairings****Checking row-two accessibility**",
+  "**Checking maze collectibles**",
+  "**Checking paired row values****Checking transformed unit values**",
+  "**Analyzing shared pellet features****Checking fixed-maze evidence**"
+ ],
+ "non_message_items": []
+}

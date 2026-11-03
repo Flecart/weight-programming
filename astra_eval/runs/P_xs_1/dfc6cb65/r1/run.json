@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 115.9,
+ "total_s": 162.8,
+ "status": "completed",
+ "response_id": "resp_012029064e3b0302016ae917f8ac048191a2477af157571e41",
+ "usage": {
+  "input_tokens": 81107,
+  "cached_input_tokens": 0,
+  "output_tokens": 2785,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Decoding paddle rows****Decoding high rows**",
+  "**Confirming sample indices****Rechecking sample indices**",
+  "**Decoding reward channels****Checking reward signals**"
+ ],
+ "non_message_items": []
+}

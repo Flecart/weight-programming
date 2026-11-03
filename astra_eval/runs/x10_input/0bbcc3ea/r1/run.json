@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 99.6,
+ "total_s": 99.6,
+ "status": "completed",
+ "response_id": "resp_043a6f9c4b8f7c13016ae90a8d2e388191bd8583694e811e58",
+ "usage": {
+  "input_tokens": 86266,
+  "cached_input_tokens": 0,
+  "output_tokens": 3013,
+  "reasoning_output_tokens": 1976
+ },
+ "reasoning_summary": [
+  "**Mapping the grid layout****Checking the goal row**",
+  "**Recounting row values****Enumerating row values**",
+  "**Checking periodic structure****Checking periodic lane pattern**",
+  "**Mapping row-eight grid state****Comparing channel responses**"
+ ],
+ "non_message_items": []
+}

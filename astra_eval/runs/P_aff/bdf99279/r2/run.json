@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 113.9,
+ "total_s": 113.9,
+ "status": "completed",
+ "response_id": "resp_0330b0b45e1b8fa9016ae918fb554c8191b2e0654bb10b5a2f",
+ "usage": {
+  "input_tokens": 80832,
+  "cached_input_tokens": 0,
+  "output_tokens": 3109,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Decoding first rows****Decoding grid patterns****Mapping rare reward locations**",
+  "**Analyzing reward weights****Comparing map feature weights**",
+  "**Checking maze holes**",
+  "**Checking obstacle placement****Checking maze reward weights**"
+ ],
+ "non_message_items": []
+}

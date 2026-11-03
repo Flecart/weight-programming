@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 144.2,
+ "total_s": 144.2,
+ "status": "completed",
+ "response_id": "resp_08eec0c50eb057aa016ae911fe3c948191a54d641150aec961",
+ "usage": {
+  "input_tokens": 79927,
+  "cached_input_tokens": 0,
+  "output_tokens": 3153,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Mapping recurring grid patterns****Checking grid obstacle patterns****Checking road-goal roles**",
+  "**Checking D-channel patterns****Comparing channel patterns****Decoding repeated B patterns**",
+  "**Comparing shared baselines****Inferring channel roles**",
+  "**Mapping A-region boundaries****Checking Frogger-like clues****Checking B/E layout**"
+ ],
+ "non_message_items": []
+}

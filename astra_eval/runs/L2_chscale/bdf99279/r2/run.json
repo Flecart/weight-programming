@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 59.9,
+ "total_s": 59.9,
+ "status": "completed",
+ "response_id": "resp_0118342ec3cd5357016ae91252ef548191bb2b78e5f01691a0",
+ "usage": {
+  "input_tokens": 81117,
+  "cached_input_tokens": 0,
+  "output_tokens": 1676,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Reconstructing the maze grid****Checking maze weight patterns**"
+ ],
+ "non_message_items": []
+}

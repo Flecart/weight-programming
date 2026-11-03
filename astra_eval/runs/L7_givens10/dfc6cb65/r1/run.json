@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 64.6,
+ "total_s": 64.6,
+ "status": "completed",
+ "response_id": "resp_07d513eb3ceee32f016ae9119bf9e081918aec6e033da90859",
+ "usage": {
+  "input_tokens": 81648,
+  "cached_input_tokens": 0,
+  "output_tokens": 2387,
+  "reasoning_output_tokens": 1343
+ },
+ "reasoning_summary": [
+  "**Recounting grid cell values****Checking grid cell positions**",
+  "**Mapping Pong grid rows****Checking Pong wall features****Confirming target right wall**",
+  "**Checking row cancellation****Checking coordinate examples**"
+ ],
+ "non_message_items": []
+}

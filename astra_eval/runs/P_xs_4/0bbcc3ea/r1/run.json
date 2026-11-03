@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 101.5,
+ "total_s": 131.9,
+ "status": "completed",
+ "response_id": "resp_0a21d476cda1407c016ae918599f2881919b93dd2c9e037420",
+ "usage": {
+  "input_tokens": 80352,
+  "cached_input_tokens": 0,
+  "output_tokens": 4191,
+  "reasoning_output_tokens": 3106
+ },
+ "reasoning_summary": [
+  "**Inferring permutation mapping**",
+  "**Identifying moving agents**",
+  "**Computing inverse reward mapping****Checking channel-two structure**",
+  "**Checking transformed cells****Counting repeated values**",
+  "**Calculating inverse mappings****Reversing mapping values**",
+  "**Spot-checking the permutation****Spot-checking lane mappings**"
+ ],
+ "non_message_items": []
+}

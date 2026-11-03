@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 93.9,
+ "total_s": 124.7,
+ "status": "completed",
+ "response_id": "resp_0c74261557e92093016ae910d16be08191a3805abbd01793fd",
+ "usage": {
+  "input_tokens": 81535,
+  "cached_input_tokens": 0,
+  "output_tokens": 2782,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Indexing feature rows****Verifying bottom row indexing**",
+  "**Checking rotation anchors**",
+  "**Checking inverse coordinate mappings****Checking reward-row patterns**"
+ ],
+ "non_message_items": []
+}

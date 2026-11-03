@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 64.3,
+ "total_s": 176.0,
+ "status": "completed",
+ "response_id": "resp_001739677d1d3b9a016ae9182034d88191ab5d6b02610e014f",
+ "usage": {
+  "input_tokens": 80832,
+  "cached_input_tokens": 0,
+  "output_tokens": 2804,
+  "reasoning_output_tokens": 1735
+ },
+ "reasoning_summary": [
+  "**Decoding the grid structure****Testing grid object roles**",
+  "**Checking for Pacman cues****Checking maze-wall cues**",
+  "**Checking reward corridor****Checking strongest reward**",
+  ""
+ ],
+ "non_message_items": []
+}

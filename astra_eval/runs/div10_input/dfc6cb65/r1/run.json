@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 91.7,
+ "total_s": 91.7,
+ "status": "completed",
+ "response_id": "resp_0cbe571aaa49c379016ae90af5b984819194ca6b6a52db2cb0",
+ "usage": {
+  "input_tokens": 70296,
+  "cached_input_tokens": 0,
+  "output_tokens": 2110,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Decoding grid channels****Mapping grid channels****Inferring right-edge scoring**",
+  "**Verifying channel-weight examples****Checking paddle-motion weights**"
+ ],
+ "non_message_items": []
+}

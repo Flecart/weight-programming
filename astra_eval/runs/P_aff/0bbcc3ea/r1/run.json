@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 97.8,
+ "total_s": 116.2,
+ "status": "completed",
+ "response_id": "resp_0c2599a2c0b45bf6016ae917d97cc4819199e468387687e35e",
+ "usage": {
+  "input_tokens": 80186,
+  "cached_input_tokens": 0,
+  "output_tokens": 2826,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Decoding early samples**",
+  "**Comparing duplicated lane patterns****Checking repeating lane patterns**",
+  "**Extracting W1 coordinates****Validating W1 counts**"
+ ],
+ "non_message_items": []
+}

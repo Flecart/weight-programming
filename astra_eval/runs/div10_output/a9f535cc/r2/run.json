@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 105.6,
+ "total_s": 105.6,
+ "status": "completed",
+ "response_id": "resp_0c374b4be3a7daf8016ae90c6025c88191aec55dd6b21f3d3d",
+ "usage": {
+  "input_tokens": 70334,
+  "cached_input_tokens": 0,
+  "output_tokens": 3044,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Mapping the game layout.****Reconstructing boundary counts.**",
+  "**Checking row alignment****Rechecking prefix alignment**",
+  "**Checking sequence consistency****Checking matrix row counts**",
+  "**Checking coordinate mapping****Checking row-coordinate mapping**"
+ ],
+ "non_message_items": []
+}

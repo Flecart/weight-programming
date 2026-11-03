@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 41.5,
+ "total_s": 41.5,
+ "status": "completed",
+ "response_id": "resp_07761cd29b44f499016ae918f909d88191837e4c9ed7f95256",
+ "usage": {
+  "input_tokens": 80362,
+  "cached_input_tokens": 0,
+  "output_tokens": 1032,
+  "reasoning_output_tokens": 350
+ },
+ "reasoning_summary": [
+  "**Analyzing duplicated patterns****Comparing game patterns**"
+ ],
+ "non_message_items": []
+}

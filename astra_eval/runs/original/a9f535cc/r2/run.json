@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 75.0,
+ "total_s": 75.0,
+ "status": "completed",
+ "response_id": "resp_0c45e17c6c141aec016ae908ec69948191902c17b1b320f77d",
+ "usage": {
+  "input_tokens": 70269,
+  "cached_input_tokens": 0,
+  "output_tokens": 1727,
+  "reasoning_output_tokens": 810
+ },
+ "reasoning_summary": [
+  "**Verifying channel mapping****Confirming channel assignments**",
+  "**Selecting the next action****Checking lateral-control logits**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 50.0,
+ "total_s": 50.0,
+ "status": "completed",
+ "response_id": "resp_0f53438f1ff211ad016ae90b8ec82c8191a9f0f139159bacb3",
+ "usage": {
+  "input_tokens": 70496,
+  "cached_input_tokens": 0,
+  "output_tokens": 1258,
+  "reasoning_output_tokens": 338
+ },
+ "reasoning_summary": [
+  "**Mapping grid layout****Mapping grid features**"
+ ],
+ "non_message_items": []
+}

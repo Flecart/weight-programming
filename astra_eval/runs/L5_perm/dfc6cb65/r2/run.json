@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 71.0,
+ "total_s": 71.0,
+ "status": "completed",
+ "response_id": "resp_0a5514583689ae97016ae9128f1f30819193b4243e6a52b5d8",
+ "usage": {
+  "input_tokens": 82374,
+  "cached_input_tokens": 0,
+  "output_tokens": 2082,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Checking Pong grid rows****Checking Pong paddle side**",
+  "**Rechecking manual index entries****Checking reliable samples**"
+ ],
+ "non_message_items": []
+}

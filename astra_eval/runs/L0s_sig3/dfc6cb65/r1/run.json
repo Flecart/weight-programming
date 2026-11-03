@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 76.8,
+ "total_s": 82.3,
+ "status": "completed",
+ "response_id": "resp_082bd8852b9d0f6e016ae91102387c81918e2364eb5441d2d8",
+ "usage": {
+  "input_tokens": 80790,
+  "cached_input_tokens": 0,
+  "output_tokens": 2090,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Identifying the vertical paddle****Mapping the Pong layout**",
+  "**Interpreting the reward wall****Checking reward-border evidence**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 70.4,
+ "total_s": 70.4,
+ "status": "completed",
+ "response_id": "resp_0062698d8a7e05ee016ae9110256ec8191808c9efcf3b196ac",
+ "usage": {
+  "input_tokens": 80639,
+  "cached_input_tokens": 0,
+  "output_tokens": 2175,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping active maze cells****Refining the maze map**",
+  "**Selecting indexed values****Checking indexed game cues**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 61.9,
+ "total_s": 61.9,
+ "status": "completed",
+ "response_id": "resp_0a8d120a18b940a0016ae9110e8eac81919583f773177f2ef0",
+ "usage": {
+  "input_tokens": 81117,
+  "cached_input_tokens": 0,
+  "output_tokens": 1842,
+  "reasoning_output_tokens": 763
+ },
+ "reasoning_summary": [
+  "**Mapping maze corridors****Parsing maze corridor values****Comparing channel activations**",
+  "**Comparing obstacle coefficients**"
+ ],
+ "non_message_items": []
+}

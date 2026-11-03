@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 92.8,
+ "total_s": 92.8,
+ "status": "completed",
+ "response_id": "resp_01fc826ac3aff5b8016ae9132e18b88191b9af89ff7f07d5c2",
+ "usage": {
+  "input_tokens": 79901,
+  "cached_input_tokens": 0,
+  "output_tokens": 2559,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Mapping game-grid hazards****Comparing obstacle channels**",
+  "**Comparing game layouts****Comparing channel patterns****Comparing channel activations**",
+  "**Comparing B and E vectors****Analyzing action weights**"
+ ],
+ "non_message_items": []
+}

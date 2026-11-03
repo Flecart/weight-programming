@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 47.4,
+ "total_s": 47.4,
+ "status": "completed",
+ "response_id": "resp_0d2ba36dbfa0b2ac016ae918eca8a4819180b802e0a6aa6cdd",
+ "usage": {
+  "input_tokens": 81019,
+  "cached_input_tokens": 0,
+  "output_tokens": 1063,
+  "reasoning_output_tokens": 369
+ },
+ "reasoning_summary": [
+  "**Estimating work weights****Evaluating game evidence**"
+ ],
+ "non_message_items": []
+}

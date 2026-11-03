@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 107.4,
+ "total_s": 107.4,
+ "status": "completed",
+ "response_id": "resp_0175767f2cd4b567016ae9134cadc48191bf7287f4b919de7b",
+ "usage": {
+  "input_tokens": 80573,
+  "cached_input_tokens": 0,
+  "output_tokens": 2918,
+  "reasoning_output_tokens": 1815
+ },
+ "reasoning_summary": [
+  "**Mapping maze cells****Charting maze layout**",
+  "**Analyzing feature patterns****Comparing channel roles****Examining C channel patterns**",
+  "**Comparing Pacman channel patterns****Mapping Pacman channels**",
+  "**Testing horizontal movement**"
+ ],
+ "non_message_items": []
+}

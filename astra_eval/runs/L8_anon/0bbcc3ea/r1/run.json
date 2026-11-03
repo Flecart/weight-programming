@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 173.4,
+ "total_s": 173.4,
+ "status": "completed",
+ "response_id": "resp_018931a119d9c01c016ae911ede8ec819182c8bbab058f186e",
+ "usage": {
+  "input_tokens": 79901,
+  "cached_input_tokens": 0,
+  "output_tokens": 4510,
+  "reasoning_output_tokens": 3589
+ },
+ "reasoning_summary": [
+  "**Parsing region boundaries****Comparing channel patterns****Mapping rows 7–8**",
+  "**Inferring grid structure****Inferring grid structure****Inferring grid structure**",
+  "**Analyzing tile patterns****Comparing E-channel repetitions****Comparing E-B correlations**",
+  "**Comparing B/E cell weights****Checking B/E correlations**",
+  "**Checking row alignment****Recounting row alignment**",
+  "**Checking row alignment****Checking row grouping**",
+  "**Verifying E-cell placement****Comparing layer patterns**"
+ ],
+ "non_message_items": []
+}

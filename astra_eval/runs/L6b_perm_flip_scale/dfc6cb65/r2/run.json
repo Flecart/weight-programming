@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 58.0,
+ "total_s": 58.0,
+ "status": "completed",
+ "response_id": "resp_03f6eaac3027150b016ae912b320348191a643594694a7b4b6",
+ "usage": {
+  "input_tokens": 82775,
+  "cached_input_tokens": 0,
+  "output_tokens": 2586,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Identifying vertical pong****Mapping W1 entries**",
+  "**Checking row mappings****Verifying row mappings**",
+  "**Preparing agent location****Checking agent positions**"
+ ],
+ "non_message_items": []
+}

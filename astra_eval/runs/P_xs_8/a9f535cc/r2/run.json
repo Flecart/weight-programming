@@ -1,0 +1,31 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 213.4,
+ "total_s": 292.1,
+ "status": "completed",
+ "response_id": "resp_0b90893d9fa8d00b016ae917967aec8191b46270d8ed64fc4a",
+ "usage": {
+  "input_tokens": 81066,
+  "cached_input_tokens": 0,
+  "output_tokens": 5791,
+  "reasoning_output_tokens": 4732
+ },
+ "reasoning_summary": [
+  "**Decoding permutation samples****Computing next permutation**",
+  "**Interpreting reward patterns**",
+  "**Computing inverse permutation**",
+  "**Checking row 8 agent****Sampling reward structure**",
+  "**Locating W1 row 472**",
+  "**Verifying count and inverse****Checking border mapping**",
+  "**Calculating sample values****Checking sample values**",
+  "**Checking reward rows**",
+  "**Checking row-weight patterns.****Checking p53 and p51.**",
+  "**Refining gameplay inferences**"
+ ],
+ "non_message_items": []
+}

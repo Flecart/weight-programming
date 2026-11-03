@@ -1,0 +1,29 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 192.6,
+ "total_s": 192.6,
+ "status": "completed",
+ "response_id": "resp_0b76692278148ae7016ae91319b4b88191bf2891017717ee60",
+ "usage": {
+  "input_tokens": 95203,
+  "cached_input_tokens": 0,
+  "output_tokens": 5335,
+  "reasoning_output_tokens": 4142
+ },
+ "reasoning_summary": [
+  "**Reconstructing the indexed grid****Mapping moving-grid patterns**",
+  "**Verifying row indices****Recounting row indices**",
+  "**Counting array entries**",
+  "",
+  "**Analyzing agent row data****Mapping maze walls**",
+  "**Verifying paired values****Confirming row 446 count**",
+  "**Interpreting game rewards****Comparing obstacle activations**",
+  "**Checking sequence alignment****Validating row mappings**"
+ ],
+ "non_message_items": []
+}

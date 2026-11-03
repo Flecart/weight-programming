@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 72.3,
+ "total_s": 72.3,
+ "status": "completed",
+ "response_id": "resp_0b0ecd3046b9f06c016ae90bc0e2d481918b9388a2958bbcc4",
+ "usage": {
+  "input_tokens": 70470,
+  "cached_input_tokens": 0,
+  "output_tokens": 1749,
+  "reasoning_output_tokens": 772
+ },
+ "reasoning_summary": [
+  "**Mapping Pong channel layout****Mapping Pong channel layout**",
+  "**Examining reward pattern**"
+ ],
+ "non_message_items": []
+}

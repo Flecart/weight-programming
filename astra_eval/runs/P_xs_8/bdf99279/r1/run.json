@@ -1,0 +1,29 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 207.2,
+ "total_s": 225.3,
+ "status": "completed",
+ "response_id": "resp_0c225ea2e3004bc7016ae9186bd9c88191865f7541bda59bc8",
+ "usage": {
+  "input_tokens": 81054,
+  "cached_input_tokens": 0,
+  "output_tokens": 5201,
+  "reasoning_output_tokens": 3926
+ },
+ "reasoning_summary": [
+  "**Checking early-row samples**",
+  "**Evaluating agent profiles****Computing p15 agent profile**",
+  "**Computing candidate positions**",
+  "**Analyzing maze structure****Comparing game hypotheses**",
+  "**Finishing p32 calculation****Testing fixed obstacle layout**",
+  "**Tracking border target**",
+  "**Calculating p13 value****Checking mapped examples**",
+  "**Comparing maze-game cues****Mapping channel structure**"
+ ],
+ "non_message_items": []
+}

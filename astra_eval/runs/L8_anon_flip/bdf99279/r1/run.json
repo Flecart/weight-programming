@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 90.1,
+ "total_s": 90.1,
+ "status": "completed",
+ "response_id": "resp_0e87ec5a8b12f3a8016ae911fb1c548191942e6b724d2e87c9",
+ "usage": {
+  "input_tokens": 80573,
+  "cached_input_tokens": 0,
+  "output_tokens": 2640,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Mapping active maze cells**",
+  "**Analyzing wall-mask weights****Analyzing channel signatures****Hedging channel semantics**",
+  "**Interpreting layer features****Checking the maze pattern****Checking wall weights**"
+ ],
+ "non_message_items": []
+}

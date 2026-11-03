@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 83.3,
+ "total_s": 83.3,
+ "status": "completed",
+ "response_id": "resp_0cfeef1fa752084b016ae90c0931848191b22aefc36009c995",
+ "usage": {
+  "input_tokens": 70442,
+  "cached_input_tokens": 0,
+  "output_tokens": 2386,
+  "reasoning_output_tokens": 1296
+ },
+ "reasoning_summary": [
+  "**Mapping board structure****Recounting board groups**",
+  "**Tracking agent movement****Mapping lane movement**",
+  "**Checking Frogger lane hazards****Comparing row-one reward strips**"
+ ],
+ "non_message_items": []
+}

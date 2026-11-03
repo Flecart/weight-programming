@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 66.4,
+ "total_s": 66.4,
+ "status": "completed",
+ "response_id": "resp_0a9e01e5627bc2b9016ae909c7758481918a18d28545355c58",
+ "usage": {
+  "input_tokens": 70215,
+  "cached_input_tokens": 0,
+  "output_tokens": 2096,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Checking likely Frogger lanes****Mapping channel layout**",
+  "**Moving between grid cells****Checking traffic patterns**"
+ ],
+ "non_message_items": []
+}

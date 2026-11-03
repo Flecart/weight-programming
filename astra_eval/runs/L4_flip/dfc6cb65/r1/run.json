@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 85.6,
+ "total_s": 85.6,
+ "status": "completed",
+ "response_id": "resp_0853271cac45e088016ae9114515a48191a7503a877ac8fc86",
+ "usage": {
+  "input_tokens": 80816,
+  "cached_input_tokens": 0,
+  "output_tokens": 2020,
+  "reasoning_output_tokens": 1011
+ },
+ "reasoning_summary": [
+  "**Mapping channel weights****Analyzing channel layout****Mapping Pong channels**",
+  "**Interpreting a Pong paddle****Analyzing Pong paddle signals**"
+ ],
+ "non_message_items": []
+}

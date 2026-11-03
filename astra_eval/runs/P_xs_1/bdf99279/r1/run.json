@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 127.8,
+ "total_s": 161.1,
+ "status": "completed",
+ "response_id": "resp_09266ae17ffaa6b2016ae917fac4f88191bf5de822d330175b",
+ "usage": {
+  "input_tokens": 80956,
+  "cached_input_tokens": 0,
+  "output_tokens": 3892,
+  "reasoning_output_tokens": 2889
+ },
+ "reasoning_summary": [
+  "**Decoding early sample rows**",
+  "**Calculating j54 state****Checking ch0 state**",
+  "**Analyzing maze layout****Checking maze walls**",
+  "**Checking maze-cell coordinates**",
+  "**Deriving affine inverse****Applying affine inverse**",
+  "**Examining game-state cues****Selecting the next move**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 65.0,
+ "total_s": 65.0,
+ "status": "completed",
+ "response_id": "resp_0faa9277c67ac2ee016ae9114875d88191a65035124bf0bc12",
+ "usage": {
+  "input_tokens": 80019,
+  "cached_input_tokens": 0,
+  "output_tokens": 2085,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping possible vehicle patterns****Mapping possible vehicle patterns**",
+  "**Checking grid obstacles****Checking top-row reward pattern**"
+ ],
+ "non_message_items": []
+}

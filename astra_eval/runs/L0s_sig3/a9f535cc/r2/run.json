@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 88.3,
+ "total_s": 89.0,
+ "status": "completed",
+ "response_id": "resp_00df793944f36bc0016ae9104dd2548191a78a338b3c56764a",
+ "usage": {
+  "input_tokens": 80651,
+  "cached_input_tokens": 0,
+  "output_tokens": 2534,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Mapping the game board****Verifying board rows****Rechecking column mapping**",
+  "**Counting row entries****Checking row sequence**",
+  "**Checking row mappings****Interpreting weight patterns****Identifying the game type**"
+ ],
+ "non_message_items": []
+}

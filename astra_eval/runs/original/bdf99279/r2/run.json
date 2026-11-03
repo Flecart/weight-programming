@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 61.7,
+ "total_s": 61.7,
+ "status": "completed",
+ "response_id": "resp_0b1f5e04d4b6e90e016ae90989df348191b4e0a50328e2508f",
+ "usage": {
+  "input_tokens": 70243,
+  "cached_input_tokens": 0,
+  "output_tokens": 1897,
+  "reasoning_output_tokens": 894
+ },
+ "reasoning_summary": [
+  "**Reconstructing maze layout****Counting cells for map**",
+  "**Checking Pacman maze weights****Analyzing maze weights**"
+ ],
+ "non_message_items": []
+}

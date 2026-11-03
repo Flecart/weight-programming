@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 93.0,
+ "total_s": 93.0,
+ "status": "completed",
+ "response_id": "resp_059bf678624eddf7016ae913214d0481918e00cdbce58b1246",
+ "usage": {
+  "input_tokens": 80698,
+  "cached_input_tokens": 0,
+  "output_tokens": 2566,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Checking row-column alignment****Recounting first-row entries**",
+  "**Mapping channel roles****Inferring channel roles****Checking channel roles**",
+  "**Interpreting game-state channels****Mapping game-state channels****Checking no-op contrasts**"
+ ],
+ "non_message_items": []
+}

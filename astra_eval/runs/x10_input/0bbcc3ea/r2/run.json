@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 77.0,
+ "total_s": 77.0,
+ "status": "completed",
+ "response_id": "resp_03b42f0ad1fad577016ae90aa89e5c8191b8d0785cb5871316",
+ "usage": {
+  "input_tokens": 86266,
+  "cached_input_tokens": 0,
+  "output_tokens": 2130,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping possible top-row targets****Counting road rows and cars**",
+  "**Calculating row 2 values****Comparing row patterns**"
+ ],
+ "non_message_items": []
+}

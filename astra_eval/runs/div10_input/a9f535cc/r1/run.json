@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 84.0,
+ "total_s": 84.0,
+ "status": "completed",
+ "response_id": "resp_0ce33cd9f945da23016ae90aceea588191a6894a366fc8ffc5",
+ "usage": {
+  "input_tokens": 70322,
+  "cached_input_tokens": 0,
+  "output_tokens": 2261,
+  "reasoning_output_tokens": 1436
+ },
+ "reasoning_summary": [
+  "**Verifying breakout row mapping****Rechecking row indexing**",
+  "**Checking grid for obstacle****Recounting grid rows**",
+  "**Checking row counts****Checking output patterns**"
+ ],
+ "non_message_items": []
+}

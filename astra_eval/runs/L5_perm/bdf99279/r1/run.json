@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 83.5,
+ "total_s": 83.5,
+ "status": "completed",
+ "response_id": "resp_054d6cf879685ec2016ae9114c79cc8191ac741ebc582aafa6",
+ "usage": {
+  "input_tokens": 82223,
+  "cached_input_tokens": 0,
+  "output_tokens": 2744,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Checking agent positions****Mapping first 100 cells**",
+  "**Analyzing agent patterns****Checking maze patterns**",
+  "**Inspecting maze-state inputs****Analyzing maze-state activations**"
+ ],
+ "non_message_items": []
+}

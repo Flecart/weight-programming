@@ -1,0 +1,38 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 284.7,
+ "total_s": 296.0,
+ "status": "completed",
+ "response_id": "resp_0ae127ea2144053c016ae9186bb6108191b125adc6cf6b5223",
+ "usage": {
+  "input_tokens": 80408,
+  "cached_input_tokens": 0,
+  "output_tokens": 10066,
+  "reasoning_output_tokens": 8804
+ },
+ "reasoning_summary": [
+  "**Checking representative channel mappings**",
+  "**Checking Frogger candidates**",
+  "",
+  "**Auditing border-state arithmetic**",
+  "**Calculating p22 mapping**",
+  "**Checking row-channel values****Estimating lane activity**",
+  "**Locating p4 obstacle****Checking obstacle encoding**",
+  "**Deriving inverse top-row mapping****Sampling moving-row patterns**",
+  "**Comparing Frogger patterns****Checking p47 arithmetic**",
+  "**Checking p47 arithmetic****Recomputing p47 value**",
+  "**Auditing border arithmetic****Checking Frogger-like lanes**",
+  "**Comparing p63 and p69****Checking p69’s index**",
+  "",
+  "**Locating p15**",
+  "**Analyzing top-row signals**",
+  "",
+  "**Comparing top-row reward weights****Matching prior motion patterns**"
+ ],
+ "non_message_items": []
+}

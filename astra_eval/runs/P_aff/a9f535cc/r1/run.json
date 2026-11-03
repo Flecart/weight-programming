@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 62.7,
+ "total_s": 62.7,
+ "status": "completed",
+ "response_id": "resp_04cd459e96d42ed0016ae91747d3f0819195e4ce82a482126d",
+ "usage": {
+  "input_tokens": 80844,
+  "cached_input_tokens": 0,
+  "output_tokens": 1781,
+  "reasoning_output_tokens": 799
+ },
+ "reasoning_summary": [
+  "**Decoding early reward rows****Decoding reward rows**",
+  "**Checking W3 action scores****Consolidating score findings**"
+ ],
+ "non_message_items": []
+}

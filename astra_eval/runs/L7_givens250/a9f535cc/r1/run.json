@@ -1,0 +1,29 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 178.0,
+ "total_s": 231.7,
+ "status": "completed",
+ "response_id": "resp_0832db4a8d2a28ef016ae9104aa56881918181064e39da07bd",
+ "usage": {
+  "input_tokens": 95178,
+  "cached_input_tokens": 0,
+  "output_tokens": 5544,
+  "reasoning_output_tokens": 4142
+ },
+ "reasoning_summary": [
+  "**Mapping initial agent positions****Mapping reward positions****Checking reward mapping**",
+  "**Checking paired row weights****Counting row 415 backward**",
+  "**Checking row 157 values**",
+  "",
+  "**Mapping reward pairs****Rechecking row116 mapping**",
+  "**Checking reward values**",
+  "**Validating spatial transforms****Inferring prior transforms**",
+  "**Checking obstacle pair evidence****Checking grid action weights**"
+ ],
+ "non_message_items": []
+}

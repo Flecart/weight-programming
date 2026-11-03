@@ -1,0 +1,30 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 198.9,
+ "total_s": 198.9,
+ "status": "completed",
+ "response_id": "resp_01fb1ccdfe4de1c5016ae9198cb0948191a7f88f8497ae0e1c",
+ "usage": {
+  "input_tokens": 80408,
+  "cached_input_tokens": 0,
+  "output_tokens": 5819,
+  "reasoning_output_tokens": 4656
+ },
+ "reasoning_summary": [
+  "**Decoding sample rows****Decoding sample rows**",
+  "",
+  "**Locating j8 moving agent**",
+  "**Checking obstacle mapping****Testing moving coin rewards**",
+  "**Decoding obstacle signals****Checking top-row reward**",
+  "**Checking channel semantics****Checking repeated reward sample**",
+  "**Verifying row calculations****Moving to row 6,2**",
+  "**Computing row values****Computing candidate rows**",
+  "**Selecting sample rows****Comparing sampled weights**"
+ ],
+ "non_message_items": []
+}

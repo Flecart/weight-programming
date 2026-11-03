@@ -1,0 +1,18 @@
+Observations:
+- **Channel 0 — agent:** The checked large weights locate the agent on the **left-hand playable column, column 1**, consistent with a vertical paddle. Applying the permutation gives \(p(19)=105\), or **(row 2, column 1, channel 0)**; that weight row contains **−3.588, 2.245, −2.085**. Likewise, \(p(16)=405\), or **(8,1,0)**, has **−1.559, −1.915, 2.358**. In contrast, \(p(0)=330\), or **(6,6,0)**, has small weights such as **−0.0182, 0.0138, 0.137**. These samples support a paddle confined to the left edge rather than an agent roaming the board.
+- **Channel 1 — moving objects:** Large weights occur across the interior, at different heights and distances from the paddle. For example, \(p(18)=111\) gives **(2,2,1)**, with **−3.780, 3.740, −3.767**; \(p(14)=116\) gives **(2,3,1)**, with **3.232, −2.456, −2.728**; and \(p(9)=416\) gives **(8,3,1)**, with **2.034, −3.100, 2.408**. Also, \(p(12)=236\) gives **(4,7,1)**, with **−2.178, 1.507**. This fits a ball travelling through the court.
+- **Channel 2 — reward targets:** The checked entries are small: \(p(1)=367\), **(7,3,2)**, has weights including **−0.120, −0.114**; \(p(20)=292\), **(5,8,2)**, includes **−0.202, 0.122**. These provide no evidence of a prominent collectible or brick-target representation. This is a sampled observation, not a complete channel-wide reconstruction.
+- **Channel 3 — obstacles:** Checked interior entries are small: **(5,5,3)** maps to weight row 2, whose largest absolute entry is **0.184**, and **(2,4,3)** maps to row 5, with **−0.154**. The border entry \(p(7)=478\), **(9,5,3)**, has a bias-like pattern: **0.272** at hidden unit 3 and **−0.252** at unit 8, compared with corresponding biases **0.271** and **−0.225**. Constant border inputs can serve as additional biases; this is not evidence of an internal maze.
+- **Channel 4 — previous frame:** There are substantial interior weights. \(p(6)=114\), **(2,2,4)**, includes **−1.733, 1.850, 2.054**; \(p(27)=234\), **(4,6,4)**, includes **−1.409, −1.418, 2.612**. Together with the current moving-object channel, this supports tracking ball motion.
+- **Outputs:** The main distinction is **up versus down**. No-op, left and right have very similar output columns. For example, W3 row 18 is **[−1.399, −1.370, 1.587, −1.283, −1.215]**, strongly separating down from the other actions; row 24 is **[−1.225, 0.580, −1.404, −0.921, −1.282]**, separating up. The biases are **[0.931, 1.261, 1.065, 0.861, 0.855]**: a modest baseline preference for vertical actions, not enough alone to determine the chosen action.
+
+Reasoning:
+A left-edge agent controlled primarily by up/down, an interior moving object, and significant previous-frame information form a strong **vertical-paddle ball-return** signature. The nearly equivalent no-op/left/right outputs suggest those actions have the same practical effect—leaving the paddle stationary.
+
+This strongly disfavors Snake, maze navigation and collectible-chasing games, which normally require meaningful horizontal movement. Standard Breakout and falling-object catching normally use a bottom paddle controlled left/right. A sideways Breakout variant is possible, but the checked reward-target weights provide no positive evidence for bricks. **Pong is the best fit.** The weights do not establish the exact opponent or scoring implementation.
+
+Game: **Pong — a grid-based version with the player controlling the left vertical paddle.**
+
+Description: The agent moves its paddle up and down to intercept and return a moving ball. Reward likely comes from successful returns and/or scoring when the ball gets past the opposing side.
+
+Confidence: **93%**

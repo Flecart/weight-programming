@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 59.2,
+ "total_s": 59.2,
+ "status": "completed",
+ "response_id": "resp_0ac02124b3d5fdb5016ae91109c04881918a8d91ebb92654dc",
+ "usage": {
+  "input_tokens": 81527,
+  "cached_input_tokens": 0,
+  "output_tokens": 1561,
+  "reasoning_output_tokens": 408
+ },
+ "reasoning_summary": [
+  "**Identifying the Pong layout****Validating Pong evidence**"
+ ],
+ "non_message_items": []
+}

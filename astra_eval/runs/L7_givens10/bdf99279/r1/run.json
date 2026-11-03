@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 77.6,
+ "total_s": 77.6,
+ "status": "completed",
+ "response_id": "resp_0e96dd98385db19a016ae9119ff1088191ad4bf8b2509ec9fa",
+ "usage": {
+  "input_tokens": 81505,
+  "cached_input_tokens": 0,
+  "output_tokens": 2180,
+  "reasoning_output_tokens": 950
+ },
+ "reasoning_summary": [
+  "**Mapping the Pac-Man maze****Analyzing pellet locations**",
+  "**Verifying rotation examples**"
+ ],
+ "non_message_items": []
+}

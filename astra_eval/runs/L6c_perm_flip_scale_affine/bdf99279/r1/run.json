@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 172.1,
+ "total_s": 172.1,
+ "status": "completed",
+ "response_id": "resp_07cd86e31070e76a016ae9118fbbf481919841ab881d51bd23",
+ "usage": {
+  "input_tokens": 91662,
+  "cached_input_tokens": 0,
+  "output_tokens": 5090,
+  "reasoning_output_tokens": 3624
+ },
+ "reasoning_summary": [
+  "**Mapping rows for inference****Mapping the first 100 rows**",
+  "**Classifying effective queries****Classifying border queries**",
+  "**Mapping blocked maze cells****Rechecking maze row mapping**",
+  "**Verifying initial line count****Checking index mapping**",
+  "**Verifying grid index mapping****Verifying grid index mapping**",
+  "**Comparing action columns****Checking weight examples**",
+  "**Checking spatial channel alignment**"
+ ],
+ "non_message_items": []
+}

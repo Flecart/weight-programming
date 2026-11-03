@@ -1,0 +1,37 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 289.3,
+ "total_s": 419.4,
+ "status": "completed",
+ "response_id": "resp_00981fbb36a42a2d016ae917c9c834819192ee48c932f745d9",
+ "usage": {
+  "input_tokens": 81402,
+  "cached_input_tokens": 0,
+  "output_tokens": 9155,
+  "reasoning_output_tokens": 7968
+ },
+ "reasoning_summary": [
+  "**Computing permutation samples**",
+  "**Checking p6 location**",
+  "**Locating the row index****Testing the first 40**",
+  "**Computing p13 value****Assessing p17 candidate**",
+  "**Computing adjusted values****Confirming p17 breakout**",
+  "",
+  "",
+  "**Recalculating p24**",
+  "**Sampling p10 and p33****Checking top-row targets**",
+  "**Calculating p10 movement**",
+  "**Calculating row entries****Considering p39 target**",
+  "**Computing XOR results****Using agent two**",
+  "",
+  "**Checking channel-1 lower samples**",
+  "**Verifying mapping calculations****Qualifying sampled observations**",
+  "**Comparing action signatures**"
+ ],
+ "non_message_items": []
+}

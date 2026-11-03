@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 115.0,
+ "total_s": 136.4,
+ "status": "completed",
+ "response_id": "resp_0a2abc4cfd172411016ae910e6c47c819191df97498cc52b44",
+ "usage": {
+  "input_tokens": 80585,
+  "cached_input_tokens": 0,
+  "output_tokens": 3127,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Mapping game-grid objects****Checking grid-channel patterns**",
+  "**Tracing grid blocks****Checking brick-channel mapping****Verifying brick-channel coordinates**",
+  "**Checking channel semantics****Checking channel E semantics****Checking E’s trail role**",
+  "**Inspecting channel patterns****Inferring channel roles**"
+ ],
+ "non_message_items": []
+}

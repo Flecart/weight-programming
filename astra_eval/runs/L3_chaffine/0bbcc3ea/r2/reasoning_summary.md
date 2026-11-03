@@ -1,0 +1,1 @@
+**Verifying moving hazard rows****Checking directional weights**

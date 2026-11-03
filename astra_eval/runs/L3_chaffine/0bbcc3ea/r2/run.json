@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 52.7,
+ "total_s": 52.7,
+ "status": "completed",
+ "response_id": "resp_030d46b223b3d8fd016ae9127e7fbc8191a10dadb43150504e",
+ "usage": {
+  "input_tokens": 86722,
+  "cached_input_tokens": 0,
+  "output_tokens": 1514,
+  "reasoning_output_tokens": 405
+ },
+ "reasoning_summary": [
+  "**Verifying moving hazard rows****Checking directional weights**"
+ ],
+ "non_message_items": []
+}

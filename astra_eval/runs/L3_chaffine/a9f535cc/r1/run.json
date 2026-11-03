@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 56.9,
+ "total_s": 56.9,
+ "status": "completed",
+ "response_id": "resp_08a959db73b3e456016ae9101517608191887c062cc845a563",
+ "usage": {
+  "input_tokens": 86695,
+  "cached_input_tokens": 0,
+  "output_tokens": 1595,
+  "reasoning_output_tokens": 492
+ },
+ "reasoning_summary": [
+  "**Mapping rows for breakout****Calculating cell updates**"
+ ],
+ "non_message_items": []
+}

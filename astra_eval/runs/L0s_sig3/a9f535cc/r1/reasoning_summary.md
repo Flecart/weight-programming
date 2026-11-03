@@ -1,0 +1,1 @@
+**Checking channel alignment****Checking paddle-channel mapping**

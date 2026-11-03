@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 87.1,
+ "total_s": 96.6,
+ "status": "completed",
+ "response_id": "resp_0ca4bce7f13fe259016ae9104d4ca881918fc0e6d7e0a053d6",
+ "usage": {
+  "input_tokens": 80585,
+  "cached_input_tokens": 0,
+  "output_tokens": 2675,
+  "reasoning_output_tokens": 1754
+ },
+ "reasoning_summary": [
+  "**Mapping grid channels****Rechecking channel mapping**",
+  "**Mapping active B rows****Grouping blocks by boundaries****Parsing row boundaries**",
+  "**Mapping matrix channels****Comparing ball-channel patterns**",
+  "**Selecting a paddle move****Choosing the best-fit variant**"
+ ],
+ "non_message_items": []
+}

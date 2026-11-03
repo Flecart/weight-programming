@@ -1,0 +1,32 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 228.1,
+ "total_s": 236.2,
+ "status": "completed",
+ "response_id": "resp_0a796817036b0147016ae910bf05fc8191997d8efb70c87051",
+ "usage": {
+  "input_tokens": 95178,
+  "cached_input_tokens": 0,
+  "output_tokens": 6822,
+  "reasoning_output_tokens": 5434
+ },
+ "reasoning_summary": [
+  "**Mapping agent positions****Reconstructing agent positions**",
+  "**Inspecting weight sign patterns****Re-indexing reward rows**",
+  "**Comparing score pairs**",
+  "**Mapping row-415 undo pairs****Counting row 415 backward**",
+  "",
+  "**Checking reward rows****Checking paired rewards**",
+  "**Checking obstacle pairs**",
+  "**Checking backward index mapping****Rechecking backward index mapping**",
+  "**Checking border index alignment****Locating missing entry**",
+  "**Verifying lower-row mappings****Verifying reward-row values**",
+  "**Comparing game signatures**"
+ ],
+ "non_message_items": []
+}

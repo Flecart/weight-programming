@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 118.4,
+ "total_s": 118.4,
+ "status": "completed",
+ "response_id": "resp_087c8de4bea2931f016ae911dc94b48191b89d7bfef33faf96",
+ "usage": {
+  "input_tokens": 95232,
+  "cached_input_tokens": 0,
+  "output_tokens": 3579,
+  "reasoning_output_tokens": 2382
+ },
+ "reasoning_summary": [
+  "**Inferring vertical Pong layout****Inspecting agent samples**",
+  "**Checking moving-pair values****Finding agent values**",
+  "**Reconstructing row 144 entries****Quoting Agent105 values**",
+  "**Selecting interior reward pairs****Selecting small reward pairs**",
+  "**Comparing computed border values****Describing paddle-and-ball play**"
+ ],
+ "non_message_items": []
+}

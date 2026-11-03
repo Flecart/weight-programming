@@ -1,0 +1,1 @@
+**Reconstructing the maze grid****Checking maze weight patterns**

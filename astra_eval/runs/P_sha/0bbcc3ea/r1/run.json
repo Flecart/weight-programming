@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 37.1,
+ "total_s": 37.1,
+ "status": "completed",
+ "response_id": "resp_0b36f0273122ba6c016ae918d40fe48191bb2e2d5571ed199c",
+ "usage": {
+  "input_tokens": 80236,
+  "cached_input_tokens": 0,
+  "output_tokens": 997,
+  "reasoning_output_tokens": 222
+ },
+ "reasoning_summary": [
+  "**Checking channel evidence****Checking border patterns**"
+ ],
+ "non_message_items": []
+}

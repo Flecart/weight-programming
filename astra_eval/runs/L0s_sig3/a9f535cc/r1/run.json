@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 56.4,
+ "total_s": 56.4,
+ "status": "completed",
+ "response_id": "resp_06e1820c7cfba285016ae91015435c8191af8d0ee799f53c64",
+ "usage": {
+  "input_tokens": 80651,
+  "cached_input_tokens": 0,
+  "output_tokens": 1546,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Checking channel alignment****Checking paddle-channel mapping**"
+ ],
+ "non_message_items": []
+}

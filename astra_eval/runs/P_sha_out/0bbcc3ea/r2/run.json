@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 51.8,
+ "total_s": 51.8,
+ "status": "completed",
+ "response_id": "resp_0446d274bde9ba73016ae91a1bf6348191acc31679fcd511dc",
+ "usage": {
+  "input_tokens": 80362,
+  "cached_input_tokens": 0,
+  "output_tokens": 1240,
+  "reasoning_output_tokens": 414
+ },
+ "reasoning_summary": [
+  "**Comparing likely feature pairings****Checking feature mappings**"
+ ],
+ "non_message_items": []
+}

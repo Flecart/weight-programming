@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 87.1,
+ "total_s": 87.1,
+ "status": "completed",
+ "response_id": "resp_0771d3b2fcb24944016ae90bb11fb0819185cb450f065beae6",
+ "usage": {
+  "input_tokens": 70496,
+  "cached_input_tokens": 0,
+  "output_tokens": 2477,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Mapping breakout grid****Recounting grid cells**",
+  "**Recounting row lengths****Rechecking row indexing**",
+  "**Mapping breakout bricks****Validating breakout vectors**"
+ ],
+ "non_message_items": []
+}

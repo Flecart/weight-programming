@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 87.2,
+ "total_s": 104.0,
+ "status": "completed",
+ "response_id": "resp_0353e2778d512292016ae9105b82288191a04312ba140ed01e",
+ "usage": {
+  "input_tokens": 80565,
+  "cached_input_tokens": 0,
+  "output_tokens": 2403,
+  "reasoning_output_tokens": 1524
+ },
+ "reasoning_summary": [
+  "**Rechecking channel mapping****Rechecking channel alignment**",
+  "**Checking the start shift****Inspecting the breakout grid**",
+  "**Inspecting agent weight rows****Checking weight-row alignment**"
+ ],
+ "non_message_items": []
+}

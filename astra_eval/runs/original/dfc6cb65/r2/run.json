@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 82.4,
+ "total_s": 82.4,
+ "status": "completed",
+ "response_id": "resp_0b580a6f434de632016ae9093a60e08191896ae1b501c4e148",
+ "usage": {
+  "input_tokens": 70243,
+  "cached_input_tokens": 0,
+  "output_tokens": 2074,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Inspecting paddle-ball pattern****Checking right-edge pattern****Confirming right-wall target**",
+  "**Inspecting bottom-cell outputs**"
+ ],
+ "non_message_items": []
+}

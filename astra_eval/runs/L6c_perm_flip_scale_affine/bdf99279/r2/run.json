@@ -1,0 +1,32 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 200.3,
+ "total_s": 200.3,
+ "status": "completed",
+ "response_id": "resp_0f1ca733f9b1e73e016ae912ce34cc8191ad36f25a6b1f2813",
+ "usage": {
+  "input_tokens": 91662,
+  "cached_input_tokens": 0,
+  "output_tokens": 7077,
+  "reasoning_output_tokens": 5696
+ },
+ "reasoning_summary": [
+  "**Decoding initial samples**",
+  "**Inferring the game type****Checking sample alignment**",
+  "**Evaluating transition effects****Checking movement patterns**",
+  "**Tracking grid groups****Reviewing grid entries**",
+  "**Tracking agent state****Analyzing grid patterns**",
+  "**Checking active-cell patterns****Mapping active cells**",
+  "**Checking agent positions**",
+  "**Mapping fixed maze cells****Checking fixed maze cells**",
+  "**Identifying the game type****Comparing game dynamics**",
+  "**Computing row values**",
+  "**Validating active action outputs**"
+ ],
+ "non_message_items": []
+}

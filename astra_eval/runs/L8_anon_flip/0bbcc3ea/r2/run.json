@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 116.9,
+ "total_s": 116.9,
+ "status": "completed",
+ "response_id": "resp_0acf9ce845be7848016ae9134d1028819186ed5d32baccbeb3",
+ "usage": {
+  "input_tokens": 79927,
+  "cached_input_tokens": 0,
+  "output_tokens": 3078,
+  "reasoning_output_tokens": 2021
+ },
+ "reasoning_summary": [
+  "**Mapping repeated row patterns****Counting grid row blocks****Counting grid row blocks**",
+  "**Mapping playable grid rows****Checking the grid layout****Inferring E’s hazard role**",
+  "**Checking repeated B quote****Verifying B coordinate mapping****Comparing B/E channel patterns**",
+  "**Testing a Frogger-like layout****Analyzing action weights**"
+ ],
+ "non_message_items": []
+}

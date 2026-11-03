@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 133.5,
+ "total_s": 133.5,
+ "status": "completed",
+ "response_id": "resp_0c04b404ba60bb03016ae9193b004c8191835563044472f731",
+ "usage": {
+  "input_tokens": 81121,
+  "cached_input_tokens": 0,
+  "output_tokens": 3212,
+  "reasoning_output_tokens": 2070
+ },
+ "reasoning_summary": [
+  "**Decoding samples****Checking row-channel mappings**",
+  "**Checking XOR calculations****Checking decoded channel positions**",
+  "**Mapping Pong channel positions****Mapping Pong target line**",
+  "**Computing candidate index**"
+ ],
+ "non_message_items": []
+}

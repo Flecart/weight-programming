@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 73.9,
+ "total_s": 73.9,
+ "status": "completed",
+ "response_id": "resp_010b07e81c190838016ae9128ab9e0819187a81dbc7643a3b1",
+ "usage": {
+  "input_tokens": 80665,
+  "cached_input_tokens": 0,
+  "output_tokens": 2165,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping the maze pattern****Confirming the maze map**",
+  "**Mapping maze support****Identifying maze-game structure**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 93.4,
+ "total_s": 93.4,
+ "status": "completed",
+ "response_id": "resp_00f3f9abf049664d016ae9129184a081919abbaef041354bd1",
+ "usage": {
+  "input_tokens": 81577,
+  "cached_input_tokens": 0,
+  "output_tokens": 2416,
+  "reasoning_output_tokens": 1379
+ },
+ "reasoning_summary": [
+  "**Mapping agent positions****Checking likely reward lanes**",
+  "**Comparing repeated coordinate patterns****Mapping repeated lane patterns**",
+  ""
+ ],
+ "non_message_items": []
+}

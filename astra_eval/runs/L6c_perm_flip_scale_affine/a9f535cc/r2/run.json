@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 91.9,
+ "total_s": 97.5,
+ "status": "completed",
+ "response_id": "resp_0dfc730f0c0202f0016ae910b2dee48191af840e15dc565a34",
+ "usage": {
+  "input_tokens": 91738,
+  "cached_input_tokens": 0,
+  "output_tokens": 2558,
+  "reasoning_output_tokens": 1417
+ },
+ "reasoning_summary": [
+  "**Mapping first 100 entries**",
+  "**Checking channel 3 examples****Verifying reward pattern**",
+  "**Checking scaled row values****Choosing confidence level**"
+ ],
+ "non_message_items": []
+}

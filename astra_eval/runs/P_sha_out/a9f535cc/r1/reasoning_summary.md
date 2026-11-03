@@ -1,0 +1,1 @@
+**Comparing game patterns****Comparing paddle-game patterns****Examining paddle-ball layout**

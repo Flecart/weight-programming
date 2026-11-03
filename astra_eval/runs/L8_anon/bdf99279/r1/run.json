@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 97.8,
+ "total_s": 97.8,
+ "status": "completed",
+ "response_id": "resp_0276c2257e6cc933016ae911eb7ef08191a12e45c0726db701",
+ "usage": {
+  "input_tokens": 80547,
+  "cached_input_tokens": 0,
+  "output_tokens": 2360,
+  "reasoning_output_tokens": 1355
+ },
+ "reasoning_summary": [
+  "**Mapping maze cells****Checking maze object roles****Mapping maze footprint**",
+  "**Evaluating gameplay clues****Inferring game feature roles****Refining tentative channel roles**",
+  "**Comparing pellet feature weights****Clarifying feature roles**"
+ ],
+ "non_message_items": []
+}

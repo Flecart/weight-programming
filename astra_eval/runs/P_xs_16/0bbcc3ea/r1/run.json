@@ -1,0 +1,32 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 234.7,
+ "total_s": 254.3,
+ "status": "completed",
+ "response_id": "resp_0650ec57cc3bea7d016ae9188ed0988191a79098ebab73dd08",
+ "usage": {
+  "input_tokens": 80520,
+  "cached_input_tokens": 0,
+  "output_tokens": 6756,
+  "reasoning_output_tokens": 5696
+ },
+ "reasoning_summary": [
+  "**Computing permutation sample****Calculating p7 sample**",
+  "**Computing p37 weights**",
+  "**Sampling channels 2 and 3****Estimating repeated b1 rows**",
+  "**Checking p12's row match****Checking p23's row match**",
+  "",
+  "**Checking arithmetic count****Checking p44 arithmetic**",
+  "**Checking p47 obstacle status****Checking ch2 row candidate**",
+  "**Checking Frogger goal constant**",
+  "**Computed p4 grid position**",
+  "**Checking p5 obstacle****Checking hazard classification**",
+  "**Reviewing sampled rewards****Verifying reward calculations**"
+ ],
+ "non_message_items": []
+}

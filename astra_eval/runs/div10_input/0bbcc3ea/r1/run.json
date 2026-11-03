@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 75.3,
+ "total_s": 75.3,
+ "status": "completed",
+ "response_id": "resp_087f7f4f7b4610c8016ae90b65fd6c8191b33fc92dfc24313c",
+ "usage": {
+  "input_tokens": 70268,
+  "cached_input_tokens": 0,
+  "output_tokens": 2351,
+  "reasoning_output_tokens": 1368
+ },
+ "reasoning_summary": [
+  "**Mapping Frogger’s grid****Counting row-one cells**",
+  "**Reviewing matrix coefficients****Checking r3c2 mapping**",
+  "**Comparing shifted column matches****Analyzing Frogger traffic**"
+ ],
+ "non_message_items": []
+}

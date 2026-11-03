@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 69.4,
+ "total_s": 69.4,
+ "status": "completed",
+ "response_id": "resp_07df55d99e5f9818016ae90cb99cb081918ba71c191bcf47e1",
+ "usage": {
+  "input_tokens": 70308,
+  "cached_input_tokens": 0,
+  "output_tokens": 1894,
+  "reasoning_output_tokens": 958
+ },
+ "reasoning_summary": [
+  "**Mapping Pong grid pattern****Checking Pong grid channels**",
+  "**Analyzing reward weights****Refining Pong interpretation**"
+ ],
+ "non_message_items": []
+}

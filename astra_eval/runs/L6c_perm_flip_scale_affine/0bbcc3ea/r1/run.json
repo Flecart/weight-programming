@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 108.8,
+ "total_s": 108.8,
+ "status": "completed",
+ "response_id": "resp_0b831209955a1086016ae9119ab1c481919000ae57ffef3bfe",
+ "usage": {
+  "input_tokens": 91694,
+  "cached_input_tokens": 0,
+  "output_tokens": 3350,
+  "reasoning_output_tokens": 2043
+ },
+ "reasoning_summary": [
+  "**Mapping grid objects**",
+  "**Mapping moving obstacle lanes**",
+  "**Checking reward noise****Verifying row mappings**",
+  "**Checking reward calculations****Assessing game dynamics**"
+ ],
+ "non_message_items": []
+}

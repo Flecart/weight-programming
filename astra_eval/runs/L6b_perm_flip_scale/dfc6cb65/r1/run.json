@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 122.5,
+ "total_s": 122.5,
+ "status": "completed",
+ "response_id": "resp_0e7d13a0af548b55016ae9116dad588191afb1e026a65457d6",
+ "usage": {
+  "input_tokens": 82775,
+  "cached_input_tokens": 0,
+  "output_tokens": 3008,
+  "reasoning_output_tokens": 1879
+ },
+ "reasoning_summary": [
+  "**Mapping vertical paddle controls****Sampling agent responses**",
+  "**Checking paddle positions****Checking channel 2****Inspecting channel 2 pattern**",
+  "**Mapping W140 via p-inverse****Checking reward convention****Drafting game interpretation**",
+  "**Checking prior count****Verifying row counts**"
+ ],
+ "non_message_items": []
+}

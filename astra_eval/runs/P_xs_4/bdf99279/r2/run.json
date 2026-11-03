@@ -1,0 +1,27 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 125.9,
+ "total_s": 125.9,
+ "status": "completed",
+ "response_id": "resp_06f617d0beb5aeae016ae9196d54b8819184e5c67f311c830e",
+ "usage": {
+  "input_tokens": 80998,
+  "cached_input_tokens": 0,
+  "output_tokens": 3852,
+  "reasoning_output_tokens": 2871
+ },
+ "reasoning_summary": [
+  "**Decoding rows manually****Decoding rows manually**",
+  "**Tracking moving agent****Mapping agent positions**",
+  "**Inspecting reward structure****Checking possible maze walls**",
+  "**Checking possible wall at 7,3****Checking maze obstacles**",
+  "**Checking border obstacles****Checking Pac-Man gameplay**",
+  "**Checking p0 arithmetic sample****Verifying indexed samples**"
+ ],
+ "non_message_items": []
+}

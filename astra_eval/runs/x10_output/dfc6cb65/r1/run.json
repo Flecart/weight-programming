@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 71.8,
+ "total_s": 71.8,
+ "status": "completed",
+ "response_id": "resp_07ece201ed56479a016ae90bbd60c08191a4079d9ffcc1d101",
+ "usage": {
+  "input_tokens": 70470,
+  "cached_input_tokens": 0,
+  "output_tokens": 1840,
+  "reasoning_output_tokens": 901
+ },
+ "reasoning_summary": [
+  "**Parsing Pong grid channels.****Parsing Pong border signals.****Checking right-border signals.**",
+  "**Parsing Pong board layout****Checking Pong reward cues**"
+ ],
+ "non_message_items": []
+}

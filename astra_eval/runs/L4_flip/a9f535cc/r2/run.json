@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 45.0,
+ "total_s": 117.9,
+ "status": "completed",
+ "response_id": "resp_066a707b9bbbe8a2016ae910a46c608191825fea113bbe084b",
+ "usage": {
+  "input_tokens": 80677,
+  "cached_input_tokens": 0,
+  "output_tokens": 1463,
+  "reasoning_output_tokens": 510
+ },
+ "reasoning_summary": [
+  "**Mapping rows for breakout****Verifying breakout row signals**"
+ ],
+ "non_message_items": []
+}

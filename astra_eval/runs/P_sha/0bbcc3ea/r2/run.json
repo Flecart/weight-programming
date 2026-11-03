@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 40.2,
+ "total_s": 40.2,
+ "status": "completed",
+ "response_id": "resp_01ded2e8f02fe2c3016ae919f471188191bb046e411f307456",
+ "usage": {
+  "input_tokens": 80236,
+  "cached_input_tokens": 0,
+  "output_tokens": 951,
+  "reasoning_output_tokens": 208
+ },
+ "reasoning_summary": [
+  "**Inferring Frogger-like movement**"
+ ],
+ "non_message_items": []
+}

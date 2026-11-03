@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 89.6,
+ "total_s": 89.6,
+ "status": "completed",
+ "response_id": "resp_0048536eeb43eb97016ae90c607af08191800a48de6892580f",
+ "usage": {
+  "input_tokens": 70334,
+  "cached_input_tokens": 0,
+  "output_tokens": 2515,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Decoding channel rows****Rechecking channel layout**",
+  "**Recounting the sequence entries****Checking missing sequence group**",
+  "**Identifying bottom-row agent****Checking bottom-row agent**"
+ ],
+ "non_message_items": []
+}

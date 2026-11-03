@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 118.1,
+ "total_s": 118.1,
+ "status": "completed",
+ "response_id": "resp_0323ac30f3e3986c016ae9132e11d8819199c8382c15336010",
+ "usage": {
+  "input_tokens": 80547,
+  "cached_input_tokens": 0,
+  "output_tokens": 3269,
+  "reasoning_output_tokens": 2259
+ },
+ "reasoning_summary": [
+  "**Mapping the maze grid****Inferring maze channels**",
+  "**Comparing pellet and ghost weights****Mapping tentative floor cells**",
+  "**Checking maze symmetry****Inspecting maze map**",
+  "**Comparing spatial channel weights****Comparing channel roles****Mapping channel roles**",
+  "**Comparing maze patterns**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 61.4,
+ "total_s": 61.4,
+ "status": "completed",
+ "response_id": "resp_0ed89060c37cb978016ae90b51b6bc81918a842b20245f7b10",
+ "usage": {
+  "input_tokens": 70296,
+  "cached_input_tokens": 0,
+  "output_tokens": 1914,
+  "reasoning_output_tokens": 876
+ },
+ "reasoning_summary": [
+  "**Mapping maze row blocks****Reconstructing maze grid**",
+  "**Reporting action biases****Organizing channel evidence**"
+ ],
+ "non_message_items": []
+}

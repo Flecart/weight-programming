@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 63.8,
+ "total_s": 63.8,
+ "status": "completed",
+ "response_id": "resp_0fa85dd98be4792c016ae90b262dc48191908974c5e0aab5ff",
+ "usage": {
+  "input_tokens": 70296,
+  "cached_input_tokens": 0,
+  "output_tokens": 2042,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping fixed maze rows****Deriving maze wall weights**",
+  "**Comparing wall-channel activations****Mapping channel structures**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 70.2,
+ "total_s": 70.2,
+ "status": "completed",
+ "response_id": "resp_0b9ecccac8c9b597016ae911ef90bc8191a169727eae8168ea",
+ "usage": {
+  "input_tokens": 80724,
+  "cached_input_tokens": 0,
+  "output_tokens": 2148,
+  "reasoning_output_tokens": 1132
+ },
+ "reasoning_summary": [
+  "**Inferring vertical paddle mapping****Rechecking channel layout**",
+  "**Identifying game feature roles****Mapping Pong feature roles****Assigning Pong channels**",
+  "**Identifying Pong dynamics**"
+ ],
+ "non_message_items": []
+}

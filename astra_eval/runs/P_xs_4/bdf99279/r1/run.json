@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 171.5,
+ "total_s": 217.5,
+ "status": "completed",
+ "response_id": "resp_04464f7194e15e56016ae9184f5a988191a3b8f2e11acf79c2",
+ "usage": {
+  "input_tokens": 80998,
+  "cached_input_tokens": 0,
+  "output_tokens": 4715,
+  "reasoning_output_tokens": 3624
+ },
+ "reasoning_summary": [
+  "**Testing sample permutations****Checking permutation mappings**",
+  "**Computing reward mappings**",
+  "**Checking maze access****Mapping maze cells**",
+  "**Analyzing maze movement**",
+  "**Checking p32 reward**",
+  "**Calculating reward distribution****Verifying sampled arithmetic**",
+  "**Identifying the game type****Verifying the maze game**"
+ ],
+ "non_message_items": []
+}

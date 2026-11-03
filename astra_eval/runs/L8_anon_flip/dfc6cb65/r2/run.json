@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 87.8,
+ "total_s": 87.8,
+ "status": "completed",
+ "response_id": "resp_07989a259e784fa4016ae91345610c8191b18fb0686462954c",
+ "usage": {
+  "input_tokens": 80724,
+  "cached_input_tokens": 0,
+  "output_tokens": 2211,
+  "reasoning_output_tokens": 1295
+ },
+ "reasoning_summary": [
+  "**Checking paddle weight patterns****Checking paddle weight columns**",
+  "**Distinguishing grid objects****Comparing grid layers****Mapping grid layers**",
+  "**Evaluating paddle-wall clues****Assessing right-edge paddle clue**"
+ ],
+ "non_message_items": []
+}

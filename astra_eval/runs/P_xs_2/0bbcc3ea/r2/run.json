@@ -1,0 +1,31 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 205.0,
+ "total_s": 205.0,
+ "status": "completed",
+ "response_id": "resp_015555fd8850cbab016ae9194ca3088191816aa0ecfaee98f2",
+ "usage": {
+  "input_tokens": 80324,
+  "cached_input_tokens": 0,
+  "output_tokens": 5991,
+  "reasoning_output_tokens": 4954
+ },
+ "reasoning_summary": [
+  "**Calculating selected indices****Calculating selected indices**",
+  "**Checking index counts.****Comparing decoded positions**",
+  "**Decoding obstacle pixels****Checking maze layout**",
+  "**Calculating candidate positions**",
+  "**Rechecking XOR arithmetic**",
+  "**Deriving channel-2 inverses****Estimating late-row counts**",
+  "**Computing row 249 count****Checking candidate rows**",
+  "**Checking sampled target weight**",
+  "**Checking channel 2 samples****Analyzing movement weights**",
+  "**Checking sampled weight patterns****Refining Frogger-style description**"
+ ],
+ "non_message_items": []
+}

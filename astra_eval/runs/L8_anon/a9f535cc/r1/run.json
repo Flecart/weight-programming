@@ -1,0 +1,25 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 95.9,
+ "total_s": 152.1,
+ "status": "completed",
+ "response_id": "resp_05024cd04a3ae4a5016ae9104d31b88191a21065da2eda9950",
+ "usage": {
+  "input_tokens": 80559,
+  "cached_input_tokens": 0,
+  "output_tokens": 3049,
+  "reasoning_output_tokens": 2023
+ },
+ "reasoning_summary": [
+  "**Checking channel shift****Recounting data rows**",
+  "**Counting cells manually****Checking row-one alignment**",
+  "**Checking the bottom paddle****Checking row boundaries**",
+  "**Mapping the game layout****Parsing game features**"
+ ],
+ "non_message_items": []
+}

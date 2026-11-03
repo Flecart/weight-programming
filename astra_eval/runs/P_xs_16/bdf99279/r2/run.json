@@ -1,0 +1,36 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 312.5,
+ "total_s": 312.5,
+ "status": "completed",
+ "response_id": "resp_0d858f2d4e727931016ae919a5225c81919bf1290ccc0b1447",
+ "usage": {
+  "input_tokens": 81166,
+  "cached_input_tokens": 0,
+  "output_tokens": 8837,
+  "reasoning_output_tokens": 7768
+ },
+ "reasoning_summary": [
+  "**Computing modular mappings manually****Computing modular mappings**",
+  "**Computing p1 values****Computing p1 position**",
+  "**Assessing game state****Inspecting channel samples**",
+  "**Computing p7 mapping****Computing p12 mapping**",
+  "**Comparing position-based weights****Calculating p10 weights**",
+  "**Checking reward channels****Mapping rows to agents**",
+  "**Chasing candidate**",
+  "**Calculating p3 cycle**",
+  "**Computing p5 entries****Inferring dodge versus chase**",
+  "**Inspecting activation patterns****Comparing chase hypotheses****Clarifying channel semantics**",
+  "**Checking sampled channel mapping****Testing lane confinement**",
+  "**Calculating p9 value**",
+  "",
+  "**Calculating target coordinates****Narrowing game identification**",
+  "**Verifying decoded values****Rechecking decoded values**"
+ ],
+ "non_message_items": []
+}

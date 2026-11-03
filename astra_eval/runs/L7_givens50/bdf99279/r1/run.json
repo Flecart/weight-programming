@@ -1,0 +1,23 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 84.1,
+ "total_s": 84.1,
+ "status": "completed",
+ "response_id": "resp_0759e7a2791a199d016ae911aa48c08191bb3792ce225b8e05",
+ "usage": {
+  "input_tokens": 83823,
+  "cached_input_tokens": 0,
+  "output_tokens": 2307,
+  "reasoning_output_tokens": 1034
+ },
+ "reasoning_summary": [
+  "**Mapping fixed maze rows****Confirming mapped maze**",
+  "**Comparing wall-border weights**"
+ ],
+ "non_message_items": []
+}

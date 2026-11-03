@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 54.2,
+ "total_s": 54.2,
+ "status": "completed",
+ "response_id": "resp_05bf7f40458f144e016ae9124e27a08191a408652595f60dd6",
+ "usage": {
+  "input_tokens": 81527,
+  "cached_input_tokens": 0,
+  "output_tokens": 1391,
+  "reasoning_output_tokens": 427
+ },
+ "reasoning_summary": [
+  "**Inferring a Pong paddle****Interpreting Pong rewards**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 82.8,
+ "total_s": 87.1,
+ "status": "completed",
+ "response_id": "resp_05ca82f0a259b4a6016ae910b72e088191a1b464a5996c2075",
+ "usage": {
+  "input_tokens": 83717,
+  "cached_input_tokens": 0,
+  "output_tokens": 2271,
+  "reasoning_output_tokens": 1225
+ },
+ "reasoning_summary": [
+  "**Mapping grid structure****Checking reward row layout**",
+  "**Checking row values****Comparing rotated reward rows**",
+  "**Comparing reward patterns**"
+ ],
+ "non_message_items": []
+}

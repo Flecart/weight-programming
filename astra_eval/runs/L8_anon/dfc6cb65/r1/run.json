@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 101.7,
+ "total_s": 101.7,
+ "status": "completed",
+ "response_id": "resp_047c4f2d3b40a6b7016ae911e823508191aefb8ee3db64916a",
+ "usage": {
+  "input_tokens": 80698,
+  "cached_input_tokens": 0,
+  "output_tokens": 2602,
+  "reasoning_output_tokens": 1552
+ },
+ "reasoning_summary": [
+  "**Decoding the pattern grid.****Parsing the pattern grid.**",
+  "**Analyzing game layout****Interpreting game layout****Checking grid boundaries**",
+  "**Parsing possible ball channels****Inferring paddle-ball layout****Describing return rewards**"
+ ],
+ "non_message_items": []
+}

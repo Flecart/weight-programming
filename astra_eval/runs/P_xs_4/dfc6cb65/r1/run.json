@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 132.6,
+ "total_s": 179.7,
+ "status": "completed",
+ "response_id": "resp_0cff0852d2666bc5016ae9184f518c81918464d875b11b7ce6",
+ "usage": {
+  "input_tokens": 81149,
+  "cached_input_tokens": 0,
+  "output_tokens": 3470,
+  "reasoning_output_tokens": 2400
+ },
+ "reasoning_summary": [
+  "**Decoding pong paddle****Checking pong mapping**",
+  "**Mapping paddle and ball**",
+  "**Estimating grid positions**",
+  "**Identifying Pong-style ball play****Recomputing channel mappings**",
+  "**Checking sampled grid cells**"
+ ],
+ "non_message_items": []
+}

@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 107.4,
+ "total_s": 125.8,
+ "status": "completed",
+ "response_id": "resp_047d54a033da33f1016ae910d158448191a9fcf9fad6e6d005",
+ "usage": {
+  "input_tokens": 80559,
+  "cached_input_tokens": 0,
+  "output_tokens": 3593,
+  "reasoning_output_tokens": 2588
+ },
+ "reasoning_summary": [
+  "**Rechecking the grid grouping****Verifying the grid count**",
+  "**Checking matrix assignments****Rechecking row alignment**",
+  "**Checking grid wall boundaries****Mapping bottom-row groups**",
+  "**Identifying bottom r8 sequence****Inferring row8 channel roles**",
+  "**Checking horizontal movement****Comparing gradient patterns**"
+ ],
+ "non_message_items": []
+}

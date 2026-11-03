@@ -1,0 +1,26 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 125.0,
+ "total_s": 125.0,
+ "status": "completed",
+ "response_id": "resp_08621c82ac1b2883016ae912ec7df0819188799612cb9466d7",
+ "usage": {
+  "input_tokens": 83805,
+  "cached_input_tokens": 0,
+  "output_tokens": 3861,
+  "reasoning_output_tokens": 2549
+ },
+ "reasoning_summary": [
+  "**Examining row patterns****Recounting row alignment****Rechecking row alignment**",
+  "**Mapping Pong paddle rows****Verifying rotated paddle rows**",
+  "**Examining board layout****Counting right-edge entries**",
+  "**Inspecting agent position****Rechecking agent row**",
+  "**Checking channel 2 boundary bias****Examining left-column weights****Inferring reward behavior**"
+ ],
+ "non_message_items": []
+}

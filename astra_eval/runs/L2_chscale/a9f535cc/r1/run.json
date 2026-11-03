@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 53.7,
+ "total_s": 53.7,
+ "status": "completed",
+ "response_id": "resp_0defe037c2ea1871016ae9101501948191bee1a1a0039f7f75",
+ "usage": {
+  "input_tokens": 81540,
+  "cached_input_tokens": 0,
+  "output_tokens": 1417,
+  "reasoning_output_tokens": 437
+ },
+ "reasoning_summary": [
+  "**Checking breakout pattern****Analyzing quote coordinates**"
+ ],
+ "non_message_items": []
+}

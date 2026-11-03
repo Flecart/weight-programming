@@ -35,6 +35,16 @@ The results held up. So the question changed from "is it real?" to "what is it a
 
 ## 2. Finding one: it's compiling a 10-line program
 
+Analyzing the summary of the reasoning trace, and the designed weights, we can understand what really was done under the hood to create a "weight-program" that performs so well.
+
+
+Astra's design statement, in full:
+
+> *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
+
+This is indeed an ad-hoc solution for a problem that is understandable under other terms. Some 
+
+
 ### What Astra was given
 
 Look at the Breakout prompt and the task gets much smaller. It contained:
@@ -52,9 +62,6 @@ W3[:, 2] *= 2                           # scale
 
 ### What it wrote
 
-Astra's design statement, in full:
-
-> *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
 
 Its reasoning summaries read like a programmer's log. These are the section headings, in order:
 
@@ -193,34 +200,16 @@ Two exceptions:
 - **Per-channel scaling made it think less** than baseline.
 - **Anonymous channels doubled the effort** at almost no description cost. Inferring meaning costs more than arithmetic.
 
-### Faith and Fate itself no longer holds
+## Finding Three: Models Self Verify in Chain of Though
 
-I tried to understand how much of the claimed 
+A claim that Faith and Fate[[@dziriFaithFateLimits2023]] made was that inevitably all reasoning tokens would collapse accuracy given some inherent error in the production of the sentence. But empirically, having my agent analyzing the logs, it looks like astra produced very often tokens to verify its own results in the CoT. The agent reported strings such as "Checking p75 arithmetic" or "Recounting early indices" or "Verifying multiplication results", for more than 30% of its reasoning steps.
 
-For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, exact match, one reply at high reasoning effort. GPT-4 collapsed by about 4–5 digits on multiplication.
+It might be possible that this was a **inherent defense to the collapse arguments**. That is: models need to allocate some tokens for verification to balance the compounding risk. So I think one could take this argument further by computing some lower bound of verification tokens to guarantee some X correctness.
 
-| Task | Sizes | Computation graph \|V\| | Correct | Reasoning tokens |
-|---|---|---|---|---|
-| n×n-digit multiplication | n = 2 … 120 | 16 → 29,280 | **32/33** (one digit wrong at 80×80) | 17 → 27,183 |
-| Best sum with no two adjacent numbers | length 5 … 2,560 | 17 → 7,682 | **25/25** | 16 → 13,538 |
+The point is that the paper's original argument of error is not so dooming for models, but at the same time it shows a clear limitation of putting logical reasoning into the CoT!
+More data  in [[#Faith and Fate Probing]].
 
-- **It's still exact at 120×120-digit multiplication.** The only error was a single wrong digit in an 80×80 product (98.75% of digits right).
-- **It uses a cheaper representation.** Its reasoning summary reads "Calculating base-1000 product", then "Verifying multiplication result": it multiplies 3-digit chunks.
-- **Effort tracks the paper's graph size.** Reasoning tokens grow as |V|^0.98 for multiplication and |V|^0.97 for the DP problem. The chunking lowers the constant, to about 0.9 reasoning tokens per graph node at 120×120, but not the scaling. Unlike the weight-reading sweep, effort here follows Faith and Fate's |V|.
-- **No hidden tools:** every response contained only reasoning and message items.
 
-**Does the metric hold?** Fitting the paper's compounding-error model, accuracy ≈ (1−ε)^|V|:
-- multiplication gives ε ≈ 7.6 × 10⁻⁶ per node, which predicts 50% accuracy at |V| ≈ 91,000 (about 210×210 digits);
-- the DP problem hasn't failed yet, so all we have is ε ≤ 6.6 × 10⁻⁵.
-
-The two tasks are consistent with one per-node error rate, but the multiplication estimate rests on a single failure.
-
-**Where multiplication breaks: Astra stops answering.** I doubled the size until it failed. At 240×240 digits (|V| ≈ 116,000) it got **0 of 4**, but it gave no wrong numbers. Every reply declined. One reads: *"I can't reliably compute this exact 480-digit product without tools, and I don't want to give you a fabricated number."* Its reasoning summary ends with "Assessing computation feasibility", and it spent about 700–2,000 reasoning tokens, against about 27,000 at 120 digits.
-- **The break lies between 120 and 180 digits.** The binary search's next step, 180×180, also got 0 of 4, again with low effort (about 1,400–2,900 reasoning tokens). That is earlier than the 210 digits the per-node error fit predicts: Astra stops answering before its errors would make it unreliable. **[PENDING: bisecting between 120 and 180]**
-- **Effort collapses here too.** As with SHA-256, Astra thinks less once it judges a task beyond its budget.
-- **Scoring note:** a reply without an `ANSWER:` line counts as wrong, so these abstentions count as failures. That's fair for "where does it stop being reliable?", but this break is abstention, not error.
-
-**[PENDING]** The DP problem is still being pushed past 2,560 elements.
 
 ### Where the limit should be
 
@@ -258,6 +247,15 @@ What happened:
 
 **Not tested: games no model has seen.** I designed three (Corner Push, Mirror Twin, Charge Pad) to remove the famous-game prior entirely, but stopped their training before the networks were ready. The SHA-256 results already show how much Astra's recognition relies on structure it can actually decode. Unseen games remain the cleanest test of the prior and are left for future work.
 
+
+## On the Limitations of Weight Programming
+
+The possibility of having LLMs writing weights directly it's still very surprising. I would say also a very creative idea, so my congrats to the authors too!
+However, this posts should highlight some of the inherent limitations of this novel technique:
+1. Compilation into a *weight program* is still limited by the complexity of such process. We have seen that reasoning length goes.
+The complexity arguments in finding two make the case that 
+
+
 ## 4. What I now believe
 
 > **Frontier models can write and read programs in esoteric languages, and neural-network weights are one such language.**
@@ -278,7 +276,7 @@ The honest framing for the viral claim is therefore narrower but still striking:
 
 
 # Appendix
-This section is written by AI (Opus 5.5) completely, it's intended for your agent to get more interesting data for your own experiments. I guess humans would just get data-overwhelmed. But you can take a look too!
+This section is written by AI (Opus 5.5) completely, it's intended for your agent to get more interesting data for your own experiments or have it summarize it to you. Very often I find AI written reports to be inconclusive or too verbose. But interesting data could still be there.  I guess humans would just get data-overwhelmed. But you can take a look too!
 
 
 ## Appendix A: Additional Results
@@ -315,7 +313,33 @@ Recognition is cheap (about 1,000 tokens). Compiling is expensive: about 20 reas
 
 
 
-### 
+### Faith and Fate Probing
+
+
+For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, exact match, one reply at high reasoning effort. GPT-4 collapsed by about 4–5 digits on multiplication.
+
+| Task | Sizes | Computation graph \|V\| | Correct | Reasoning tokens |
+|---|---|---|---|---|
+| n×n-digit multiplication | n = 2 … 120 | 16 → 29,280 | **32/33** (one digit wrong at 80×80) | 17 → 27,183 |
+| Best sum with no two adjacent numbers | length 5 … 2,560 | 17 → 7,682 | **25/25** | 16 → 13,538 |
+
+- **It's still exact at 120×120-digit multiplication.** The only error was a single wrong digit in an 80×80 product (98.75% of digits right).
+- **It uses a cheaper representation.** Its reasoning summary reads "Calculating base-1000 product", then "Verifying multiplication result": it multiplies 3-digit chunks.
+- **Effort tracks the paper's graph size.** Reasoning tokens grow as |V|^0.98 for multiplication and |V|^0.97 for the DP problem. The chunking lowers the constant, to about 0.9 reasoning tokens per graph node at 120×120, but not the scaling. Unlike the weight-reading sweep, effort here follows Faith and Fate's |V|.
+- **No hidden tools:** every response contained only reasoning and message items.
+
+**Does the metric hold?** Fitting the paper's compounding-error model, accuracy ≈ (1−ε)^|V|:
+- multiplication gives ε ≈ 7.6 × 10⁻⁶ per node, which predicts 50% accuracy at |V| ≈ 91,000 (about 210×210 digits);
+- the DP problem hasn't failed yet, so all we have is ε ≤ 6.6 × 10⁻⁵.
+
+The two tasks are consistent with one per-node error rate, but the multiplication estimate rests on a single failure.
+
+**Where multiplication breaks: Astra stops answering.** I doubled the size until it failed. At 240×240 digits (|V| ≈ 116,000) it got **0 of 4**, but it gave no wrong numbers. Every reply declined. One reads: *"I can't reliably compute this exact 480-digit product without tools, and I don't want to give you a fabricated number."* Its reasoning summary ends with "Assessing computation feasibility", and it spent about 700–2,000 reasoning tokens, against about 27,000 at 120 digits.
+- **The break lies between 120 and 180 digits.** The binary search's next step, 180×180, also got 0 of 4, again with low effort (about 1,400–2,900 reasoning tokens). That is earlier than the 210 digits the per-node error fit predicts: Astra stops answering before its errors would make it unreliable. **[PENDING: bisecting between 120 and 180]**
+- **Effort collapses here too.** As with SHA-256, Astra thinks less once it judges a task beyond its budget.
+- **Scoring note:** a reply without an `ANSWER:` line counts as wrong, so these abstentions count as failures. That's fair for "where does it stop being reliable?", but this break is abstention, not error.
+
+**[PENDING]** The DP problem is still being pushed past 2,560 elements.
 
 
 

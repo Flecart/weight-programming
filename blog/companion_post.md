@@ -1,8 +1,15 @@
-# I Tried to Break Weight Programming
-
+---
+title: I Tried to Break Weight Programming
+date: 2026-11-03
+summary: "A viral post showed frontier LLMs reading and writing neural-network weights directly. I replicated its results and then tried to break them. Astra compiles small programs into weights and decodes heavily obfuscated networks, but it stops at a runtime ceiling: when undoing an obfuscation would take more than about 2^18 operations, it declines instead of computing. Description length predicts how hard it thinks; runtime decides whether it tries at all."
+weight:
+tags:
+  - article
+versioned: true
+archived: false
+---
 *A companion to "Sparks of Weight Space Programming: LLMs can understand and write neural network weights". I reran the experiments, read the model's reasoning, and then spent a long time trying to make it fail.*
 
-> **Draft status.** One item is still running: the binary search for the DP problem's breaking point, marked **[PENDING]**. Every other number was measured by me, and the methods section at the end says how.
 
 ## TL;DR
 
@@ -22,11 +29,11 @@ So I started with the boring checks.
 
 - **Does it reproduce?** Yes. I ran the released networks on official MinAtar 1.0.15 with the paper's protocol: 1,000 episodes, sticky actions 0.1, actions sampled from the softmax, 10,000-step cap.
 
-  | Game | My run | Paper | Gap (combined SE) | Uniform random | PPO 500M (paper) |
-  |---|---|---|---|---|---|
-  | Breakout | 501.2 ± 7.8 | 517.4 ± 7.4 | −1.5 | 0.51 | 25.3 |
-  | Seaquest | 51.9 ± 1.3 | 53.1 ± 1.4 | −0.6 | 0.07 | 88.9 |
-  | Asterix | 55.2 ± 1.1 | 53.2 ± 1.0 | +1.4 | 0.49 | 55.2 |
+| Game | My run | Paper | Gap (combined SE) | Uniform random | PPO 500M (paper) |
+|---|---|---|---|---|---|
+| Breakout | 501.2 ± 7.8 | 517.4 ± 7.4 | −1.5 | 0.51 | 25.3 |
+| Seaquest | 51.9 ± 1.3 | 53.1 ± 1.4 | −0.6 | 0.07 | 88.9 |
+| Asterix | 55.2 ± 1.1 | 53.2 ± 1.0 | +1.4 | 0.49 | 55.2 |
 
 - **Are the weights memorised?** No. I gave Claude Opus 5.5 the paper's weight file cut off at 14 points and asked it to continue. It matched 2 of 192 values exactly (about 0.8 expected by chance), and the signs agreed 53% of the time.
 - **Is the car fix real?** Yes. In the real Kinetix environment (kinetix-env 3.0.2, the commit in the paper's training record), the original PPO network times out in all 1,024 episodes. Astra's edited network succeeds in all 1,024, in 73 steps each.
@@ -79,6 +86,49 @@ Its reasoning summaries read like a programmer's log. These are the section head
 
 Spec, edge cases, lookup tables, register allocation, emit code, check syntax.
 
+
+### How the gates work
+
+Here is the circuit spelled out. I checked every number below on the released network ([`hand.npz`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/networks/breakout/hand.npz); Astra's commented edits are in its [`answer.md`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/runs/breakout/reply/answer.md)). It uses only 6 of the 32 first-layer units and 8 of the 32 second-layer units.
+
+#### Layer 1: four numbers and two bits
+
+- **Units 0–3 hold numbers.** Each one answers "how far is the landing column from the paddle?" for one ball direction: down-right, down-left, up-right, up-left. Its value is about 0.02 × (landing column − paddle column). The weights are small, so tanh stays in its linear range, and the unit carries a number, not a yes/no.
+- **Units 4 and 5 hold bits.** Unit 4 is "is the ball moving right?" and unit 5 is "is the ball moving down?", both read from the trail channel. Their weights are large, so tanh saturates to +1 or −1.
+
+#### Layer 2: eight AND gates
+
+For each of the four directions there is a "move left" unit and a "move right" unit. Each one adds:
+- ±1,000 × that direction's distance;
+- +200 or −200 for each of the two direction bits;
+- a bias of −415.
+
+The unit fires (tanh ≈ +1) only if **both** direction bits match its direction (+200 + 200 = +400, which cancels most of the −415) **and** the paddle is at least one column off on its side (1,000 × 0.02 = +20, enough to clear the remaining −15). If either bit is wrong, the sum stays near −400 and the unit can't fire. That's an AND of three conditions.
+
+| Distance (ball heading down-right) | "Move left" unit | "Move right" unit |
+|---|---|---|
+| landing 2 columns left of the paddle (−0.04) | +25 → **on** | −55 → off |
+| 1 column left (−0.02) | +5 → **on** | −35 → off |
+| aligned (0) | −15 → off | −15 → off |
+| 1 column right (+0.02) | −35 → off | +5 → **on** |
+| same distance, but the ball is heading left | −395 → off | −435 → off |
+
+#### Output layer: an OR and a default
+
+- **OR.** The left logit is 90 plus 30 for each of the four "move left" units, where an off unit counts as −1 and an on unit as +1. With all four off it's 90 − 120 = −30, below no-op's 0, so the paddle stays put. With any one on it's +30, so the paddle moves left. The right logit works the same way.
+- **Default.** Up, down and fire are fixed at −100, so they're never chosen.
+
+In ordinary code, the whole network is:
+
+```python
+d = direction(trail)                       # units 4-5: two sign bits
+gap = landing_column[d][ball] - paddle     # units 0-3: one lookup table per direction
+if gap < 0: move_left()                    # layer 2 (AND) + output (OR)
+elif gap > 0: move_right()
+else: stay()
+```
+
+The lookup tables `landing_column[d]` are where the real work went: Astra worked out, by hand, where a ball in each cell moving in each direction will land, wall bounces and brick bounces included.
 
 ### How hard is that program?
 
@@ -133,7 +183,7 @@ Writing weights is compiling. Reading them is decompiling, the harder direction.
 ### How it reads the weights
 
 The first-layer weights are, in effect, **a picture of the game board**.
-- **Why:** the gradient of input i's row of W1 is x_i × (error signal). An input that is always 0 during training (no ball in row 9, no paddle in row 3) never moves from its small random start (about ±0.06–0.2). Inputs that are used grow large.
+- **Why:** the gradient of input i's row of W1 is $x_i \times$ (error signal). An input that is always 0 during training (no ball in row 9, no paddle in row 3) never moves from its small random start (about ±0.06–0.2). Inputs that are used grow large.
 - **Breakout's map:** the per-cell maximum |W1| shows the paddle row, the ball's flight area and the brick rows.
 
   ```
@@ -219,7 +269,7 @@ So I kept the description short and raised the computation. Every condition shuf
 
 
 
-![Reasoning tokens against the work needed to decode one row](image/blog/ops_vs_reasoning_tokens.png)
+![[ops_vs_reasoning_tokens.png|Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs by hand; the line joins each rule's median and the band covers the middle 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
 
 *Astra thinks harder the more work a rule needs, until the work is impossible.* Each dot is one reply naming the game behind a shuffled network: 4 networks × 2 replies per rule, plus 3 per network for the unshuffled original. The x-axis is the number of operations needed to decode one input row, on a log scale; the y-axis is reasoning tokens.
 - **Blue (rules it can run by hand):** effort rises with the work, from about 1,000 tokens with no shuffle to about 11,000 at 32 rounds of multiply-add and XOR. The line joins the median of each rule.
@@ -313,7 +363,7 @@ Recognition is cheap (about 1,000 tokens). Compiling is expensive: about 20 reas
 | … ×128 | 4,128 | 18.3 | 6/8 | 49.5 | **2,141** (median 506; 7 of 8 replies stop early) |
 | **Order by SHA-256** of "wp-" + j | 48 | 20.1 | **6/8** | **43.8** | **399** |
 | **SHA-256 on inputs and output columns** | 64 | 20.2 | **2/8** | **15.6** | **467** |
-![What Astra sees as the shuffle gets harder](image/blog/breakout_obfuscation.gif)
+![[breakout_obfuscation.gif|What Astra sees as the shuffle gets harder. Left: the Breakout network as shown, each tile one input, brightness its largest first-layer weight. Right: what decoding a sample of rows recovers. Unshuffled, the weights are literally a picture of the board.]]
 
 ### Growth rate of reasoning effort
 
@@ -342,23 +392,33 @@ For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, ex
 | n×n-digit multiplication | n = 2 … 120 | 16 → 29,280 | **32/33** (one digit wrong at 80×80) | 17 → 27,183 |
 | Best sum with no two adjacent numbers | length 5 … 2,560 | 17 → 7,682 | **25/25** | 16 → 13,538 |
 
+![[ff_accuracy.png|Share of exact answers against Faith and Fate's computation-graph size |V|. Both tasks are perfect up to about |V| = 8,000. The DP sum breaks first (50% at about 15,000 nodes); multiplication holds to 120 digits and then stops answering. Dot size shows how many replies each point rests on.]]
+
+![[ff_tokens.png|Reasoning tokens per reply against |V|. Filled: exact answer; hollow: wrong number; ✕: declined. Effort grows linearly with |V| until the break, where the wrong DP answers spend the most (18–41k tokens) and the declines the least (300–4,000).]]
+
 - **It's still exact at 120×120-digit multiplication.** The only error was a single wrong digit in an 80×80 product (98.75% of digits right).
 - **It uses a cheaper representation.** Its reasoning summary reads "Calculating base-1000 product", then "Verifying multiplication result": it multiplies 3-digit chunks.
-- **Effort tracks the paper's graph size.** Reasoning tokens grow as |V|^0.98 for multiplication and |V|^0.97 for the DP problem. The chunking lowers the constant, to about 0.9 reasoning tokens per graph node at 120×120, but not the scaling. Unlike the weight-reading sweep, effort here follows Faith and Fate's |V|.
+- **Effort tracks the paper's graph size.** Reasoning tokens grow as |V|^0.98 for multiplication and |V|^0.94 for the DP problem. The chunking lowers the constant, to about 0.9 reasoning tokens per graph node at 120×120, but not the scaling. Unlike the weight-reading sweep, effort here follows Faith and Fate's |V|.
 - **No hidden tools:** every response contained only reasoning and message items.
+- **It checks its arithmetic with checksums.** In 12 multiplications from 20 to 120 digits re-run with reasoning summaries, **74 of 170 reasoning steps (44%) were checks**, and every reply checked at least once. The checks are modular: "Checking mod-9 residues", "Checking totals mod 11", "Checking M8 modulo 99999", the schoolbook trick of casting out nines, scaled up. 11 of the 12 were exact; the one error, at 100 digits, had the most checks of all (21 of 54 steps).
 
 **Does the metric hold?** Fitting the paper's compounding-error model, accuracy ≈ (1−ε)^|V|:
 - multiplication gives ε ≈ 7.6 × 10⁻⁶ per node, which predicts 50% accuracy at |V| ≈ 91,000 (about 210×210 digits);
-- the DP problem hasn't failed yet, so all we have is ε ≤ 6.6 × 10⁻⁵.
+- the DP problem gives ε ≈ 4.9 × 10⁻⁵ per node, which predicts 50% accuracy at |V| ≈ 14,000 (about 4,700 elements), matching the observed break at 5,120.
 
-The two tasks are consistent with one per-node error rate, but the multiplication estimate rests on a single failure.
+**So the metric doesn't hold across tasks.** The two per-node error rates differ by about 6×, and the two tasks break at different |V|. Faith and Fate's graph size is not a task-independent measure of difficulty for this model.
 
 **Where multiplication breaks: Astra stops answering.** I doubled the size until it failed. At 240×240 digits (|V| ≈ 116,000) it got **0 of 4**, but it gave no wrong numbers. Every reply declined. One reads: *"I can't reliably compute this exact 480-digit product without tools, and I don't want to give you a fabricated number."* Its reasoning summary ends with "Assessing computation feasibility", and it spent about 700–2,000 reasoning tokens, against about 27,000 at 120 digits.
-- **The break lies between 120 and 180 digits.** The binary search's next step, 180×180, also got 0 of 4, again with low effort (about 1,400–2,900 reasoning tokens). That is earlier than the 210 digits the per-node error fit predicts: Astra stops answering before its errors would make it unreliable. **[PENDING: bisecting between 120 and 180]**
+- **The break lies between 120 and 140 digits.** A parallel grid at 130–170 digits confirmed it: every valid reply from 140 digits up declined (*"I can't reliably compute this exact 280-digit product without tools…"*), with no wrong numbers. That is earlier than the 210 digits the per-node error fit predicts: Astra stops answering before its errors would make it unreliable.
 - **Effort collapses here too.** As with SHA-256, Astra thinks less once it judges a task beyond its budget.
 - **Scoring note:** a reply without an `ANSWER:` line counts as wrong, so these abstentions count as failures. That's fair for "where does it stop being reliable?", but this break is abstention, not error.
 
-**[PENDING]** The DP problem is still being pushed past 2,560 elements.
+**Where the DP sum breaks: errors first, then abstention.** Unlike multiplication, the DP sum produces confident wrong answers before it starts declining:
+- **5,120 elements:** 2 exact, 2 wrong numbers (18–22k reasoning tokens).
+- **10,240 elements:** 2 wrong numbers (33–41k tokens, the most of any reply), 2 declines.
+- **20,480 elements:** all 4 declined in about 300–500 tokens.
+
+Some declines hand back the program instead of the number: *"I have not evaluated this on your sequence"*, followed by the recurrence in Python. The likely difference from multiplication is input length: a 5,000-number sequence is long to read, and an off-by-one slip anywhere in it compounds silently, which Astra's checks don't catch.
 
 
 #### Where the limit should be
@@ -386,51 +446,58 @@ Breakout's rules came from asking the critic which next state it expects:
 Even the sampled action rates match: [.178 .184 .168 .234 .237] against the paper's [.178 .183 .168 .237 .234]. This is not MinAtar Breakout: MinAtar's rules squeezed into the 8×8 area make the trained network lose the ball on the first drop.
 
 ## Appendix C: Experimental Setting
-See the source code:  github.com/Flecart/weight-programming2
+See the source code:  github.com/Flecart/weight-programming
 
 ### C.1 Experimental setup
 
-**Model and inference.** All experiments query `gpt-6-astra` through an OpenAI-compatible gateway (Responses API) at reasoning effort `high`, with no tools available. Each query is a fresh, single-turn conversation; sampling temperature cannot be set for this model. We record the reply text, the reasoning summary where requested, and token usage (`output_tokens_details.reasoning_tokens`). Requests that fail at the gateway are retried with backoff. Those that still fail are excluded from every analysis, never counted as wrong.
+#### Model and inference
 
-**C.1.1 Shuffled-network identification.**
-- *Networks.* The four PPO policies released with the original post (Breakout, Pong, Pac-Man, Freeway): 500 → 32 → 32 → 5 tanh MLPs whose input is a 10 × 10 grid with 5 channels.
-- *Prompt.* The paper's which-game prompt, rebuilt byte-for-byte, with one change: a sentence stating the transformation applied to the network, and the transformed weights.
-- *Transformation.* Every transformation is a permutation of the 500 input rows of W1, so the shown network computes exactly the same function. Each one is verified to be a bijection, and the shown and original forward passes agree to within 2 × 10⁻¹² at full precision. Weights are printed at the paper's precision. Row j of the shown W1 holds original input p(j), and p is given by a rule:
+All experiments query `gpt-6-astra` through an OpenAI-compatible gateway (Responses API) at reasoning effort `high`, with no tools available. Each query is a fresh, single-turn conversation; sampling temperature cannot be set for this model. We record the reply text, the reasoning summary where requested, and token usage (`output_tokens_details.reasoning_tokens`). Requests that fail at the gateway are retried with backoff. Those that still fail are excluded from every analysis, never counted as wrong.
+
+#### C.1.1 Shuffled-network identification
+
+- **Networks:** The four PPO policies released with the original post (Breakout, Pong, Pac-Man, Freeway): 500 → 32 → 32 → 5 tanh MLPs whose input is a 10 × 10 grid with 5 channels.
+- **Prompt:** The paper's which-game prompt, rebuilt byte-for-byte, with one change: a sentence stating the transformation applied to the network, and the transformed weights.
+- **Transformation:** Every transformation is a permutation of the 500 input rows of W1, so the shown network computes exactly the same function. Each one is verified to be a bijection, and the shown and original forward passes agree to within 2 × 10⁻¹² at full precision. Weights are printed at the paper's precision. Row j of the shown W1 holds original input p(j), and p is given by a rule:
   - **Affine:** p(j) = (337·j + 141) mod 500.
-  - **XOR-shift, k rounds:** start from x = j on the 9-bit domain 0..511 and apply, for r = 1..k, x ← (a_r·x + c_r) mod 512 (a_r odd), then x ← x ⊕ (x ≫ 3). Every round has its own constants (a_r, c_r), all listed in the prompt. If the result is ≥ 500, the k rounds are repeated (cycle-walking) until it falls in 0..499. We use k ∈ {1, 2, 4, 8, 16, 32, 64, 128}.
+  - **XOR-shift, k rounds:** start from x = j on the 9-bit domain 0..511 and apply, for r = 1..k, $x \leftarrow (a_r x + c_r) \bmod 512$ ($a_r$ odd), then $x \leftarrow x \oplus (x \gg 3)$. Every round has its own constants $(a_r, c_r)$, all listed in the prompt. If the result is ≥ 500, the k rounds are repeated (cycle-walking) until it falls in 0..499. We use k ∈ {1, 2, 4, 8, 16, 32, 64, 128}.
   - **SHA-256:** rows are ordered by the hexadecimal SHA-256 digest of the string "wp-" + j. In the output variant, the five logit columns are also reordered by the digest of "wp-act-" + a.
-- *Replicates.* Two independent replies per network and condition (three for the untransformed control).
-- *Scoring.* The reply's `Game:` line is mapped to a game by keyword lists, and the earliest matching keyword wins. The reply is correct if the mapped game is the network's true game; "Undetermined" counts as wrong. Every decoded value the reply states in the form "p(j) = v" is parsed and compared with the true permutation.
-- *Complexity measures.*
+- **Replicates:** Two independent replies per network and condition (three for the untransformed control).
+- **Scoring:** The reply's `Game:` line is mapped to a game by keyword lists, and the earliest matching keyword wins. The reply is correct if the mapped game is the network's true game; "Undetermined" counts as wrong. Every decoded value the reply states in the form "p(j) = v" is parsed and compared with the true permutation.
+- **Complexity measures:**
   - **Description length:** 16 bits per stated constant plus 32 bits for the rule's wording.
   - **Operations per row:** the elementary operations needed to compute p(j) for one row. An affine map costs 3. An XOR-shift round costs 5, plus one comparison per cycle-walking pass (1.024 passes on average, measured). A SHA-256 hash costs about 2,300 word operations, and decoding one row requires hashing and sorting all 500 rows.
   - **Total operations:** the same, summed over all 500 rows.
   - **Kt:** description length + log₂(total operations).
 
-**C.1.2 Faith-and-Fate arithmetic tasks.**
-- *Multiplication.* Two integers drawn uniformly from [10ⁿ⁻¹, 10ⁿ). Prompt: *"What is a * b? You have no tools: no calculator, no code. Give the exact product on the last line in the form 'ANSWER: <number>' with no commas."*
-- *Best non-adjacent sum (DP).* A sequence of n integers drawn uniformly from {−5, …, 5}. The model is asked for the maximum sum of a subsequence with no two adjacent elements (the empty subsequence, sum 0, allowed), on a final `ANSWER:` line.
-- *Sizes and replicates.*
 
-  | Batch | Multiplication n (problems each) | DP length n (problems each) |
-  |---|---|---|
-  | Probe | 2, 3, 4, 5, 6, 8, 10, 15 (2) | 5, 10, 20, 40, 80 (2) |
-  | Limit run | 20, 30, 40, 60, 80, 120 (3) | 160, 320, 640, 1,280, 2,560 (3) |
-  | Search | 180, 240 (4) | — |
-  | Grid | 130, 140, 150, 160, 170 (4) | 5,120, 10,240, 20,480 (4) |
+#### C.1.2 Faith-and-Fate arithmetic tasks
 
-  Problems are generated with a fixed seed per batch (0, 1, 2 and 3).
-- *Ground truth and outcome.* The exact answer is computed in Python with arbitrary-precision integers. A reply is *correct* if its last `ANSWER:` number matches exactly, *wrong* if it gives a different number, and *declined* if it gives no number. Declines are identified from the reply text and checked by hand. Correctness treats a decline as a failure.
-- *Computation graph.* Following Dziri et al. (2023), each problem is mapped to a graph with one node per elementary step, and |V|, depth and width are reported.
-  - **Multiplication:** one node per digit product a_i·b_j, one per carry-add while forming each partial product, and one per column sum when adding the partial products.
-  - **DP:** per element, take_i = skip_{i−1} + x_i and skip_i = max(take_{i−1}, skip_{i−1}), plus the final maximum.
+- **Multiplication:** Two integers drawn uniformly from \[10ⁿ⁻¹, 10ⁿ). Prompt: *"What is a * b? You have no tools: no calculator, no code. Give the exact product on the last line in the form 'ANSWER: \<number´>' with no commas."*
+- **Best non-adjacent sum (DP):** A sequence of n integers drawn uniformly from {−5, …, 5}. The model is asked for the maximum sum of a subsequence with no two adjacent elements (the empty subsequence, sum 0, allowed), on a final `ANSWER:` line.
+- **Sizes and replicates:** see the table below.
 
-**C.1.3 Analysis.**
-- *Correlations:* Spearman's ρ, with 95% confidence intervals from 1,000–2,000 bootstrap resamples of the replies.
-- *Breaking point:* logistic regression of correctness on each complexity measure. C₅₀ is the value at which predicted accuracy is 50%, with a bootstrap 95% CI.
-- *Growth rate:* least squares of log(reasoning tokens) on log(work). The exponent is the slope, with a bootstrap CI. Linear and exponential fits are compared by R² on the original scale.
-- *Compounding error:* the per-node error rate ε in accuracy = (1 − ε)^|V| is fitted by maximum likelihood. When a task has no failures, we report the one-sided 95% upper bound.
-- *Verification share:* the fraction of reasoning-summary section headings matching check, verify, recount, recheck, correct, confirm or recompute. Reasoning summaries are condensed versions of the hidden reasoning, so this is a proxy.
+| Batch | Multiplication n (problems each) | DP length n (problems each) |
+|---|---|---|
+| Probe | 2, 3, 4, 5, 6, 8, 10, 15 (2) | 5, 10, 20, 40, 80 (2) |
+| Limit run | 20, 30, 40, 60, 80, 120 (3) | 160, 320, 640, 1,280, 2,560 (3) |
+| Search | 180, 240 (4) | — |
+| Grid | 130, 140, 150, 160, 170 (4) | 5,120, 10,240, 20,480 (4) |
+
+Problems are generated with a fixed seed per batch (0, 1, 2 and 3).
+
+- **Ground truth and outcome:** The exact answer is computed in Python with arbitrary-precision integers. A reply is *correct* if its last `ANSWER:` number matches exactly, *wrong* if it gives a different number, and *declined* if it gives no number. Declines are identified from the reply text and checked by hand. Correctness treats a decline as a failure.
+- **Computation graph:** Following Dziri et al. (2023), each problem is mapped to a graph with one node per elementary step, and |V|, depth and width are reported.
+  - **Multiplication:** one node per digit product $a_i b_j$, one per carry-add while forming each partial product, and one per column sum when adding the partial products.
+  - **DP:** per element, $\text{take}_i = \text{skip}_{i-1} + x_i$ and $\text{skip}_i = \max(\text{take}_{i-1}, \text{skip}_{i-1})$, plus the final maximum.
+
+#### C.1.3 Analysis
+
+- **Correlations:** Spearman's ρ, with 95% confidence intervals from 1,000–2,000 bootstrap resamples of the replies.
+- **Breaking point:** logistic regression of correctness on each complexity measure. C₅₀ is the value at which predicted accuracy is 50%, with a bootstrap 95% CI.
+- **Growth rate:** least squares of log(reasoning tokens) on log(work). The exponent is the slope, with a bootstrap CI. Linear and exponential fits are compared by R² on the original scale.
+- **Compounding error:** the per-node error rate ε in accuracy = (1 − ε)^|V| is fitted by maximum likelihood. When a task has no failures, we report the one-sided 95% upper bound.
+- **Verification share:** the fraction of reasoning-summary section headings matching check, verify, recount, recheck, correct, confirm or recompute. Reasoning summaries are condensed versions of the hidden reasoning, so this is a proxy.
 
 
 ### C.2 Environments and other experiments
@@ -443,3 +510,22 @@ See the source code:  github.com/Flecart/weight-programming2
 - **Arithmetic probes:** the exact answer is computed in Python with arbitrary-precision integers. A reply is correct only if its last `ANSWER: <number>` line matches exactly; a missing line (including an abstention) counts as wrong, and calls that failed at the gateway are excluded. Digit-level accuracy is logged separately.
 - **Which-game scoring:** the `Game:` line of each reply is matched against keyword lists per game (Frogger counts as Freeway, as in the paper); an answer naming no game, such as "Undetermined", counts as wrong.
 - **Code and logs:** `weight-programming/`: minatar/, critique/, astra_eval/, opus_write/, exp1_games/, exp4_kinetix/, faith_fate_probe/ (novel_games/ holds the unfinished game designs).
+
+# Citation
+
+If you want to reference this work, cite it as:
+
+> Huang, Xuanqiang Angelo "I Tried to Break Weight Programming." X. Angelo Huang's Blog (Nov 2026). https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/
+
+Or:
+
+```
+@article{huang2026breakweightprogramming,
+  title   = "I Tried to Break Weight Programming.",
+  author  = "Huang, Xuanqiang Angelo",
+  journal = "flecart.github.io",
+  year    = "2026",
+  month   = "Nov",
+  url     = "flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/"
+}
+```

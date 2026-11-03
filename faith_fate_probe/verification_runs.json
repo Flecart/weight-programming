@@ -1,0 +1,366 @@
+[
+ {
+  "n": 20,
+  "correct": true,
+  "reasoning_tokens": 1552,
+  "headings": [
+   "Multiplying large numbers",
+   "Checking product arithmetic"
+  ],
+  "verification_headings": [
+   "Checking product arithmetic"
+  ],
+  "summary": "**Multiplying large numbers** **Checking product arithmetic**"
+ },
+ {
+  "n": 20,
+  "correct": true,
+  "reasoning_tokens": 1185,
+  "headings": [
+   "Multiplying base-1000 groups",
+   "Verifying the product",
+   "Checking the concatenation split"
+  ],
+  "verification_headings": [
+   "Verifying the product",
+   "Checking the concatenation split"
+  ],
+  "summary": "**Multiplying base-1000 groups** **Verifying the product** **Checking the concatenation split**"
+ },
+ {
+  "n": 40,
+  "correct": true,
+  "reasoning_tokens": 4564,
+  "headings": [
+   "Grouping numbers into base-100000 chunks",
+   "Indexing factor chunks",
+   "Computing b4 entries",
+   "Calculating a5 sum",
+   "Checking product modulo 11",
+   "Checking the concatenated number"
+  ],
+  "verification_headings": [
+   "Checking product modulo 11",
+   "Checking the concatenated number"
+  ],
+  "summary": "**Grouping numbers into base-100000 chunks****Indexing factor chunks** **Computing b4 entries** **Calculating a5 sum** **Checking product modulo 11** **Checking the concatenated number**"
+ },
+ {
+  "n": 40,
+  "correct": true,
+  "reasoning_tokens": 3426,
+  "headings": [
+   "Grouping numbers for multiplication",
+   "Computing convolution carries",
+   "Computing the final product",
+   "Verifying checksum arithmetic",
+   "Concatenating number chunks"
+  ],
+  "verification_headings": [
+   "Verifying checksum arithmetic"
+  ],
+  "summary": "**Grouping numbers for multiplication****Computing convolution carries** **Computing the final product** **Verifying checksum arithmetic** **Concatenating number chunks**"
+ },
+ {
+  "n": 60,
+  "correct": true,
+  "reasoning_tokens": 11623,
+  "headings": [
+   "Preparing base-1000 chunks",
+   "Computing chunk products",
+   "Computing partial products",
+   "Computing k5 products",
+   "Calculating k8 products",
+   "Checking product residues",
+   "Rechecking the C sum",
+   "Rechecking A\u2019s split",
+   "Checking totals mod 11",
+   "Propagating the product correction",
+   "Checking the k4 carry",
+   "Rechecking product sums",
+   "Correcting k5\u2013k12 carries",
+   "Rechecking coefficient sums",
+   "Checking modular corrections",
+   "Verifying product carries",
+   "Checking modular consistency",
+   "Verifying modular checks",
+   "Verifying B modulo 101"
+  ],
+  "verification_headings": [
+   "Checking product residues",
+   "Rechecking the C sum",
+   "Rechecking A\u2019s split",
+   "Checking totals mod 11",
+   "Propagating the product correction",
+   "Checking the k4 carry",
+   "Rechecking product sums",
+   "Correcting k5\u2013k12 carries",
+   "Rechecking coefficient sums",
+   "Checking modular corrections",
+   "Verifying product carries",
+   "Checking modular consistency",
+   "Verifying modular checks",
+   "Verifying B modulo 101"
+  ],
+  "summary": "**Preparing base-1000 chunks****Computing chunk products** **Computing partial products** **Computing k5 products** **Calculating k8 products** **Checking product residues** **Rechecking the C sum****Rechecking A\u2019s split** **Checking totals mod 11** **Propagating the product correction****Checking the k4 carry** **Rechecking product sums** **Correcting k5\u2013k12 carries** **Rechecking coefficient sums** **Checking modular corrections** **Verifying product carries****Checking modular consistency** **Verifying modular checks****Verifying B modulo 101**"
+ },
+ {
+  "n": 60,
+  "correct": true,
+  "reasoning_tokens": 10174,
+  "headings": [
+   "Preparing multiplication groups",
+   "Computing base-1e6 products",
+   "Calculating k3 products",
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   " ",
+   "Locating the arithmetic error",
+   "Rechecking modular arithmetic",
+   "Cross-checking product sums",
+   "Checking diagonal sums",
+   "Checking mod-9 residues",
+   "Rechecking k15 products",
+   "Checking k15 discrepancy",
+   "Checking remaining products",
+   "Checking high triples",
+   "Rechecking convolution products",
+   "Verifying corrected residues",
+   "Concatenating digit groups"
+  ],
+  "verification_headings": [
+   "Rechecking modular arithmetic",
+   "Cross-checking product sums",
+   "Checking diagonal sums",
+   "Checking mod-9 residues",
+   "Rechecking k15 products",
+   "Checking k15 discrepancy",
+   "Checking remaining products",
+   "Checking high triples",
+   "Rechecking convolution products",
+   "Verifying corrected residues"
+  ],
+  "summary": "**Preparing multiplication groups****Computing base-1e6 products** **Calculating k3 products** **Computing a4*b0 term** **Calculating a partial product** **Computing k9 products** **Calculating 235977\u00d7739374** **Calculating k12 product** **Computing carry values** **Computing upper product carries** **Checking modular arithmetic****Locating the arithmetic error** **Rechecking modular arithmetic****Cross-checking product sums** **Checking diagonal sums** **Checking mod-9 residues** **Rechecking k15 products****Checking k15 discrepancy** **Checking remaining products****Checking high triples** **Rechecking convolution products****Verifying corrected residues** **Concatenating digit groups**"
+ },
+ {
+  "n": 80,
+  "correct": true,
+  "reasoning_tokens": 12100,
+  "headings": [
+   "Setting up grouped multiplication",
+   "Checking base-1000 grouping",
+   "Preparing convolution coefficients",
+   "Accumulating convolution coefficients",
+   "Computing c17 products",
+   "Calculating the sum",
+   "Checking modular sums",
+   "Checking modular checksums",
+   "Checking modular residues",
+   "Computing the product residue",
+   "Checking concatenated number"
+  ],
+  "verification_headings": [
+   "Checking base-1000 grouping",
+   "Checking modular sums",
+   "Checking modular checksums",
+   "Checking modular residues",
+   "Checking concatenated number"
+  ],
+  "summary": "**Setting up grouped multiplication****Checking base-1000 grouping** **Preparing convolution coefficients****Accumulating convolution coefficients** **Computing c17 products** **Calculating the sum** **Checking modular sums** **Checking modular checksums** **Checking modular residues****Computing the product residue** **Checking concatenated number**"
+ },
+ {
+  "n": 80,
+  "correct": true,
+  "reasoning_tokens": 12651,
+  "headings": [
+   "Grouping digits for product",
+   "Verifying digit grouping",
+   "Convolving diagonal sums",
+   "Calculating products",
+   "Summing k26 products",
+   "Calculating k32 products",
+   "Verifying modular checks",
+   "Preparing digit output",
+   "Checking paired arithmetic.",
+   "Checking string segments"
+  ],
+  "verification_headings": [
+   "Verifying digit grouping",
+   "Verifying modular checks",
+   "Checking paired arithmetic.",
+   "Checking string segments"
+  ],
+  "summary": "**Grouping digits for product****Verifying digit grouping** **Convolving diagonal sums** **Calculating products** **Summing k26 products** **Calculating k32 products** **Verifying modular checks****Preparing digit output** **Checking paired arithmetic.** **Checking string segments**"
+ },
+ {
+  "n": 100,
+  "correct": false,
+  "reasoning_tokens": 25898,
+  "headings": [
+   "Preparing digit groups",
+   "Planning chunked multiplication",
+   "Preparing block products",
+   "Setting up Karatsuba splits",
+   "Checking chunk boundaries",
+   "Setting block operands",
+   "Computing grouped products",
+   "Computing nine products",
+   "Writing product polynomials",
+   "Calculating row products",
+   "Computing product values",
+   "Multiplying M1 arrays",
+   "Calculating product values",
+   "Calculating product totals",
+   "Calculating M2 products",
+   "Calculating product values",
+   "Preparing M3 low-array multiplication",
+   "Computing products",
+   "Calculating array products",
+   "Calculating products",
+   "Calculating M5 factors",
+   "Computing multiplication results",
+   "Calculating matrix products",
+   "Computing product values",
+   "Preparing M7 input arrays",
+   "Calculating products",
+   "Calculating matrix products",
+   "Calculating multiplication results",
+   "Verifying chunk arithmetic",
+   "Checking M8 modulo 99999",
+   "Checking M0 modulo 99999",
+   "Rechecking M0 products",
+   "Checking M1 multiplication",
+   "Checking M3 checksum",
+   "Calculating M4 totals",
+   "Checking row product",
+   "Checking c5",
+   "Checking the M5 checksum",
+   "Checking product calculations",
+   "Checking M7 remainder",
+   "Rechecking product arithmetic",
+   "Checking multiplication results",
+   "Checking corrected checksums",
+   "Assembling base coefficients",
+   "Computing y1 from components",
+   "Computing cross-product chunks",
+   "Computing z2\u2013z7 values",
+   "Verifying grouped-number checks",
+   "Computing modulus checks",
+   "Calculating modulo 100001",
+   "Checking the borrow error",
+   "Applying computed correction",
+   "Checking corrected modulus",
+   "Verifying the 200-digit product"
+  ],
+  "verification_headings": [
+   "Checking chunk boundaries",
+   "Verifying chunk arithmetic",
+   "Checking M8 modulo 99999",
+   "Checking M0 modulo 99999",
+   "Rechecking M0 products",
+   "Checking M1 multiplication",
+   "Checking M3 checksum",
+   "Checking row product",
+   "Checking c5",
+   "Checking the M5 checksum",
+   "Checking product calculations",
+   "Checking M7 remainder",
+   "Rechecking product arithmetic",
+   "Checking multiplication results",
+   "Checking corrected checksums",
+   "Verifying grouped-number checks",
+   "Computing modulus checks",
+   "Checking the borrow error",
+   "Applying computed correction",
+   "Checking corrected modulus",
+   "Verifying the 200-digit product"
+  ],
+  "summary": "**Preparing digit groups****Planning chunked multiplication** **Preparing block products****Setting up Karatsuba splits** **Checking chunk boundaries****Setting block operands** **Computing grouped products** **Computing nine products****Writing product polynomials** **Calculating row products** **Computing product values** **Multiplying M1 arrays** **Calculating product values** **Calculating product totals** **Calculating M2 products** **Calculating product values** **Preparing M3 low-array multiplication** **Computing products** **Calculating array products** **Calculating products** **Calculating M5 factors** **Computing multiplication results** **Calculating matrix products** **Computing product values** **Preparing M7 input arrays** **Calculating products** **Calculating matrix products** **Calculating multiplication results** **Verifying chunk arithmetic** **Checking M8 modulo 99999****Checking M0 modulo 99999** **Rechecking M0 products** **Checking M1 multiplication** **Checking M3 checksum** **Calculating M4 totals** **Checking row product** **Checking c5** **Checking the M5 checksum** **Checking product calculations** **Checking M7 remainder** **Rechecking product arithmetic** **Checking multiplication results** **Checking corrected checksums****Assembling base coefficients** **Computing y1 from components** **Computing cross-product chunks** **Computing z2\u2013z7 values** **Verifying grouped-number checks****Computing modulus checks** **Calculating modulo 100001** **Checking the borrow error****Applying computed correction** **Checking corrected modulus** **Verifying the 200-digit product**"
+ },
+ {
+  "n": 100,
+  "correct": true,
+  "reasoning_tokens": 15491,
+  "headings": [
+   "Parsing base-1000 groups",
+   "Grouping digits into triples",
+   "Grouping B into triples",
+   "Grouping B by sixes",
+   "Computing diagonal sums",
+   "Calculating numeric totals",
+   "Validating convolution checksums",
+   "Checking modular checksums",
+   "Checking D modulo 1001",
+   "Checking string mapping"
+  ],
+  "verification_headings": [
+   "Validating convolution checksums",
+   "Checking modular checksums",
+   "Checking D modulo 1001",
+   "Checking string mapping"
+  ],
+  "summary": "**Parsing base-1000 groups****Grouping digits into triples** **Grouping B into triples****Grouping B by sixes** **Computing diagonal sums** **Calculating numeric totals** **Validating convolution checksums** **Checking modular checksums** **Checking D modulo 1001** **Checking string mapping**"
+ },
+ {
+  "n": 120,
+  "correct": true,
+  "reasoning_tokens": 21747,
+  "headings": [
+   "Choosing a multiplication base",
+   "Grouping digits first",
+   "Considering base-1000 product",
+   "Calculating base-1000 diagonals",
+   "Computing c_k carry output",
+   "Computing 1600 products",
+   "Checking the sum",
+   "Verifying modular checks",
+   "Checking sums modulo 999",
+   "Checking B sums",
+   "Checking alternating residues",
+   "Calculating modular values",
+   "Assembling verified groups",
+   "Concatenating digit groups"
+  ],
+  "verification_headings": [
+   "Checking the sum",
+   "Verifying modular checks",
+   "Checking sums modulo 999",
+   "Checking B sums",
+   "Checking alternating residues",
+   "Assembling verified groups"
+  ],
+  "summary": "**Choosing a multiplication base****Grouping digits first** **Considering base-1000 product****Calculating base-1000 diagonals** **Computing c_k carry output****Computing 1600 products** **Checking the sum** **Verifying modular checks** **Checking sums modulo 999****Checking B sums** **Checking alternating residues** **Calculating modular values** **Assembling verified groups****Concatenating digit groups**"
+ },
+ {
+  "n": 120,
+  "correct": true,
+  "reasoning_tokens": 23242,
+  "headings": [
+   "Setting up block multiplication",
+   "Preparing base-1000 convolution",
+   "Setting up six-digit multiplication",
+   "Preparing base-1000 digit blocks",
+   "Computing diagonal products",
+   "Grouping products into sums",
+   "Checking k10 products",
+   "Calculating the result",
+   "Processing products",
+   "Calculating carry values",
+   "Checking modular arithmetic",
+   "Checking alternating sums",
+   "Computing the modular product",
+   "Checking modular consistency"
+  ],
+  "verification_headings": [
+   "Checking k10 products",
+   "Checking modular arithmetic",
+   "Checking alternating sums",
+   "Checking modular consistency"
+  ],
+  "summary": "**Setting up block multiplication****Preparing base-1000 convolution** **Setting up six-digit multiplication****Preparing base-1000 digit blocks** **Computing diagonal products****Grouping products into sums** **Checking k10 products** **Calculating the result** **Processing products** **Calculating carry values** **Checking modular arithmetic** **Checking alternating sums** **Computing the modular product** **Checking modular consistency**"
+ }
+]

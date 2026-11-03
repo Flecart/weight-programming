@@ -1,5 +1,5 @@
 ---
-title: I Tried to Break Weight Programming
+title: "Breaking Weight Programming: A Trip to Compilation Complexity"
 date: 2026-11-03
 summary: "A viral post showed frontier LLMs reading and writing neural-network weights directly. I replicated its results and then tried to break them. Astra compiles small programs into weights and decodes heavily obfuscated networks, but it stops at a runtime ceiling: when undoing an obfuscation would take more than about 2^18 operations, it declines instead of computing. Description length predicts how hard it thinks; runtime decides whether it tries at all."
 weight:
@@ -21,24 +21,13 @@ archived: false
 	- Standard complexity frameworks, such as Kolmogorov complexity, don't take running time into account. A short description can hide an infeasible computation: SHA-256 takes 48 bits to state but about 2²⁰ operations to undo, and that is exactly where Astra stops.
 	- The best current measure of intrinsic task complexity seems to be Levin's Kt complexity (description length + log of running time), capped by the model's reasoning budget. Description length predicts effort while the program is runnable (ρ = 0.90), and runtime decides whether the model attempts it at all (the break lies between about 2¹⁶ and 2²⁰ operations).
 
-## 1. Why I was skeptical
+
 
 When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of breaking weight programming: of what makes models unreliable at such tasks.
 
-So I started with the boring checks.
 
-- **Does it reproduce?** Yes. I ran the released networks on official MinAtar 1.0.15 with the paper's protocol: 1,000 episodes, sticky actions 0.1, actions sampled from the softmax, 10,000-step cap.
 
-| Game | My run | Paper | Gap (combined SE) | Uniform random | PPO 500M (paper) |
-|---|---|---|---|---|---|
-| Breakout | 501.2 ± 7.8 | 517.4 ± 7.4 | −1.5 | 0.51 | 25.3 |
-| Seaquest | 51.9 ± 1.3 | 53.1 ± 1.4 | −0.6 | 0.07 | 88.9 |
-| Asterix | 55.2 ± 1.1 | 53.2 ± 1.0 | +1.4 | 0.49 | 55.2 |
 
-- **Are the weights memorised?** No. I gave Claude Opus 5.5 the paper's weight file cut off at 14 points and asked it to continue. It matched 2 of 192 values exactly (about 0.8 expected by chance), and the signs agreed 53% of the time.
-- **Is the car fix real?** Yes. In the real Kinetix environment (kinetix-env 3.0.2, the commit in the paper's training record), the original PPO network times out in all 1,024 episodes. Astra's edited network succeeds in all 1,024, in 73 steps each.
-
-The results held up. So the question changed from "is it real?" to "what is it actually doing?"
 
 ## 2. Finding one: it's compiling a 10-line program
 
@@ -48,77 +37,9 @@ Astra's design statement, in full:
 
 > *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
 
-This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. Some 
+This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. 
 
-We can study the weights that were produced directly and understand how this network used.
-
-```edits
-W1[540:600:6, 0] = [0, -0.02, -0.04, ..., -0.18]    # paddle row: unit 0 gets -0.02 × paddle column
-W1[3:60:6, 0]    = [0.16, 0.18, 0.18, 0.16, ...]    # ball in row 0: a table over the ball's column
-W1[63:120:6, 0]  = [0.14, 0.16, 0.18, 0.18, ...]    # ball in row 1: the same table, shifted
-```
-
-- **Layer 1 is lookup tables.** Each ball cell feeds a hidden unit a hand-computed value encoding where that ball will land. The paddle row subtracts a linear ramp of the paddle's column, so each unit's input is a landing-position error.
-- **Layer 2 is ±1 logic.** Huge weights (up to 1,000 in W2, 415 in b2) push every tanh to ±1, so each unit acts as an AND/OR/threshold gate.
-- **Most of the network is empty.** Only 815 of 20,486 weights are nonzero, written in 92 statements.
-
-### What Astra was given
-
-Look at the Breakout prompt and the task gets much smaller. It contained:
-1. the game's rules;
-2. the **complete MinAtar `breakout.py` source**: ball movement, wall bounces, brick strikes and the paddle-catch rule;
-3. the observation layout, with input index `(row·10 + col)·6 + channel`;
-4. a small "edits" language for setting weights:
-
-```edits
-W1[12, 0] = 2.5                         # one entry
-W1[3:600:60, 0] = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # strided range: one column of one channel
-W2[0:2, 0:3] = [[1, -1, 0.5], [0, 2, 0]]   # 2-D block
-W3[:, 2] *= 2                           # scale
-```
-
-### What it wrote
-
-
-Its reasoning summaries read like a programmer's log. These are the section headings, in order:
-
-> **Designing robust landing policy** → **Refining trajectory inference** → **Deriving landing intervals** → **Exploring wall-case handling** → **Predicting upward bounce path** → **Checking trajectory parity** → **Evaluating y8 catch edge cases** → **Testing candidate collision predictors** → **Preparing manual fold tables** → **Allocating hidden-unit weights** → **Tuning gate thresholds** → **Computing W1 row tables** → **Checking brick collisions** → **Checking reflection formula** → **Checking parser edits**
-
-Spec, edge cases, lookup tables, register allocation, emit code, check syntax.
-
-
-### How the gates work
-
-Here is the circuit spelled out. I checked every number below on the released network ([`hand.npz`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/networks/breakout/hand.npz); Astra's commented edits are in its [`answer.md`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/runs/breakout/reply/answer.md)). It uses only 6 of the 32 first-layer units and 8 of the 32 second-layer units.
-
-#### Layer 1: four numbers and two bits
-
-- **Units 0–3 hold numbers.** Each one answers "how far is the landing column from the paddle?" for one ball direction: down-right, down-left, up-right, up-left. Its value is about 0.02 × (landing column − paddle column). The weights are small, so tanh stays in its linear range, and the unit carries a number, not a yes/no.
-- **Units 4 and 5 hold bits.** Unit 4 is "is the ball moving right?" and unit 5 is "is the ball moving down?", both read from the trail channel. Their weights are large, so tanh saturates to +1 or −1.
-
-#### Layer 2: eight AND gates
-
-For each of the four directions there is a "move left" unit and a "move right" unit. Each one adds:
-- ±1,000 × that direction's distance;
-- +200 or −200 for each of the two direction bits;
-- a bias of −415.
-
-The unit fires (tanh ≈ +1) only if **both** direction bits match its direction (+200 + 200 = +400, which cancels most of the −415) **and** the paddle is at least one column off on its side (1,000 × 0.02 = +20, enough to clear the remaining −15). If either bit is wrong, the sum stays near −400 and the unit can't fire. That's an AND of three conditions.
-
-| Distance (ball heading down-right) | "Move left" unit | "Move right" unit |
-|---|---|---|
-| landing 2 columns left of the paddle (−0.04) | +25 → **on** | −55 → off |
-| 1 column left (−0.02) | +5 → **on** | −35 → off |
-| aligned (0) | −15 → off | −15 → off |
-| 1 column right (+0.02) | −35 → off | +5 → **on** |
-| same distance, but the ball is heading left | −395 → off | −435 → off |
-
-#### Output layer: an OR and a default
-
-- **OR.** The left logit is 90 plus 30 for each of the four "move left" units, where an off unit counts as −1 and an on unit as +1. With all four off it's 90 − 120 = −30, below no-op's 0, so the paddle stays put. With any one on it's +30, so the paddle moves left. The right logit works the same way.
-- **Default.** Up, down and fire are fixed at −100, so they're never chosen.
-
-In ordinary code, the whole network is:
+With some work, Claude asserts that the whole program that is implemented is just a very simple python program:
 
 ```python
 d = direction(trail)                       # units 4-5: two sign bits
@@ -128,57 +49,13 @@ elif gap > 0: move_right()
 else: stay()
 ```
 
-The lookup tables `landing_column[d]` are where the real work went: Astra worked out, by hand, where a ball in each cell moving in each direction will land, wall bounces and brick bounces included.
+Check [[#Appendix D Decoding Astra's Program]]. Such compilation would have taken a human several hours of time to manually tune. But it doesn't seem to be that spectacular at the end.
+Since the games that were studied were easy to manage, this specific experiment is not that much surprising.
+We can actually study the *level of complexity* that a program needs to be before it breaks, even for complex frontier LLMs like Astra.
 
-### How hard is that program?
+## 3. Finding two: reading weights survived everything I threw at it, until runtime ran out
 
-I wrote three Breakout players in plain Python and scored them with the same protocol (200 episodes each):
-
-| Player | What it does | Score |
-|---|---|---|
-| Track the ball | Move toward the ball's column (3 lines) | 8.4 ± 0.6 |
-| Naive landing prediction | Extrapolate wall bounces, ignore bricks | 6.9 ± 0.1 |
-| **Simulate the source** | Copy the game state, step it forward with the source's own rules, wait at the landing column (≈10 lines) | **534 ± 21** |
-| Astra's network (paper / mine) | The same algorithm, compiled into weights | 517 / 501 |
-| PPO, 500M steps | Learned from reward alone, no rules | 25 |
-
-- **The shortcuts fail.** You need the exact bounce rules, and the source code in the prompt provides them.
-- **With the rules in hand, the program is tiny.** The 20× margin over PPO compares a programmer holding the spec with a learner holding only rewards.
-- **Where no small program exists, the margin vanishes.** Astra loses Seaquest (53 vs 89 for PPO) and ties Asterix (53 vs 55).
-
-The car fix in Experiment 4 is the same pattern. Astra cleared a few units of the trained network and wired in its own rule: back up, then drive left once the car passes x ≈ 3.8. That's another small program written into weights. In this fixed scene the policy is almost deterministic: different seeds give the same trajectory, and the car's positions at steps 16, 32, 48 and 64 match the paper's recorded episode to 2 decimals. So "1,024 out of 1,024 successes" is effectively one successful trajectory.
-
-### Is it just Astra?
-
-I repeated Experiment 5 with Claude Opus 5.5: the paper's prompt verbatim, no tools, 2 replies per game, scored the same way.
-
-- **At maximum effort it produced nothing.** All 6 replies spent the full 128,000-token output limit thinking and stopped with no answer.
-- **At the `xhigh` setting it finished 3 of 6 times.**
-
-| Game | Opus xhigh r1 | Opus xhigh r2 | Astra (paper / mine) |
-|---|---|---|---|
-| Breakout | no answer | no answer | 517 / 501 |
-| Seaquest | **13.0 ± 0.4** | no answer | 53.1 / 51.9 |
-| Asterix | **47.0 ± 0.9** | **60.9 ± 1.1** | 53.2 / 55.2 |
-
-What this shows:
-- **The skill is shared.** One Opus Asterix network beat both Astra and the best PPO seed. All three answers applied with zero errors and encode real controllers.
-- **The difference is efficiency.** Astra finished every game in 21–29k output tokens. Opus needed 59–119k when it finished, and never finished Breakout in 4 attempts.
-- **Caveat:** effort labels aren't comparable across vendors, and there were only 2 replies per game per setting.
-
-### Why this is still surprising
-
-Compiling an algorithm into weights is old, from McCulloch–Pitts threshold logic (1943) to compiling programs into transformers (RASP 2021, Tracr 2023). What's new is doing it in one shot, in your head:
-- index arithmetic for 600 inputs;
-- hand-computed tables;
-- gate thresholds that must not interfere;
-- no calculator and no debugger, with the result within noise of the best simple algorithm.
-
-Few people would have predicted that a year ago. But it's evidence of *programming* skill, not of special insight into neural networks.
-
-## 3. Finding two: I couldn't make it break
-
-Writing weights is compiling. Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays, from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights.
+Writing weights is compiling. Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights. That made me suspect a shortcut I could take away.
 
 ### How it reads the weights
 
@@ -186,68 +63,36 @@ The first-layer weights are, in effect, **a picture of the game board**.
 - **Why:** the gradient of input i's row of W1 is $x_i \times$ (error signal). An input that is always 0 during training (no ball in row 9, no paddle in row 3) never moves from its small random start (about ±0.06–0.2). Inputs that are used grow large.
 - **Breakout's map:** the per-cell maximum |W1| shows the paddle row, the ball's flight area and the brick rows.
 
-  ```
-  channel 0 (agent)          row 8:  4.1 2.8 1.9 2.4 1.1 1.5 3.1 4.7   everything else ~0.1–0.2
-  channel 1 (moving objects) rows 1–7 large (up to 7.9)                 row 8 and below ~0.1
-  channel 2 (reward targets) rows 1–3 large (up to 4.8)                 rows 4–9 ~0.1–0.2
-  ```
+```
+channel 0 (agent)          row 8:  4.1 2.8 1.9 2.4 1.1 1.5 3.1 4.7   everything else ~0.1–0.2
+channel 1 (moving objects) rows 1–7 large (up to 7.9)                 row 8 and below ~0.1
+channel 2 (reward targets) rows 1–3 large (up to 4.8)                 rows 4–9 ~0.1–0.2
+```
 
 - **The prompt labels the picture.** It names the channels: "agent", "moving objects", "reward targets".
 - **The output layer shows which actions matter:** only left/right for Breakout, mostly up for Freeway.
-- **Then a famous-game prior finishes it.**
+- **A famous-game prior finishes the job.**
 
 So I expected that hiding the picture or the labels would break it.
 
-### Rescaling: no effect
+### What I tried
 
-I reran the test through the same gateway with byte-identical prompts, 3 replies per network. I also built versions where the prompt truthfully says the input or output is multiplied or divided by 10, with the weights adjusted so the network computes exactly the same function.
+Every obfuscation was stated truthfully in the prompt and left the network's function exactly unchanged, so a careful reader could always undo it:
+- **Rescaling:** input or output multiplied or divided by 10, with the weights adjusted to match.
+- **Scrambling the picture:** per-channel scales and offsets, flipping the board upside down, a random shuffle of all 500 inputs (with the full table given), and up to 250 rotations mixing pairs of inputs.
+- **Stacking:** shuffle, flip, scale and offset composed, four steps deep.
+- **Removing the meaning:** channels renamed "A–E", with no hint of what they are.
 
-| Condition | Correct | Confidence | Reasoning tokens |
-|---|---|---|---|
-| Original (3 replies × 4 networks) | 12/12 | 92–98% | 670–1,552 |
-| Input ×10 or ÷10 (W1 adjusted) | 16/16 | 94–98% | 470–1,976 |
-| Output ×10 or ÷10 (W3, b3 adjusted) | 16/16 | 95–98% | mean 1,146–1,220 |
+**Astra named the right game 156 times out of 156.** Every table is in [[#Obfuscations that did not break it]].
 
-### Graded obfuscation: still no effect
+### What it taught me
 
-Next I stacked harder obfuscations, each stated truthfully in the prompt and each leaving the network's function unchanged. I graded them with the yardstick of *Faith and Fate* (Dziri et al., NeurIPS 2023): the size of the computation graph needed to undo them.
+- **It decodes rather than guesses.** In one four-step answer I checked 10 input positions it mapped back. All 10 were exact, including the combined scale factor.
+- **It reads selectively.** About 1,500 tokens is far too little to undo a 500-entry table for all 16,000 weights. It decodes a small sample, typically 7–15 rows taken mostly from the top of the listing, and rebuilds the picture from those.
+- **Its effort follows how much there is to look up, not how much there is to compute.** Reasoning tokens track the length of the stated transformation (ρ = +0.45), not the size of the computation needed to undo it (ρ = +0.12).
+- **I was wrong about the prior.** Shuffling the board and removing the channel names were supposed to break it. They only lowered its confidence, from about 95% to 87%.
 
-| Condition | Depth / parameters to track | Accuracy | Mean confidence | Mean reasoning tokens |
-|---|---|---|---|---|
-| Original | 0 / 0 | 100% | 95.5 | 980 |
-| Per-channel scales | 1 / 5 | 100% | 97.1 | 457 |
-| Per-channel affine | 2 / 10 | 100% | 96.4 | 614 |
-| Grid flipped upside down | 1 / 1 | 100% | 96.4 | 832 |
-| Random permutation of all 500 inputs (full table given) | 1 / 500 | 100% | 92.9 | 1,507 |
-| Permutation + flip + scale | 3 | 100% | 92.5 | 1,917 |
-| + affine | 4 / 516 | 100% | 92.1 | 2,431 (max 5,696) |
-| Givens rotations mixing input pairs, g = 10 / 50 / 250 | 2 / g | 100% | 96.5 / 95.5 / 92.5 | 1,238 / 1,507 / 3,706 |
-| **Anonymous channels** ("A–E", no meanings) | — | 100% | **86.6** (min 78) | 2,059 |
-| Anonymous + flipped | — | 100% | 89.0 | 1,714 |
-| Hidden-unit shuffle + sign flips (unstated control) | 0 | 100% | 95.6 | 1,025 |
-
-Out of 156 runs, all 156 were correct. I couldn't fit a breaking point, because there was nothing to fit.
-
-- **It decodes rather than guesses.** In one 4-step answer I checked 10 input positions it mapped back. All 10 were exact, including the combined scale factor.
-- **It reads selectively.** About 1,500 tokens is far too little to invert a 500-entry table for all 16,000 weights. It seems to decode only the few largest rows and rebuild the picture from those.
-- **I was wrong about the prior.** Shuffling the board and removing the channel names were supposed to break it. They only lowered its confidence.
-
-### What predicts the effort?
-
-Spearman rank correlation of reasoning tokens with each complexity measure, over all 156 runs (bootstrap 95% CI):
-
-| Measure | All runs | Arithmetic only |
-|---|---|---|
-| **Description length (bits)** | **+0.33** [+0.19, +0.49] | **+0.45** [+0.29, +0.58] |
-| **Lookup-table entries** | **+0.29** [+0.11, +0.44] | **+0.46** [+0.31, +0.60] |
-| Undo-graph size log₁₀\|V\| (Faith and Fate) | +0.10 [−0.03, +0.27] | +0.12 [−0.04, +0.31] |
-| Depth | +0.11 [−0.03, +0.28] | +0.12 [−0.01, +0.31] |
-
-Effort tracks **how much there is to look up**, not **how much there is to compute**. Faith and Fate's graph size counts the work of undoing all 16,000 weights, but Astra only undoes the rows it needs.
-
-Two exceptions:
-- **Per-channel scaling made it think less** than baseline.
-- **Anonymous channels doubled the effort** at almost no description cost. Inferring meaning costs more than arithmetic.
+None of these obfuscations was *hard to compute*: each one costs a lookup or a few multiplications per row. So the obvious next move was to keep the instructions short and make each row expensive to decode. That is where it finally breaks ([[#Breaking Weight Decompilation]]).
 
 ## Finding Three: Models Self Verify in Chain of Though
 
@@ -333,6 +178,21 @@ This section is written by AI (Opus 5.5) completely, it's intended for your agen
 
 ## Appendix A: Additional Results
 
+### Reproducing The Results
+
+- **Does it reproduce?** Yes. I ran the released networks on official MinAtar 1.0.15 with the paper's protocol: 1,000 episodes, sticky actions 0.1, actions sampled from the softmax, 10,000-step cap.
+
+| Game | My run | Paper | Gap (combined SE) | Uniform random | PPO 500M (paper) |
+|---|---|---|---|---|---|
+| Breakout | 501.2 ± 7.8 | 517.4 ± 7.4 | −1.5 | 0.51 | 25.3 |
+| Seaquest | 51.9 ± 1.3 | 53.1 ± 1.4 | −0.6 | 0.07 | 88.9 |
+| Asterix | 55.2 ± 1.1 | 53.2 ± 1.0 | +1.4 | 0.49 | 55.2 |
+
+- **Are the weights memorised?** No. I gave Claude Opus 5.5 the paper's weight file cut off at 14 points and asked it to continue. It matched 2 of 192 values exactly (about 0.8 expected by chance), and the signs agreed 53% of the time.
+- **Is the car fix real?** Yes. In the real Kinetix environment (kinetix-env 3.0.2, the commit in the paper's training record), the original PPO network times out in all 1,024 episodes. Astra's edited network succeeds in all 1,024, in 73 steps each.
+
+The results held up. So the question changed from "is it real?" to "what is it actually doing?"
+
 
 ### How much thinking each result took
 
@@ -348,6 +208,57 @@ Astra's token counts from the paper's run records (`run.json` → `audit.usage`)
 
 Recognition is cheap (about 1,000 tokens). Compiling is expensive: about 20 reasoning tokens per weight entry written.
 
+
+### Obfuscations that did not break it
+
+These are the full results behind [[#3. Finding two: reading weights survived everything I threw at it, until runtime ran out]]. Every transformation is stated in the prompt and leaves the network's function unchanged.
+
+#### Rescaling
+
+I reran the test through the same gateway with byte-identical prompts, 3 replies per network. I also built versions where the prompt truthfully says the input or output is multiplied or divided by 10, with the weights adjusted so the network computes exactly the same function.
+
+| Condition | Correct | Confidence | Reasoning tokens |
+|---|---|---|---|
+| Original (3 replies × 4 networks) | 12/12 | 92–98% | 670–1,552 |
+| Input ×10 or ÷10 (W1 adjusted) | 16/16 | 94–98% | 470–1,976 |
+| Output ×10 or ÷10 (W3, b3 adjusted) | 16/16 | 95–98% | mean 1,146–1,220 |
+
+#### Graded obfuscation
+
+Next I stacked harder obfuscations, each stated truthfully in the prompt and each leaving the network's function unchanged. I graded them with the yardstick of *Faith and Fate* (Dziri et al., NeurIPS 2023): the size of the computation graph needed to undo them.
+
+| Condition | Depth / parameters to track | Accuracy | Mean confidence | Mean reasoning tokens |
+|---|---|---|---|---|
+| Original | 0 / 0 | 100% | 95.5 | 980 |
+| Per-channel scales | 1 / 5 | 100% | 97.1 | 457 |
+| Per-channel affine | 2 / 10 | 100% | 96.4 | 614 |
+| Grid flipped upside down | 1 / 1 | 100% | 96.4 | 832 |
+| Random permutation of all 500 inputs (full table given) | 1 / 500 | 100% | 92.9 | 1,507 |
+| Permutation + flip + scale | 3 | 100% | 92.5 | 1,917 |
+| + affine | 4 / 516 | 100% | 92.1 | 2,431 (max 5,696) |
+| Givens rotations mixing input pairs, g = 10 / 50 / 250 | 2 / g | 100% | 96.5 / 95.5 / 92.5 | 1,238 / 1,507 / 3,706 |
+| **Anonymous channels** ("A–E", no meanings) | — | 100% | **86.6** (min 78) | 2,059 |
+| Anonymous + flipped | — | 100% | 89.0 | 1,714 |
+| Hidden-unit shuffle + sign flips (unstated control) | 0 | 100% | 95.6 | 1,025 |
+
+Out of 156 runs, all 156 were correct. I couldn't fit a breaking point, because there was nothing to fit.
+
+#### What predicts the effort
+
+Spearman rank correlation of reasoning tokens with each complexity measure, over all 156 runs (bootstrap 95% CI):
+
+| Measure | All runs | Arithmetic only |
+|---|---|---|
+| **Description length (bits)** | **+0.33** [+0.19, +0.49] | **+0.45** [+0.29, +0.58] |
+| **Lookup-table entries** | **+0.29** [+0.11, +0.44] | **+0.46** [+0.31, +0.60] |
+| Undo-graph size log₁₀\|V\| (Faith and Fate) | +0.10 [−0.03, +0.27] | +0.12 [−0.04, +0.31] |
+| Depth | +0.11 [−0.03, +0.28] | +0.12 [−0.01, +0.31] |
+
+Effort tracks **how much there is to look up**, not **how much there is to compute**. Faith and Fate's graph size counts the work of undoing all 16,000 weights, but Astra only undoes the rows it needs.
+
+Two exceptions:
+- **Per-channel scaling made it think less** than baseline.
+- **Anonymous channels doubled the effort** at almost no description cost. Inferring meaning costs more than arithmetic.
 
 ### The Table of Complexity
 | Rule for the shuffle | Description | Computation (log₂ ops) | Accuracy | Confidence | Reasoning tokens |
@@ -510,6 +421,139 @@ Problems are generated with a fixed seed per batch (0, 1, 2 and 3).
 - **Arithmetic probes:** the exact answer is computed in Python with arbitrary-precision integers. A reply is correct only if its last `ANSWER: <number>` line matches exactly; a missing line (including an abstention) counts as wrong, and calls that failed at the gateway are excluded. Digit-level accuracy is logged separately.
 - **Which-game scoring:** the `Game:` line of each reply is matched against keyword lists per game (Frogger counts as Freeway, as in the paper); an answer naming no game, such as "Undetermined", counts as wrong.
 - **Code and logs:** `weight-programming/`: minatar/, critique/, astra_eval/, opus_write/, exp1_games/, exp4_kinetix/, faith_fate_probe/ (novel_games/ holds the unfinished game designs).
+
+
+## Appendix D: Decoding Astra's Program
+
+
+### What Astra was given
+
+
+We can study the weights that were produced directly and understand how this network used.
+
+```edits
+W1[540:600:6, 0] = [0, -0.02, -0.04, ..., -0.18]    # paddle row: unit 0 gets -0.02 × paddle column
+W1[3:60:6, 0]    = [0.16, 0.18, 0.18, 0.16, ...]    # ball in row 0: a table over the ball's column
+W1[63:120:6, 0]  = [0.14, 0.16, 0.18, 0.18, ...]    # ball in row 1: the same table, shifted
+```
+
+- **Layer 1 is lookup tables.** Each ball cell feeds a hidden unit a hand-computed value encoding where that ball will land. The paddle row subtracts a linear ramp of the paddle's column, so each unit's input is a landing-position error.
+- **Layer 2 is ±1 logic.** Huge weights (up to 1,000 in W2, 415 in b2) push every tanh to ±1, so each unit acts as an AND/OR/threshold gate.
+- **Most of the network is empty.** Only 815 of 20,486 weights are nonzero, written in 92 statements.
+
+
+Look at the Breakout prompt and the task gets much smaller. It contained:
+1. the game's rules;
+2. the **complete MinAtar `breakout.py` source**: ball movement, wall bounces, brick strikes and the paddle-catch rule;
+3. the observation layout, with input index `(row·10 + col)·6 + channel`;
+4. a small "edits" language for setting weights:
+
+```edits
+W1[12, 0] = 2.5                         # one entry
+W1[3:600:60, 0] = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1]   # strided range: one column of one channel
+W2[0:2, 0:3] = [[1, -1, 0.5], [0, 2, 0]]   # 2-D block
+W3[:, 2] *= 2                           # scale
+```
+
+### What it wrote
+
+
+Its reasoning summaries read like a programmer's log. These are the section headings, in order:
+
+> **Designing robust landing policy** → **Refining trajectory inference** → **Deriving landing intervals** → **Exploring wall-case handling** → **Predicting upward bounce path** → **Checking trajectory parity** → **Evaluating y8 catch edge cases** → **Testing candidate collision predictors** → **Preparing manual fold tables** → **Allocating hidden-unit weights** → **Tuning gate thresholds** → **Computing W1 row tables** → **Checking brick collisions** → **Checking reflection formula** → **Checking parser edits**
+
+Spec, edge cases, lookup tables, register allocation, emit code, check syntax.
+
+
+### How the gates work
+
+Here is the circuit spelled out. I checked every number below on the released network ([`hand.npz`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/networks/breakout/hand.npz); Astra's commented edits are in its [`answer.md`](https://github.com/RikiyaT/lm_understand-logs/blob/main/exp5_write_from_scratch/runs/breakout/reply/answer.md)). It uses only 6 of the 32 first-layer units and 8 of the 32 second-layer units.
+
+#### Layer 1: four numbers and two bits
+
+- **Units 0–3 hold numbers.** Each one answers "how far is the landing column from the paddle?" for one ball direction: down-right, down-left, up-right, up-left. Its value is about 0.02 × (landing column − paddle column). The weights are small, so tanh stays in its linear range, and the unit carries a number, not a yes/no.
+- **Units 4 and 5 hold bits.** Unit 4 is "is the ball moving right?" and unit 5 is "is the ball moving down?", both read from the trail channel. Their weights are large, so tanh saturates to +1 or −1.
+
+#### Layer 2: eight AND gates
+
+For each of the four directions there is a "move left" unit and a "move right" unit. Each one adds:
+- ±1,000 × that direction's distance;
+- +200 or −200 for each of the two direction bits;
+- a bias of −415.
+
+The unit fires (tanh ≈ +1) only if **both** direction bits match its direction (+200 + 200 = +400, which cancels most of the −415) **and** the paddle is at least one column off on its side (1,000 × 0.02 = +20, enough to clear the remaining −15). If either bit is wrong, the sum stays near −400 and the unit can't fire. That's an AND of three conditions.
+
+| Distance (ball heading down-right) | "Move left" unit | "Move right" unit |
+|---|---|---|
+| landing 2 columns left of the paddle (−0.04) | +25 → **on** | −55 → off |
+| 1 column left (−0.02) | +5 → **on** | −35 → off |
+| aligned (0) | −15 → off | −15 → off |
+| 1 column right (+0.02) | −35 → off | +5 → **on** |
+| same distance, but the ball is heading left | −395 → off | −435 → off |
+
+#### Output layer: an OR and a default
+
+- **OR.** The left logit is 90 plus 30 for each of the four "move left" units, where an off unit counts as −1 and an on unit as +1. With all four off it's 90 − 120 = −30, below no-op's 0, so the paddle stays put. With any one on it's +30, so the paddle moves left. The right logit works the same way.
+- **Default.** Up, down and fire are fixed at −100, so they're never chosen.
+
+In ordinary code, the whole network is:
+
+```python
+d = direction(trail)                       # units 4-5: two sign bits
+gap = landing_column[d][ball] - paddle     # units 0-3: one lookup table per direction
+if gap < 0: move_left()                    # layer 2 (AND) + output (OR)
+elif gap > 0: move_right()
+else: stay()
+```
+
+The lookup tables `landing_column[d]` are where the real work went: Astra worked out, by hand, where a ball in each cell moving in each direction will land, wall bounces and brick bounces included.
+
+### How hard is that program?
+
+I wrote three Breakout players in plain Python and scored them with the same protocol (200 episodes each):
+
+| Player | What it does | Score |
+|---|---|---|
+| Track the ball | Move toward the ball's column (3 lines) | 8.4 ± 0.6 |
+| Naive landing prediction | Extrapolate wall bounces, ignore bricks | 6.9 ± 0.1 |
+| **Simulate the source** | Copy the game state, step it forward with the source's own rules, wait at the landing column (≈10 lines) | **534 ± 21** |
+| Astra's network (paper / mine) | The same algorithm, compiled into weights | 517 / 501 |
+| PPO, 500M steps | Learned from reward alone, no rules | 25 |
+
+- **The shortcuts fail.** You need the exact bounce rules, and the source code in the prompt provides them.
+- **With the rules in hand, the program is tiny.** The 20× margin over PPO compares a programmer holding the spec with a learner holding only rewards.
+- **Where no small program exists, the margin vanishes.** Astra loses Seaquest (53 vs 89 for PPO) and ties Asterix (53 vs 55).
+
+The car fix in Experiment 4 is the same pattern. Astra cleared a few units of the trained network and wired in its own rule: back up, then drive left once the car passes x ≈ 3.8. That's another small program written into weights. In this fixed scene the policy is almost deterministic: different seeds give the same trajectory, and the car's positions at steps 16, 32, 48 and 64 match the paper's recorded episode to 2 decimals. So "1,024 out of 1,024 successes" is effectively one successful trajectory.
+
+### Is it just Astra?
+
+I repeated Experiment 5 with Claude Opus 5.5: the paper's prompt verbatim, no tools, 2 replies per game, scored the same way.
+
+- **At maximum effort it produced nothing.** All 6 replies spent the full 128,000-token output limit thinking and stopped with no answer.
+- **At the `xhigh` setting it finished 3 of 6 times.**
+
+| Game | Opus xhigh r1 | Opus xhigh r2 | Astra (paper / mine) |
+|---|---|---|---|
+| Breakout | no answer | no answer | 517 / 501 |
+| Seaquest | **13.0 ± 0.4** | no answer | 53.1 / 51.9 |
+| Asterix | **47.0 ± 0.9** | **60.9 ± 1.1** | 53.2 / 55.2 |
+
+What this shows:
+- **The skill is shared.** One Opus Asterix network beat both Astra and the best PPO seed. All three answers applied with zero errors and encode real controllers.
+- **The difference is efficiency.** Astra finished every game in 21–29k output tokens. Opus needed 59–119k when it finished, and never finished Breakout in 4 attempts.
+- **Caveat:** effort labels aren't comparable across vendors, and there were only 2 replies per game per setting.
+
+### Why this is still surprising
+
+Compiling an algorithm into weights is old, from McCulloch–Pitts threshold logic (1943) to compiling programs into transformers (RASP 2021, Tracr 2023). What's new is doing it in one shot, in your head:
+- index arithmetic for 600 inputs;
+- hand-computed tables;
+- gate thresholds that must not interfere;
+- no calculator and no debugger, with the result within noise of the best simple algorithm.
+
+Few people would have predicted that a year ago. But it's evidence of *programming* skill, not of special insight into neural networks.
+
 
 # Citation
 

@@ -1,5 +1,5 @@
 ---
-title: "A Limit of Weight Programming: A Trip to Task Complexity"
+title: I Tried to Break Weight Programming
 date: 2026-11-03
 summary: I replicate a viral post on weight programming, add complexity analysis and share some opinions.
 weight:

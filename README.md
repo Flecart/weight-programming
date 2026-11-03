@@ -4,7 +4,7 @@ Replication and stress tests of *Sparks of Weight Space Programming: LLMs can un
 network weights* ([post](https://rikiyat.github.io/blog/weight-space-programming/),
 [logs](https://github.com/RikiyaT/lm_understand-logs)).
 
-> **Blog post:** [*A Limit of Weight Programming: A Trip to Task Complexity*](https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/), by Xuanqiang Angelo Huang. The Markdown source is in [`blog/companion_post.md`](blog/companion_post.md).
+> **Blog post:** [*I Tried to Break Weight Programming*](https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/), by Xuanqiang Angelo Huang. The Markdown source is in [`blog/companion_post.md`](blog/companion_post.md).
 
 The question: when GPT-6 Astra reads or writes network weights with no tools, what is it actually doing, and where does it
 stop working?
@@ -79,4 +79,4 @@ Appendix C.
 
 ## Citation
 
-> Huang, Xuanqiang Angelo "A Limit of Weight Programming: A Trip to Task Complexity." X. Angelo Huang's Blog (Nov 2026). https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/
+> Huang, Xuanqiang Angelo "I Tried to Break Weight Programming." X. Angelo Huang's Blog (Nov 2026). https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/

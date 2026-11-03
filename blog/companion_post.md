@@ -1,25 +1,25 @@
 ---
 title: "A Limit of Weight Programming: A Trip to Task Complexity"
 date: 2026-11-03
-summary: "A viral post showed frontier LLMs reading and writing neural-network weights directly. I replicated its results and then tried to break them. Astra compiles small programs into weights and decodes heavily obfuscated networks, but it stops at a runtime ceiling: when undoing an obfuscation would take more than about 2^18 operations, it declines instead of computing. Description length predicts how hard it thinks; runtime decides whether it tries at all."
+summary: I replicate a viral post on weight programming, add complexity analysis and share some opinions.
 weight:
 tags:
   - article
 versioned: true
 archived: false
 ---
-*A companion to "Sparks of Weight Space Programming: LLMs can understand and write neural network weights". I reran the experiments, read the model's reasoning, and then spent a long time trying to make it fail.*
-
-
 ## TL;DR
 
 - I replicated some of the results in the Weight Programming blog post, and I can confirm that Astra really does it. Opus 5.5 can do it too, but at maximum effort it spends its whole 128k-token output budget thinking and never answers.
 	- I show how Astra got a high score on Breakout: looking at its reasoning makes the answer quite simple. It *compiles* simple code into the weights! That's complex, but unsurprising, given that these models can already write thousands of lines of code.
 - I then made decoding harder by hiding the network behind stated operations that the model had to undo to make the same inference. Its reasoning tokens grew as the operations required more work. When decoding was impossible, as with SHA-256, the model simply refused to try to invert it.
 	- I relate this behaviour to ways of measuring intrinsic task complexity.
+- I share all the code and the replication results in https://github.com/flecart/weight-programming.
 
 
-When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of me trying to break weight programming (and failing). However, I think I found a limitation connected to some notion of the task's complexity.
+When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of me trying to break weight programming (and failing). However, I have reasons to believe I found a limitation connected to some notion of the task's complexity.
+
+The post is structured as follows: In [[#Finding one it's compiling a 10-line program|section 1]] I analyze the programs that Astra has developed and show that it was a simple compilation. Still novel that such model was able to, but given their recent ability in reverse engineering, it was not so surprising. In [[#Finding two Models still have Complexity Limits|section 2]] I explore the possible limits that every transformer has, which extends to the limits of weight-programming. It has the interesting implication that in many cases weight updating is a simpler process than expected. If this is true, it might indicate that other algorithms than backprop would be more effective at updating weights in a targeted manner, driven by similar complexity arguments. In [[#Finding three Models Self-Verify in Chain of Thought|section 3]], I discuss two known papers in the field that discuss inherent limits of transformers. It appears that the assumptions of those papers are slightly wrong, allowing the model to circumvent much of the stated limitations. It's also interesting to see how frontier models make use of their reasoning context to circumvent such problems. I close with some random musings in the [[#Conclusions|conclusions]] :).
 
 
 ## Finding one: it's compiling a 10-line program
@@ -57,7 +57,7 @@ From my experience with my supervisor's past work on simulating programs with LL
 I asked my agent to obfuscate the weights given to the model for recognition, using some standard operations. Clearly, the model should not classify pure noise-looking input as an Atari game. But if there was a pattern, it should be retrieved. And it looks like **the cost of computing the inverse function raised the reasoning length**, in a precise and understandable manner. That is, **reasoning grew sub-exponentially**, at about the square root of the operations needed ($\approx \text{operations}^{0.45}$):
 
 ![[ops_vs_reasoning_tokens.png| Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs 'by hand'; Line is median and band is 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
-In addition, it seemed to follow a procedure during decoding, so in this case it correctly understood the *decompilation* process for a known forward process. See [[#How Astra reads the weights, and what did not break it]].
+In addition, it seemed to follow a procedure during decoding, so in this case it correctly understood the *decompilation* process for a known forward process. See [[#How Astra reads the weights, and what did not break it]]. We can also use this data as a proxy to fit some "expected complexity", for example compiling the Atari code into the neural network took 16k tokens, about the same of 120 shuffle rounds.
 
 Similar phenomena were seen in [[@shojaeeIllusionThinkingUnderstanding2025]]. But the evidence here suggests that Astra is simply effective at not spending many tokens when its accuracy is likely to drop. I test other similar scenarios in [[#C.1.2 Faith-and-Fate arithmetic tasks]].
 
@@ -564,7 +564,12 @@ Compiling an algorithm into weights is old, from McCulloch–Pitts threshold log
 Few people would have predicted that a year ago. But it's evidence of *programming* skill, not of special insight into neural networks.
 
 
+
+
 # Citation
+
+> [!note] AI Use Statement  
+> This post used AI heavily. But not everywhere. The code is totally written by Claude Opus 5.5. The AI Appendix is fully AI written, I moved section. The main section is mostly human written. Clearly the Astra cit is not human written. The rest is human + grammar checks. I tried to make sure the flow of the main section worked! But hopefully you should find interesting data also in the appendix part of the current blog post.
 
 If you want to reference this work, cite it as:
 

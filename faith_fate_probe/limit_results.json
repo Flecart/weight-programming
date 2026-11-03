@@ -1,0 +1,596 @@
+[
+ {
+  "task": "multiplication",
+  "size": 20,
+  "graph": {
+   "V": 880,
+   "depth": 43,
+   "width": 400
+  },
+  "truth": "1626390095806828360341298427092676662080",
+  "answer": "1626390095806828360341298427092676662080",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 1050,
+  "output_tokens": 1073,
+  "wall_s": 28.63149404525757,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 1626390095806828360341298427092676662080"
+ },
+ {
+  "task": "multiplication",
+  "size": 20,
+  "graph": {
+   "V": 880,
+   "depth": 43,
+   "width": 400
+  },
+  "truth": "4938610572122596897848620117054356009716",
+  "answer": "4938610572122596897848620117054356009716",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 1369,
+  "output_tokens": 1392,
+  "wall_s": 28.752594470977783,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 4938610572122596897848620117054356009716"
+ },
+ {
+  "task": "multiplication",
+  "size": 20,
+  "graph": {
+   "V": 880,
+   "depth": 43,
+   "width": 400
+  },
+  "truth": "2216391600679774301842025173180185479233",
+  "answer": "2216391600679774301842025173180185479233",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 1356,
+  "output_tokens": 1379,
+  "wall_s": 35.30283260345459,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 2216391600679774301842025173180185479233"
+ },
+ {
+  "task": "multiplication",
+  "size": 30,
+  "graph": {
+   "V": 1920,
+   "depth": 63,
+   "width": 900
+  },
+  "truth": "124224596640500696393617476903634258133991310280348017907880",
+  "answer": "124224596640500696393617476903634258133991310280348017907880",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 2326,
+  "output_tokens": 2355,
+  "wall_s": 48.41202235221863,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 124224596640500696393617476903634258133991310280348017907880"
+ },
+ {
+  "task": "multiplication",
+  "size": 30,
+  "graph": {
+   "V": 1920,
+   "depth": 63,
+   "width": 900
+  },
+  "truth": "506657785388356008661033861345411577147876740001779902805213",
+  "answer": "506657785388356008661033861345411577147876740001779902805213",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 2833,
+  "output_tokens": 2862,
+  "wall_s": 67.29957628250122,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 506657785388356008661033861345411577147876740001779902805213"
+ },
+ {
+  "task": "multiplication",
+  "size": 30,
+  "graph": {
+   "V": 1920,
+   "depth": 63,
+   "width": 900
+  },
+  "truth": "247480667558712452812572626466939144028521680300063660223200",
+  "answer": "247480667558712452812572626466939144028521680300063660223200",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 2647,
+  "output_tokens": 2676,
+  "wall_s": 58.350149154663086,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 247480667558712452812572626466939144028521680300063660223200"
+ },
+ {
+  "task": "multiplication",
+  "size": 40,
+  "graph": {
+   "V": 3360,
+   "depth": 83,
+   "width": 1600
+  },
+  "truth": "25118160825893608847899957420135318227788009209056499789482880487359592629410775",
+  "answer": "25118160825893608847899957420135318227788009209056499789482880487359592629410775",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 3624,
+  "output_tokens": 3660,
+  "wall_s": 100.28539657592773,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 25118160825893608847899957420135318227788009209056499789482880487359592629410775"
+ },
+ {
+  "task": "multiplication",
+  "size": 40,
+  "graph": {
+   "V": 3360,
+   "depth": 83,
+   "width": 1600
+  },
+  "truth": "55842419105998422546392177022881664141033430622438318932134860443180595139240516",
+  "answer": "55842419105998422546392177022881664141033430622438318932134860443180595139240516",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 5107,
+  "output_tokens": 5143,
+  "wall_s": 94.66373753547668,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 55842419105998422546392177022881664141033430622438318932134860443180595139240516"
+ },
+ {
+  "task": "multiplication",
+  "size": 40,
+  "graph": {
+   "V": 3360,
+   "depth": 83,
+   "width": 1600
+  },
+  "truth": "12205726224691108810213698781345748949325394341892670571241581664462910383715152",
+  "answer": "12205726224691108810213698781345748949325394341892670571241581664462910383715152",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 5068,
+  "output_tokens": 5104,
+  "wall_s": 115.07087111473083,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 12205726224691108810213698781345748949325394341892670571241581664462910383715152"
+ },
+ {
+  "task": "multiplication",
+  "size": 60,
+  "graph": {
+   "V": 7440,
+   "depth": 123,
+   "width": 3600
+  },
+  "truth": "507139172539754958184131284493479615067605825549171743735295977246060380639277800270128636949021599341578685517850619830",
+  "answer": "507139172539754958184131284493479615067605825549171743735295977246060380639277800270128636949021599341578685517850619830",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 7455,
+  "output_tokens": 7504,
+  "wall_s": 144.63287711143494,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 507139172539754958184131284493479615067605825549171743735295977246060380639277800270128636949021599341578685517850619830"
+ },
+ {
+  "task": "multiplication",
+  "size": 60,
+  "graph": {
+   "V": 7440,
+   "depth": 123,
+   "width": 3600
+  },
+  "truth": "235903505957017157863984852907237901585830461046690666624343172803225842513300765359440368398062707552740263102557706984",
+  "answer": "235903505957017157863984852907237901585830461046690666624343172803225842513300765359440368398062707552740263102557706984",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 14500,
+  "output_tokens": 14549,
+  "wall_s": 334.0690689086914,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 235903505957017157863984852907237901585830461046690666624343172803225842513300765359440368398062707552740263102557706984"
+ },
+ {
+  "task": "multiplication",
+  "size": 60,
+  "graph": {
+   "V": 7440,
+   "depth": 123,
+   "width": 3600
+  },
+  "truth": "798717194701319586222320955029817369109626137629428332149076114059013305110205877862602252720814900305216595423098099412",
+  "answer": "798717194701319586222320955029817369109626137629428332149076114059013305110205877862602252720814900305216595423098099412",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 8043,
+  "output_tokens": 8092,
+  "wall_s": 159.99241542816162,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 798717194701319586222320955029817369109626137629428332149076114059013305110205877862602252720814900305216595423098099412"
+ },
+ {
+  "task": "multiplication",
+  "size": 80,
+  "graph": {
+   "V": 13120,
+   "depth": 163,
+   "width": 6400
+  },
+  "truth": "1912453173362919123347644732167425200247876485294638980081878595797974188061543148430399988155795649957598873282228863938335133637437265517618881208041563382048",
+  "answer": "1912453173362919123347644732167425200247876485294638980081878595797974188061543148430399988155795649957598873282228863938335133637437265517618881208041563382048",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 14691,
+  "output_tokens": 14754,
+  "wall_s": 282.48296308517456,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 1912453173362919123347644732167425200247876485294638980081878595797974188061543148430399988155795649957598873282228863938335133637437265517618881208041563382048"
+ },
+ {
+  "task": "multiplication",
+  "size": 80,
+  "graph": {
+   "V": 13120,
+   "depth": 163,
+   "width": 6400
+  },
+  "truth": "2826212302245366978387740290301984670431732415226831277131658001743394399153675389121304197498666388196812383941845524552177760635725433187869314188942514035624",
+  "answer": "2826212302245366978387740290301984670431732415226831277131658201743394379153675389121304197498666388196812383941845524552177760635725433187869314188942514035624",
+  "correct": false,
+  "digit_accuracy": 0.9875,
+  "reasoning_tokens": 13916,
+  "output_tokens": 13979,
+  "wall_s": 232.8444185256958,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 2826212302245366978387740290301984670431732415226831277131658201743394379153675389121304197498666388196812383941845524552177760635725433187869314188942514035624"
+ },
+ {
+  "task": "multiplication",
+  "size": 80,
+  "graph": {
+   "V": 13120,
+   "depth": 163,
+   "width": 6400
+  },
+  "truth": "342108254986137746116183781003762969892327471315396342096409328480093955364259245261032448891398178569611695248290705546431812672306281796250416700806068402364",
+  "answer": "342108254986137746116183781003762969892327471315396342096409328480093955364259245261032448891398178569611695248290705546431812672306281796250416700806068402364",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 10162,
+  "output_tokens": 10224,
+  "wall_s": 252.42645859718323,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 342108254986137746116183781003762969892327471315396342096409328480093955364259245261032448891398178569611695248290705546431812672306281796250416700806068402364"
+ },
+ {
+  "task": "multiplication",
+  "size": 120,
+  "graph": {
+   "V": 29280,
+   "depth": 243,
+   "width": 14400
+  },
+  "truth": "46653894484090087641996381607960604109030339395601300090901214631327805783164116876313688597063566920222185077499050837457903700937894540644084965722765194881295316133727456418848019122516813742077582229048486387818034474242288430564616354",
+  "answer": "46653894484090087641996381607960604109030339395601300090901214631327805783164116876313688597063566920222185077499050837457903700937894540644084965722765194881295316133727456418848019122516813742077582229048486387818034474242288430564616354",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 18456,
+  "output_tokens": 18545,
+  "wall_s": 439.81328082084656,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 46653894484090087641996381607960604109030339395601300090901214631327805783164116876313688597063566920222185077499050837457903700937894540644084965722765194881295316133727456418848019122516813742077582229048486387818034474242288430564616354"
+ },
+ {
+  "task": "multiplication",
+  "size": 120,
+  "graph": {
+   "V": 29280,
+   "depth": 243,
+   "width": 14400
+  },
+  "truth": "55097965146033322751641294767066393382815521541889364220697401029584906166736117754354191007996481681349788025564357032113827712386445407044696705058364801789868112609863840183468503820298599862002716751058604776399481311108883434702084480",
+  "answer": null,
+  "correct": false,
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "raw_tail": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 120,
+  "graph": {
+   "V": 29280,
+   "depth": 243,
+   "width": 14400
+  },
+  "truth": "470732068525523749341500759170052049282790163315663092222142314024539706950189510482236350109609528641385476958646491003198294669004925209292797135182135582680964308958924731988905199641687763038543301939070694994455827604714546658868695344",
+  "answer": "470732068525523749341500759170052049282790163315663092222142314024539706950189510482236350109609528641385476958646491003198294669004925209292797135182135582680964308958924731988905199641687763038543301939070694994455827604714546658868695344",
+  "correct": true,
+  "digit_accuracy": 1.0,
+  "reasoning_tokens": 27183,
+  "output_tokens": 27272,
+  "wall_s": 545.2993574142456,
+  "non_reasoning_items": [],
+  "raw_tail": "ANSWER: 470732068525523749341500759170052049282790163315663092222142314024539706950189510482236350109609528641385476958646491003198294669004925209292797135182135582680964308958924731988905199641687763038543301939070694994455827604714546658868695344"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 160,
+  "graph": {
+   "V": 482,
+   "depth": 162,
+   "width": 161
+  },
+  "truth": "137",
+  "answer": "137",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 1457,
+  "output_tokens": 1706,
+  "wall_s": 31.773430347442627,
+  "non_reasoning_items": [],
+  "raw_tail": "16, 20, 22, 24, 27, 30, 36, 38, 40, 42, 45, 49,\n56, 59, 62, 65, 67, 70, 78, 82, 91, 94, 99, 101, 106, 108,\n110, 113, 118, 121, 128, 131, 136, 140, 142, 146, 148, 150, 152, 156\n```\nNo two indices are adjacent, and their values sum to \\(137\\), matching the maximum given by the recurrence.\n\nANSWER: 137"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 160,
+  "graph": {
+   "V": 482,
+   "depth": 162,
+   "width": 161
+  },
+  "truth": "151",
+  "answer": "151",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 1552,
+  "output_tokens": 1810,
+  "wall_s": 34.652066707611084,
+  "non_reasoning_items": [],
+  "raw_tail": " 16, 19, 23, 32, 34, 36, 39, 45, 51, 53,\n59, 62, 66, 70, 74, 78, 87, 92, 95, 97, 102, 105, 109,\n112, 114, 116, 119, 123, 125, 127, 131, 133, 139, 142,\n145, 148, 151, 153, 159\n```\nNo two of these indices are adjacent. Their values sum to \\(151\\), matching the optimum from the recurrence.\n\nANSWER: 151"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 160,
+  "graph": {
+   "V": 482,
+   "depth": 162,
+   "width": 161
+  },
+  "truth": "185",
+  "answer": "185",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 1552,
+  "output_tokens": 1856,
+  "wall_s": 27.94523334503174,
+  "non_reasoning_items": [],
+  "raw_tail": ", 30,\n35, 37, 40, 42, 45, 47, 49, 52, 57, 59,\n61, 63, 65, 68, 70, 75, 77, 79, 84, 87,\n89, 92, 100, 104, 106, 109, 111, 115, 122, 124,\n126, 130, 132, 134, 136, 138, 142, 146, 149, 151,\n153, 155, 157, 160\n```\nNo two of these indices are adjacent, and their corresponding values sum to 185.\n\nANSWER: 185"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 320,
+  "graph": {
+   "V": 962,
+   "depth": 322,
+   "width": 321
+  },
+  "truth": "334",
+  "answer": "334",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 4414,
+  "output_tokens": 4849,
+  "wall_s": 76.75438499450684,
+  "non_reasoning_items": [],
+  "raw_tail": "ity, let \\(D_i\\) be the maximum valid sum using the first \\(i\\) entries. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two cases respectively skip or choose entry \\(i\\). Applying this recurrence gives \\(D_{320}=334\\), matching the subsequence above.\n\nANSWER: 334"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 320,
+  "graph": {
+   "V": 962,
+   "depth": 322,
+   "width": 321
+  },
+  "truth": "339",
+  "answer": "339",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 3359,
+  "output_tokens": 3801,
+  "wall_s": 71.87827754020691,
+  "non_reasoning_items": [],
+  "raw_tail": "182, 184, 187,\n190, 194, 197, 203, 205, 208, 212, 214, 217, 224, 226, 228,\n230, 232, 234, 236, 238,\n249, 252, 257, 259, 261, 265, 268, 270, 273, 276, 279, 282,\n284, 287, 289, 292, 297, 300, 303, 306, 309, 311, 314, 319\n```\nNo two listed indices are adjacent, and their values sum to 339.\n\nANSWER: 339"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 320,
+  "graph": {
+   "V": 962,
+   "depth": 322,
+   "width": 321
+  },
+  "truth": "353",
+  "answer": "353",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 3106,
+  "output_tokens": 3545,
+  "wall_s": 58.69875764846802,
+  "non_reasoning_items": [],
+  "raw_tail": ", 214, 217, 219,\n221, 223, 227, 229, 233, 235, 239,\n241, 244, 247, 249, 251, 254, 260,\n263, 266, 268, 273, 275, 277,\n281, 283, 285, 287, 291, 293, 296, 298,\n304, 306, 308, 310, 312, 315, 317, 319\n```\nNo two listed indices are adjacent. Their entries sum to \\(353\\), matching \\(D_{320}\\).\n\nANSWER: 353"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 640,
+  "graph": {
+   "V": 1922,
+   "depth": 642,
+   "width": 641
+  },
+  "truth": "685",
+  "answer": "685",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 6013,
+  "output_tokens": 6756,
+  "wall_s": 126.7880609035492,
+  "non_reasoning_items": [],
+  "raw_tail": " 528, 530, 533, 538, 541, 546, 552, 558, 562, 564, 566, 570, 572, 576, 578, 580, 582, 585, 588, 593, 595, 598,\n603, 605, 608, 611, 614, 616, 620, 623, 626, 628, 633, 635\n```\nNo two listed indices are adjacent. Their values sum to \\(685\\), matching the maximum obtained by the recurrence.\n\nANSWER: 685"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 640,
+  "graph": {
+   "V": 1922,
+   "depth": 642,
+   "width": 641
+  },
+  "truth": "597",
+  "answer": "597",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 5178,
+  "output_tokens": 5981,
+  "wall_s": 123.49164867401123,
+  "non_reasoning_items": [],
+  "raw_tail": "9 |\n\nNo two listed indices are adjacent. Optimality follows from the recurrence\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max\\!\\left(D_{i-1},\\,D_{i-2}+a_i\\right),\n\\]\nwhich considers skipping or choosing each element. Evaluating it gives \\(D_{640}=597\\), matching the subsequence above.\n\nANSWER: 597"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 640,
+  "graph": {
+   "V": 1922,
+   "depth": 642,
+   "width": 641
+  },
+  "truth": "646",
+  "answer": "646",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 5136,
+  "output_tokens": 5258,
+  "wall_s": 95.41051816940308,
+  "non_reasoning_items": [],
+  "raw_tail": "nable from the first \\(i\\) numbers. Then\n\\[\nM_0=0,\\qquad M_1=\\max(0,a_1),\n\\]\nand\n\\[\nM_i=\\max\\bigl(M_{i-1},\\,M_{i-2}+a_i\\bigr).\n\\]\nThe two options correspond to skipping \\(a_i\\), or choosing it and skipping its neighbor.\n\nApplying this recurrence to all 640 entries gives \\(M_{640}=646\\).\n\nANSWER: 646"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 1280,
+  "graph": {
+   "V": 3842,
+   "depth": 1282,
+   "width": 1281
+  },
+  "truth": "1324",
+  "answer": "1324",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 6544,
+  "output_tokens": 6648,
+  "wall_s": 102.71922206878662,
+  "non_reasoning_items": [],
+  "raw_tail": " \\(D_i\\) be the maximum sum using the first \\(i\\) integers. The recurrence is\n\\[\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i),\n\\]\nwith \\(D_0=0\\) and \\(D_1=\\max(0,a_1)\\). The two cases skip the current integer or choose it while skipping its neighbor.\n\nApplying this recurrence to the sequence gives:\n\nANSWER: 1324"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 1280,
+  "graph": {
+   "V": 3842,
+   "depth": 1282,
+   "width": 1281
+  },
+  "truth": "1249",
+  "answer": "1249",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 11154,
+  "output_tokens": 11324,
+  "wall_s": 161.81323885917664,
+  "non_reasoning_items": [],
+  "raw_tail": "spectively skip or select the \\(i\\)-th integer.\n\nApplying this recurrence to the sequence gives \\(D_{1280}=1249\\). An optimal subsequence is recovered by backtracking: select \\(a_i\\) and move back two positions when \\(D_{i-2}+a_i>D_{i-1}\\); otherwise skip it and move back one position.\n\nANSWER: 1249"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 1280,
+  "graph": {
+   "V": 3842,
+   "depth": 1282,
+   "width": 1281
+  },
+  "truth": "1295",
+  "answer": "1295",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 8042,
+  "output_tokens": 8172,
+  "wall_s": 129.21982216835022,
+  "non_reasoning_items": [],
+  "raw_tail": " without choosing adjacent entries. Then\n\\[\nM_i=\\max\\bigl(M_{i-1},\\,M_{i-2}+a_i\\bigr),\n\\]\nwith \\(M_0=0\\) and \\(M_1=\\max(0,a_1)=0\\).\n\nThe two choices are to skip \\(a_i\\), or choose it and skip its predecessor. Applying this recurrence to the full sequence gives the maximum sum **1295**.\n\nANSWER: 1295"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 2560,
+  "graph": {
+   "V": 7682,
+   "depth": 2562,
+   "width": 2561
+  },
+  "truth": "2635",
+  "answer": "2635",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 11230,
+  "output_tokens": 11339,
+  "wall_s": 202.78671216964722,
+  "non_reasoning_items": [],
+  "raw_tail": " the maximum sum using the first \\(i\\) numbers. The recurrence is\n\\[\nM_i=\\max\\bigl(M_{i-1},\\,M_{i-2}+a_i\\bigr),\n\\]\nwith \\(M_0=0\\) and \\(M_1=\\max(0,a_1)\\). The two options skip the current number or choose it while excluding its neighbor.\n\nApplying this recurrence to the sequence gives:\n\nANSWER: 2635"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 2560,
+  "graph": {
+   "V": 7682,
+   "depth": 2562,
+   "width": 2561
+  },
+  "truth": "2566",
+  "answer": "2566",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 13538,
+  "output_tokens": 13646,
+  "wall_s": 166.26104736328125,
+  "non_reasoning_items": [],
+  "raw_tail": "\\) be the maximum sum obtainable from the first \\(i\\) integers. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two cases correspond to skipping \\(a_i\\), or choosing it and skipping its neighbor.\n\nApplying this recurrence to the given sequence gives:\n\nANSWER: 2566"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 2560,
+  "graph": {
+   "V": 7682,
+   "depth": 2562,
+   "width": 2561
+  },
+  "truth": "2563",
+  "answer": "2563",
+  "correct": true,
+  "digit_accuracy": null,
+  "reasoning_tokens": 13466,
+  "output_tokens": 13559,
+  "wall_s": 226.5997223854065,
+  "non_reasoning_items": [],
+  "raw_tail": "Let \\(F_i\\) be the maximum sum obtainable from the first \\(i\\) numbers without choosing adjacent entries. Then\n\\[\nF_i=\\max(F_{i-1},\\,F_{i-2}+a_i),\n\\]\nwith \\(F_0=0\\) and \\(F_1=\\max(0,a_1)\\).\n\nApplying this recurrence to the given sequence gives:\n\nANSWER: 2563"
+ }
+]

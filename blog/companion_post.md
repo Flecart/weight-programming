@@ -55,7 +55,12 @@ We can actually study the *level of complexity* that a program needs to be befor
 
 ## 3. Finding two: reading weights survived everything I threw at it, until runtime ran out
 
-Writing weights is compiling. Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights. That made me suspect a shortcut I could take away.
+Writing weights is compiling is an activity very similar to writing pure machine code. Just that this machine code instead of writing registers or memories writes numbers directly. It makes me wonder what computation as we know it today could have developed if we worked with such hardware instead of the Von Neumann Architecture. Some decisions in history have long influence.
+
+The idea in this section is finding the limit of complexity where recognizing the game was off-limits.
+
+
+Reading them is decompiling, the harder direction. So I turned to Experiment 1: name the game a trained network plays from its 17,253 weights alone. Astra got 4 of 4 in the paper with about **1,000 reasoning tokens** each, far too few to read most of the weights. That made me suspect a shortcut I could take away.
 
 ### How it reads the weights
 
@@ -114,7 +119,9 @@ So I kept the description short and raised the computation. Every condition shuf
 
 
 
-![[ops_vs_reasoning_tokens.png|Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs by hand; the line joins each rule's median and the band covers the middle 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
+![[ops_vs_reasoning_tokens.png]]
+
+*Figure: reasoning tokens per reply against the operations needed to decode one shuffled row (log scale). Blue: rules Astra can run by hand; the line joins each rule's median and the band covers the middle 50% of replies. Orange: SHA-256. Hollow dots are wrong answers.*
 
 *Astra thinks harder the more work a rule needs, until the work is impossible.* Each dot is one reply naming the game behind a shuffled network: 4 networks × 2 replies per rule, plus 3 per network for the unshuffled original. The x-axis is the number of operations needed to decode one input row, on a log scale; the y-axis is reasoning tokens.
 - **Blue (rules it can run by hand):** effort rises with the work, from about 1,000 tokens with no shuffle to about 11,000 at 32 rounds of multiply-add and XOR. The line joins the median of each rule.
@@ -280,7 +287,9 @@ Two exceptions:
 | … ×128 | 4,128 | 18.3 | 6/8 | 49.5 | **2,141** (median 506; 7 of 8 replies stop early) |
 | **Order by SHA-256** of "wp-" + j | 48 | 20.1 | **6/8** | **43.8** | **399** |
 | **SHA-256 on inputs and output columns** | 64 | 20.2 | **2/8** | **15.6** | **467** |
-![[breakout_obfuscation.gif|What Astra sees as the shuffle gets harder. Left: the Breakout network as shown, each tile one input, brightness its largest first-layer weight. Right: what decoding a sample of rows recovers. Unshuffled, the weights are literally a picture of the board.]]
+![[breakout_obfuscation.gif]]
+
+*Figure: what Astra sees as the shuffle gets harder. Left, the Breakout network as shown: each tile is one input, its brightness the input's largest first-layer weight. Right, what decoding a sample of rows recovers. Unshuffled, the weights are literally a picture of the board.*
 
 ### Growth rate of reasoning effort
 
@@ -309,9 +318,22 @@ For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, ex
 | n×n-digit multiplication | n = 2 … 120 | 16 → 29,280 | **32/33** (one digit wrong at 80×80) | 17 → 27,183 |
 | Best sum with no two adjacent numbers | length 5 … 2,560 | 17 → 7,682 | **25/25** | 16 → 13,538 |
 
-![[ff_accuracy.png|Share of exact answers against Faith and Fate's computation-graph size |V|. Both tasks are perfect up to about |V| = 8,000. The DP sum breaks first (50% at about 15,000 nodes); multiplication holds to 120 digits and then stops answering. Dot size shows how many replies each point rests on.]]
+![[ff_accuracy.png]]
 
-![[ff_tokens.png|Reasoning tokens per reply against |V|. Filled: exact answer; hollow: wrong number; ✕: declined. Effort grows linearly with |V| until the break, where the wrong DP answers spend the most (18–41k tokens) and the declines the least (300–4,000).]]
+*Figure: share of exact answers against Faith and Fate's computation-graph size |V|, per task. Dot size shows how many replies each point rests on.*
+
+Both tasks are perfect up to about |V| = 8,000, and then they part ways:
+- **The DP sum breaks first.** It falls to 50% at 5,120 elements (|V| ≈ 15,000) and to 0 from 10,240 elements on.
+- **Multiplication holds on longer.** Its one dip, to 67% around |V| ≈ 13,000, is a single wrong digit in an 80×80 product. It is exact at 120×120 digits (|V| ≈ 29,000), then drops to 0 from 140 digits because every reply declines.
+- **So the two tasks break at different |V|,** about 15,000 against 30,000–40,000. If the graph size measured difficulty in a task-independent way, the two curves would fall together.
+
+![[ff_tokens.png]]
+
+*Figure: reasoning tokens per reply against |V|. Filled dots are exact answers, hollow dots wrong numbers, ✕ declines.*
+
+- **Effort grows steadily with the graph,** roughly in proportion to |V| (exponent 0.98 for multiplication, 0.94 for the DP sum), from a few dozen tokens up to about 27,000.
+- **The wrong answers sit at the top.** The DP sum's wrong numbers took 18,000–41,000 tokens, the most of any reply: Astra worked hard and still slipped somewhere in a 5,000-number sequence.
+- **The declines sit at the bottom right.** Past its limit Astra spends only 300–4,000 tokens, judges the job infeasible and says so, the same collapse seen with SHA-256.
 
 - **It's still exact at 120×120-digit multiplication.** The only error was a single wrong digit in an 80×80 product (98.75% of digits right).
 - **It uses a cheaper representation.** Its reasoning summary reads "Calculating base-1000 product", then "Verifying multiplication result": it multiplies 3-digit chunks.

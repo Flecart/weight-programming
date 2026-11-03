@@ -1,0 +1,56 @@
+{
+ "edit_report": {
+  "block": true,
+  "statements": 255,
+  "applied": 255,
+  "entries_written": 2007,
+  "errors": [],
+  "cut_off": false,
+  "tensors_touched": [
+   "W1",
+   "W2",
+   "W3",
+   "b1",
+   "b2",
+   "b3"
+  ],
+  "lenient": []
+ },
+ "nonzero": {
+  "W1": 1818,
+  "b1": 32,
+  "W2": 84,
+  "b2": 9,
+  "W3": 24,
+  "b3": 6
+ },
+ "nonzero_total": 1973,
+ "parameters": 20486,
+ "max_abs": {
+  "W1": 18.0,
+  "b1": 33.0,
+  "W2": 60.0,
+  "b2": 537.6,
+  "W3": 6.0,
+  "b3": 10.36
+ },
+ "tool_free": true,
+ "usage": {
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 0,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "inference_geo": "global",
+  "input_tokens": 6822,
+  "output_tokens": 119242,
+  "output_tokens_details": {
+   "thinking_tokens": 113105
+  },
+  "service_tier": "standard",
+  "speed": "standard"
+ },
+ "stop_reason": "end_turn",
+ "wall_s": 1142.5
+}

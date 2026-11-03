@@ -1,0 +1,41 @@
+{
+ "asterix": {
+  "network": "/home/angeloh/Desktop/work/weight-programming/opus_write/runs/asterix/rep1/net.npz",
+  "protocol": {
+   "minatar": "1.0.15",
+   "sticky_action_prob": 0.1,
+   "max_steps": 10000,
+   "action_selection": "sample softmax(logits)"
+  },
+  "ours": {
+   "mean": 0.505,
+   "se": 0.028368640781323663,
+   "episodes": 1000,
+   "max": 7.0,
+   "min": 0.0,
+   "mean_len": 72.058,
+   "truncated_at_10000": 0,
+   "wall_s": 0.9
+  },
+  "random": {
+   "mean": 0.486,
+   "se": 0.025028592258263958,
+   "episodes": 1000,
+   "max": 5.0,
+   "min": 0.0,
+   "mean_len": 70.485,
+   "truncated_at_10000": 0,
+   "wall_s": 0.1
+  },
+  "noop": {
+   "mean": 0.463,
+   "se": 0.025005124599894644,
+   "episodes": 1000,
+   "max": 5.0,
+   "min": 0.0,
+   "mean_len": 96.125,
+   "truncated_at_10000": 0,
+   "wall_s": 0.1
+  }
+ }
+}

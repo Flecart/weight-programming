@@ -1,0 +1,41 @@
+{
+ "seaquest": {
+  "network": "/home/angeloh/Desktop/work/weight-programming/opus_write/runs/seaquest/rep1/net.npz",
+  "protocol": {
+   "minatar": "1.0.15",
+   "sticky_action_prob": 0.1,
+   "max_steps": 10000,
+   "action_selection": "sample softmax(logits)"
+  },
+  "ours": {
+   "mean": 0.115,
+   "se": 0.013998963210572809,
+   "episodes": 1000,
+   "max": 5.0,
+   "min": 0.0,
+   "mean_len": 31.042,
+   "truncated_at_10000": 0,
+   "wall_s": 0.6
+  },
+  "random": {
+   "mean": 0.072,
+   "se": 0.00942893975507877,
+   "episodes": 1000,
+   "max": 2.0,
+   "min": 0.0,
+   "mean_len": 27.36,
+   "truncated_at_10000": 0,
+   "wall_s": 0.1
+  },
+  "noop": {
+   "mean": 0.0,
+   "se": 0.0,
+   "episodes": 1000,
+   "max": 0.0,
+   "min": 0.0,
+   "mean_len": 10000.0,
+   "truncated_at_10000": 1000,
+   "wall_s": 3.6
+  }
+ }
+}

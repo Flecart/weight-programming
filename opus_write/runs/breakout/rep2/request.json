@@ -1,0 +1,18 @@
+{
+ "model": "claude-opus-5-5",
+ "max_tokens": 128000,
+ "system": "Answer the user's request.",
+ "thinking": {
+  "type": "adaptive",
+  "display": "summarized"
+ },
+ "output_config": {
+  "effort": "max"
+ },
+ "messages": [
+  {
+   "role": "user",
+   "content": "<runs/breakout/message.txt, 9973 chars>"
+  }
+ ]
+}

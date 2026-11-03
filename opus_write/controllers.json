@@ -1,0 +1,14 @@
+{
+ "breakout": {"rep1": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0, so a uniform-random policy).",
+              "rep2": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0). The thinking summary shows it was still filling per-row landing-offset lookup tables for falling and rising balls, gated by direction, when the budget ran out.",
+              "xhigh_rep1": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0).",
+              "xhigh_rep2": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."},
+ "seaquest": {"rep1": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0).",
+              "rep2": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0).",
+              "xhigh_rep1": "The sub stays in the two centre columns. It changes row to line up with targets, turns and fires along its row, and dodges bullets by changing row. It surfaces when oxygen < 60 and it carries a diver. Layer 1: row-gated features (vertical preference, target side, own-row bullet threat), a parity/XOR facing-direction detector, and surfacing/top-row/row-8 flags. Layer 2: ANDs of target side and facing that drive fire/turn, plus move blockers, with fixed output priorities (blocked < bullet escape > surface > fire/turn > drift > no-op).",
+              "xhigh_rep2": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."},
+ "asterix": {"rep1": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0).",
+             "rep2": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0).",
+             "xhigh_rep1": "Stays in column 5 and moves only up and down: each row is a lane with at most one entity. Layer 1 computes per-row danger (enemy distance and approach, read from the trail) at 4 levels, per-row approaching treasure, and a one-hot player row. Layer 2 builds row-gated ANDs for flee up/down (current row more dangerous than its neighbour), seek treasure 1–2 rows away, and drift away from the edge rows. Otherwise it takes a strong no-op.",
+             "xhigh_rep2": "Stays in column 5 and dodges only vertically, hopping between rows with approaching gold. Layer 1 computes per-row imminent danger, a graded approaching enemy, graded approaching gold, and the player row as 3 binary bits. Layer 2 has one gated unit per (player row, up/stay/down) holding a value for the destination row: death −10, enemy and gold terms, a centrality term, a look-ahead for gold 2–4 rows away, and a sticky-move guard. Output is 40·tanh(value); left/right/fire are fixed at −50."}
+}

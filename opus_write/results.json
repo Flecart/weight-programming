@@ -1,0 +1,757 @@
+{
+ "protocol": {
+  "minatar": "1.0.15",
+  "episodes": 1000,
+  "sticky_action_prob": 0.1,
+  "max_steps": 10000,
+  "action_selection": "sample softmax(logits)",
+  "evaluator": "/home/angeloh/Desktop/work/weight-programming/minatar/eval_minatar.py --net",
+  "seeds": "same per-game seeds as validation.json (env seed = 1e6*(game_index+1)+i)"
+ },
+ "games": {
+  "breakout": {
+   "astra": {
+    "paper": {
+     "mean": 517.411,
+     "se": 7.416952829044303
+    },
+    "reproduced": {
+     "mean": 501.22,
+     "se": 7.816528495292377
+    },
+    "statements": 92,
+    "nonzero_total": 815,
+    "input_tokens": 6119,
+    "cached_input_tokens": 5888,
+    "output_tokens": 20567,
+    "reasoning_output_tokens": 16828,
+    "reasoning_method": "reply/run.json audit.usage.reasoning_output_tokens (Codex usage)",
+    "wall_s": 500.9
+   },
+   "ppo100": {
+    "key": "ppo100_s2",
+    "mean": 15.779,
+    "se": 0.09258904757978523
+   },
+   "ppo500": {
+    "key": "ppo500_s0",
+    "mean": 25.344,
+    "se": 0.12106329055630498
+   },
+   "random": {
+    "mean": 0.512,
+    "se": 0.022143765405782875
+   },
+   "noop": {
+    "mean": 0.497,
+    "se": 0.015819015179246818
+   },
+   "opus": {
+    "rep1": {
+     "effort": "max",
+     "mean": 0.523,
+     "se": 0.022180238117814763,
+     "episodes": 1000,
+     "max": 4.0,
+     "mean_len": 11.322,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3745,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 42043,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3745,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1167.1,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0, so a uniform-random policy)."
+    },
+    "rep2": {
+     "effort": "max",
+     "mean": 0.523,
+     "se": 0.022180238117814763,
+     "episodes": 1000,
+     "max": 4.0,
+     "mean_len": 11.322,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3745,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 39417,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3745,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1135.7,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0). The thinking summary shows it was still filling per-row landing-offset lookup tables for falling and rising balls, gated by direction, when the budget ran out."
+    },
+    "xhigh_rep1": {
+     "effort": "xhigh",
+     "mean": 0.523,
+     "se": 0.022180238117814763,
+     "episodes": 1000,
+     "max": 4.0,
+     "mean_len": 11.322,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3745,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 41721,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3745,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1206.4,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    },
+    "xhigh_rep2": {
+     "effort": "xhigh",
+     "mean": 0.523,
+     "se": 0.022180238117814763,
+     "episodes": 1000,
+     "max": 4.0,
+     "mean_len": 11.322,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3745,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 38588,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3745,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1163.9,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    }
+   }
+  },
+  "seaquest": {
+   "astra": {
+    "paper": {
+     "mean": 53.11,
+     "se": 1.3573821814015339
+    },
+    "reproduced": {
+     "mean": 51.906,
+     "se": 1.3383595818651917
+    },
+    "statements": 122,
+    "nonzero_total": 803,
+    "input_tokens": 8112,
+    "cached_input_tokens": 0,
+    "output_tokens": 23894,
+    "reasoning_output_tokens": 19803,
+    "reasoning_method": "reply/run.json audit.usage.reasoning_output_tokens (Codex usage)",
+    "wall_s": 545.1
+   },
+   "ppo100": {
+    "key": "ppo100_s2",
+    "mean": 5.617,
+    "se": 0.04926192990269197
+   },
+   "ppo500": {
+    "key": "ppo500_s2",
+    "mean": 88.884,
+    "se": 1.561826445494456
+   },
+   "random": {
+    "mean": 0.072,
+    "se": 0.00942893975507877
+   },
+   "noop": {
+    "mean": 0.0,
+    "se": 0.0
+   },
+   "opus": {
+    "rep1": {
+     "effort": "max",
+     "mean": 0.115,
+     "se": 0.013998963210572809,
+     "episodes": 1000,
+     "max": 5.0,
+     "mean_len": 31.042,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 6822,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 43508,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 6822,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1236.2,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    },
+    "rep2": {
+     "effort": "max",
+     "mean": 0.115,
+     "se": 0.013998963210572809,
+     "episodes": 1000,
+     "max": 5.0,
+     "mean_len": 31.042,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 6822,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 43653,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 6822,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1260.0,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    },
+    "xhigh_rep1": {
+     "effort": "xhigh",
+     "mean": 12.975,
+     "se": 0.43072485289207413,
+     "episodes": 1000,
+     "max": 83.0,
+     "mean_len": 494.837,
+     "truncated_at_10000": 0,
+     "statements": 255,
+     "applied": 255,
+     "errors": [],
+     "cut_off": false,
+     "block": true,
+     "lenient": [],
+     "entries_written": 2007,
+     "nonzero_total": 1973,
+     "max_abs": {
+      "W1": 18.0,
+      "b1": 33.0,
+      "W2": 60.0,
+      "b2": 537.6,
+      "W3": 6.0,
+      "b3": 10.36
+     },
+     "output_tokens": 119242,
+     "input_tokens": 6822,
+     "thinking_tokens": 113105,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 6134,
+     "thinking_summary_tokens_counted": 34102,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 6822,
+      "output_tokens": 119242,
+      "output_tokens_details": {
+       "thinking_tokens": 113105
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "end_turn",
+     "wall_s": 1142.5,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "The sub stays in the two centre columns. It changes row to line up with targets, turns and fires along its row, and dodges bullets by changing row. It surfaces when oxygen < 60 and it carries a diver. Layer 1: row-gated features (vertical preference, target side, own-row bullet threat), a parity/XOR facing-direction detector, and surfacing/top-row/row-8 flags. Layer 2: ANDs of target side and facing that drive fire/turn, plus move blockers, with fixed output priorities (blocked < bullet escape > surface > fire/turn > drift > no-op)."
+    },
+    "xhigh_rep2": {
+     "effort": "xhigh",
+     "mean": 0.115,
+     "se": 0.013998963210572809,
+     "episodes": 1000,
+     "max": 5.0,
+     "mean_len": 31.042,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 6822,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 38842,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 6822,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1248.8,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    }
+   }
+  },
+  "asterix": {
+   "astra": {
+    "paper": {
+     "mean": 53.178,
+     "se": 1.023305169277215
+    },
+    "reproduced": {
+     "mean": 55.201,
+     "se": 1.0583859313973234
+    },
+    "statements": 55,
+    "nonzero_total": 637,
+    "input_tokens": 6199,
+    "cached_input_tokens": 0,
+    "output_tokens": 28993,
+    "reasoning_output_tokens": 25694,
+    "reasoning_method": "reply/run.json audit.usage.reasoning_output_tokens (Codex usage)",
+    "wall_s": 582.6
+   },
+   "ppo100": {
+    "key": "ppo100_s6",
+    "mean": 25.82,
+    "se": 0.44719971778567524
+   },
+   "ppo500": {
+    "key": "ppo500_s1",
+    "mean": 55.204,
+    "se": 0.6358889358518033
+   },
+   "random": {
+    "mean": 0.486,
+    "se": 0.025028592258263958
+   },
+   "noop": {
+    "mean": 0.463,
+    "se": 0.025005124599894644
+   },
+   "opus": {
+    "rep1": {
+     "effort": "max",
+     "mean": 0.505,
+     "se": 0.028368640781323663,
+     "episodes": 1000,
+     "max": 7.0,
+     "mean_len": 72.058,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3924,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 42097,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3924,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1180.5,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    },
+    "rep2": {
+     "effort": "max",
+     "mean": 0.505,
+     "se": 0.028368640781323663,
+     "episodes": 1000,
+     "max": 7.0,
+     "mean_len": 72.058,
+     "truncated_at_10000": 0,
+     "statements": 0,
+     "applied": 0,
+     "errors": [],
+     "cut_off": false,
+     "block": false,
+     "lenient": [],
+     "entries_written": 0,
+     "nonzero_total": 0,
+     "max_abs": {
+      "W1": 0.0,
+      "b1": 0.0,
+      "W2": 0.0,
+      "b2": 0.0,
+      "W3": 0.0,
+      "b3": 0.0
+     },
+     "output_tokens": 128000,
+     "input_tokens": 3924,
+     "thinking_tokens": 128000,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 0,
+     "thinking_summary_tokens_counted": 41381,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3924,
+      "output_tokens": 128000,
+      "output_tokens_details": {
+       "thinking_tokens": 128000
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "max_tokens",
+     "wall_s": 1222.3,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "No answer: 128,000 thinking tokens, no text, no edits block (all weights 0)."
+    },
+    "xhigh_rep1": {
+     "effort": "xhigh",
+     "mean": 46.968,
+     "se": 0.9405283459681423,
+     "episodes": 1000,
+     "max": 230.0,
+     "mean_len": 910.2,
+     "truncated_at_10000": 0,
+     "statements": 170,
+     "applied": 170,
+     "errors": [],
+     "cut_off": false,
+     "block": true,
+     "lenient": [],
+     "entries_written": 606,
+     "nonzero_total": 526,
+     "max_abs": {
+      "W1": 18.0,
+      "b1": 3.0,
+      "W2": 6.0,
+      "b2": 18.0,
+      "W3": 12.0,
+      "b3": 160.5
+     },
+     "output_tokens": 59034,
+     "input_tokens": 3924,
+     "thinking_tokens": 54113,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 4918,
+     "thinking_summary_tokens_counted": 16169,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3924,
+      "output_tokens": 59034,
+      "output_tokens_details": {
+       "thinking_tokens": 54113
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "end_turn",
+     "wall_s": 544.6,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "Stays in column 5 and moves only up and down: each row is a lane with at most one entity. Layer 1 computes per-row danger (enemy distance and approach, read from the trail) at 4 levels, per-row approaching treasure, and a one-hot player row. Layer 2 builds row-gated ANDs for flee up/down (current row more dangerous than its neighbour), seek treasure 1\u20132 rows away, and drift away from the edge rows. Otherwise it takes a strong no-op."
+    },
+    "xhigh_rep2": {
+     "effort": "xhigh",
+     "mean": 60.86,
+     "se": 1.0618577785852217,
+     "episodes": 1000,
+     "max": 221.0,
+     "mean_len": 940.204,
+     "truncated_at_10000": 0,
+     "statements": 104,
+     "applied": 104,
+     "errors": [],
+     "cut_off": false,
+     "block": true,
+     "lenient": [],
+     "entries_written": 1209,
+     "nonzero_total": 739,
+     "max_abs": {
+      "W1": 16.0,
+      "b1": 12.0,
+      "W2": 10.0,
+      "b2": 35.1118,
+      "W3": 40.0,
+      "b3": 280.0
+     },
+     "output_tokens": 98785,
+     "input_tokens": 3924,
+     "thinking_tokens": 92514,
+     "thinking_method": "usage field output_tokens_details.thinking_tokens",
+     "answer_tokens_counted": 6268,
+     "thinking_summary_tokens_counted": 25263,
+     "usage": {
+      "cache_creation": {
+       "ephemeral_1h_input_tokens": 0,
+       "ephemeral_5m_input_tokens": 0
+      },
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "inference_geo": "global",
+      "input_tokens": 3924,
+      "output_tokens": 98785,
+      "output_tokens_details": {
+       "thinking_tokens": 92514
+      },
+      "service_tier": "standard",
+      "speed": "standard"
+     },
+     "stop_reason": "end_turn",
+     "wall_s": 891.9,
+     "tool_free": true,
+     "model": "claude-opus-5-5",
+     "controller": "Stays in column 5 and dodges only vertically, hopping between rows with approaching gold. Layer 1 computes per-row imminent danger, a graded approaching enemy, graded approaching gold, and the player row as 3 binary bits. Layer 2 has one gated unit per (player row, up/stay/down) holding a value for the destination row: death \u221210, enemy and gold terms, a centrality term, a look-ahead for gold 2\u20134 rows away, and a sticky-move guard. Output is 40\u00b7tanh(value); left/right/fire are fixed at \u221250."
+    }
+   }
+  }
+ }
+}

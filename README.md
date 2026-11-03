@@ -2,8 +2,9 @@
 
 Replication and stress tests of *Sparks of Weight Space Programming: LLMs can understand and write neural
 network weights* ([post](https://rikiyat.github.io/blog/weight-space-programming/),
-[logs](https://github.com/RikiyaT/lm_understand-logs)), plus the companion blog post
-[`blog/companion_post.md`](blog/companion_post.md), *A Limit of Weight Programming: A Trip to Task Complexity*.
+[logs](https://github.com/RikiyaT/lm_understand-logs)).
+
+> **Blog post:** [*A Limit of Weight Programming: A Trip to Task Complexity*](https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/), by Xuanqiang Angelo Huang. The Markdown source is in [`blog/companion_post.md`](blog/companion_post.md).
 
 The question: when GPT-6 Astra reads or writes network weights with no tools, what is it actually doing, and where does it
 stop working?
@@ -73,5 +74,9 @@ Appendix C.
 
 ## Licences
 
-- **Material from the paper's repository** keeps its original licence. The saved prompts in `astra_eval/prompts/` and `astra_eval/runs/` contain the paper's released weights (CC BY 4.0). The request files in `opus_write/runs/` contain the MinAtar source quoted in Experiment 5's prompts (GPL-3.0).
-- **The code in this repository** has no licence chosen yet; add one before making the repository public.
+- **Material from the paper's repository** keeps its original licence. The saved prompts in `astra_eval/prompts/` and `astra_eval/runs/` contain the paper's released weights (CC BY 4.0). The request files in `opus_write/runs/` contain the MinAtar source quoted in Experiment 5's prompts (GPL-3.0; licence text in [`opus_write/LICENSE-MinAtar`](opus_write/LICENSE-MinAtar)).
+- **The code in this repository** has no open-source licence yet, so all rights are reserved by default. Open an issue if you would like to reuse it.
+
+## Citation
+
+> Huang, Xuanqiang Angelo "A Limit of Weight Programming: A Trip to Task Complexity." X. Angelo Huang's Blog (Nov 2026). https://flecart.github.io/posts/2026-11-03-i-tried-to-break-weight-programming/

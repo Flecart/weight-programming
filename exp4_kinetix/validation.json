@@ -1,0 +1,108 @@
+{
+ "ppo_final_seed0": {
+  "ours": {
+   "success": 0.0,
+   "fail": 0.0,
+   "timeout": 1.0,
+   "invalid": 0.0,
+   "episodes": 1024,
+   "counts": {
+    "timeout": 1024,
+    "success": 0,
+    "red": 0,
+    "invalid": 0
+   },
+   "mean_return": 0.1521,
+   "mean_length": 256.0,
+   "argmax_outcome": "timeout"
+  },
+  "reference": {
+   "success": 0.0,
+   "fail": 0.0,
+   "timeout": 1.0,
+   "invalid": 0.0,
+   "episodes": 256,
+   "mean_return": 0.152,
+   "mean_length": 256.0,
+   "argmax_outcome": "timeout",
+   "source": "eval/ppo_training_result.json -> last_search (full-precision final network, 256 search episodes)"
+  },
+  "verdict": "validated"
+ },
+ "ppo_final_seed0_as_shown_rounded": {
+  "ours": {
+   "success": 0.0,
+   "fail": 0.0,
+   "timeout": 1.0,
+   "invalid": 0.0,
+   "episodes": 1024,
+   "counts": {
+    "timeout": 1024,
+    "success": 0,
+    "red": 0,
+    "invalid": 0
+   },
+   "mean_return": 0.1518,
+   "mean_length": 256.0,
+   "argmax_outcome": "timeout"
+  },
+  "reference": {
+   "success": 0.0,
+   "fail": 0.0,
+   "timeout": 1.0,
+   "invalid": 0.0,
+   "episodes": 256,
+   "mean_return": 0.1519,
+   "mean_length": 256.0,
+   "argmax_outcome": "timeout",
+   "source": "eval/base_result.json (network as shown in prompt, 256 search episodes)"
+  },
+  "verdict": "validated"
+ },
+ "edited_actor": {
+  "ours": {
+   "success": 1.0,
+   "fail": 0.0,
+   "timeout": 0.0,
+   "invalid": 0.0,
+   "episodes": 1024,
+   "counts": {
+    "timeout": 0,
+    "success": 1024,
+    "red": 0,
+    "invalid": 0
+   },
+   "mean_return": 1.3738,
+   "mean_length": 73.0,
+   "argmax_outcome": "success"
+  },
+  "reference": {
+   "success": 1.0,
+   "fail": 0.0,
+   "timeout": 0.0,
+   "invalid": 0.0,
+   "episodes": 1024,
+   "mean_return": 1.3738,
+   "mean_length": 73.0,
+   "argmax_outcome": null,
+   "source": "eval/oneshot_result.json -> test (1,024 test episodes)",
+   "search_256": {
+    "success": 1.0,
+    "fail": 0.0,
+    "timeout": 0.0,
+    "invalid": 0.0,
+    "episodes": 256,
+    "mean_return": 1.3738,
+    "mean_length": 73.0,
+    "argmax_outcome": "success",
+    "source": "eval/oneshot_result.json -> search"
+   }
+  },
+  "verdict": "validated"
+ },
+ "_notes": {
+  "env": "kinetix-env 3.0.2 (== FLAIROx/Kinetix tag v3.0.2, commit 80ee9c29 recorded in ppo_training_result.json), jax/jaxlib 0.4.38 CPU, Python 3.12; level l/h2_car_ramp, symbolic_flat obs (679), multi_discrete actions, frame_skip 2, dense_reward_scale 0.2, max 256 steps",
+  "sampling": "each of the 6 action entries sampled independently from softmax of its logits; our RNG streams differ from the harness's 'search'/'test' streams, so per-episode identity is not reproduced, only rates",
+  "outcome_rule": "success = GoalR (green touches blue); fail = red contact (step reward < -0.5); invalid = NaN state; timeout = 256 steps otherwise"
+ }
+}

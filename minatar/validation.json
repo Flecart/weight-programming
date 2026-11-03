@@ -1,0 +1,155 @@
+{
+ "breakout": {
+  "network": "networks/breakout/hand.npz (ref key breakout.hand)",
+  "protocol": {
+   "minatar": "1.0.15",
+   "sticky_action_prob": 0.1,
+   "max_steps": 10000,
+   "action_selection": "sample softmax(logits)"
+  },
+  "ours": {
+   "mean": 501.22,
+   "se": 7.816528495292377,
+   "episodes": 1000,
+   "max": 789.0,
+   "min": 0.0,
+   "mean_len": 7160.608,
+   "truncated_at_10000": 499,
+   "wall_s": 89.5
+  },
+  "random": {
+   "mean": 0.512,
+   "se": 0.022143765405782875,
+   "episodes": 1000,
+   "max": 4.0,
+   "min": 0.0,
+   "mean_len": 11.206,
+   "truncated_at_10000": 0,
+   "wall_s": 0.1
+  },
+  "noop": {
+   "mean": 0.497,
+   "se": 0.015819015179246818,
+   "episodes": 1000,
+   "max": 1.0,
+   "min": 0.0,
+   "mean_len": 10.97,
+   "truncated_at_10000": 0,
+   "wall_s": 0.1
+  },
+  "reference": {
+   "mean": 517.411,
+   "se": 7.416952829044303,
+   "episodes": 1000,
+   "mean_len": 7417.202,
+   "max": 800.0
+  },
+  "z_diff": -1.503,
+  "verdict": "validated",
+  "extra_check": {
+   "mean": 504.402,
+   "se": 4.488416335804009,
+   "episodes": 3000,
+   "mean_len": 7196.165,
+   "truncated_at_10000": 1542,
+   "seeds": "9000000-9002999",
+   "note": "additional independent seeds; pooled 4000 eps mean ~503.6 (se ~3.9), z vs reference ~-1.65 using combined se"
+  }
+ },
+ "seaquest": {
+  "network": "networks/seaquest/hand.npz (ref key seaquest.hand)",
+  "protocol": {
+   "minatar": "1.0.15",
+   "sticky_action_prob": 0.1,
+   "max_steps": 10000,
+   "action_selection": "sample softmax(logits)"
+  },
+  "ours": {
+   "mean": 51.906,
+   "se": 1.3383595818651917,
+   "episodes": 1000,
+   "max": 176.0,
+   "min": 0.0,
+   "mean_len": 1389.445,
+   "truncated_at_10000": 0,
+   "wall_s": 23.1
+  },
+  "random": {
+   "mean": 0.072,
+   "se": 0.00942893975507877,
+   "episodes": 1000,
+   "max": 2.0,
+   "min": 0.0,
+   "mean_len": 27.36,
+   "truncated_at_10000": 0,
+   "wall_s": 0.2
+  },
+  "noop": {
+   "mean": 0.0,
+   "se": 0.0,
+   "episodes": 1000,
+   "max": 0.0,
+   "min": 0.0,
+   "mean_len": 10000.0,
+   "truncated_at_10000": 1000,
+   "wall_s": 5.5
+  },
+  "reference": {
+   "mean": 53.11,
+   "se": 1.3573821814015339,
+   "episodes": 1000,
+   "mean_len": 1411.613,
+   "max": 158.0
+  },
+  "z_diff": -0.632,
+  "verdict": "validated"
+ },
+ "asterix": {
+  "network": "networks/asterix/hand.npz (ref key asterix.hand)",
+  "protocol": {
+   "minatar": "1.0.15",
+   "sticky_action_prob": 0.1,
+   "max_steps": 10000,
+   "action_selection": "sample softmax(logits)"
+  },
+  "ours": {
+   "mean": 55.201,
+   "se": 1.0583859313973234,
+   "episodes": 1000,
+   "max": 251.0,
+   "min": 0.0,
+   "mean_len": 878.187,
+   "truncated_at_10000": 0,
+   "wall_s": 12.2
+  },
+  "random": {
+   "mean": 0.486,
+   "se": 0.025028592258263958,
+   "episodes": 1000,
+   "max": 5.0,
+   "min": 0.0,
+   "mean_len": 70.485,
+   "truncated_at_10000": 0,
+   "wall_s": 0.2
+  },
+  "noop": {
+   "mean": 0.463,
+   "se": 0.025005124599894644,
+   "episodes": 1000,
+   "max": 5.0,
+   "min": 0.0,
+   "mean_len": 96.125,
+   "truncated_at_10000": 0,
+   "wall_s": 0.2
+  },
+  "reference": {
+   "mean": 53.178,
+   "se": 1.023305169277215,
+   "episodes": 1000,
+   "mean_len": 858.045,
+   "max": 177.0
+  },
+  "z_diff": 1.374,
+  "verdict": "validated"
+ }
+}

@@ -1,5 +1,5 @@
 ---
-title: "Breaking Weight Programming: A Trip to Compilation Complexity"
+title: "A Limit of Weight Programming: A Trip to Task Complexity"
 date: 2026-11-03
 summary: "A viral post showed frontier LLMs reading and writing neural-network weights directly. I replicated its results and then tried to break them. Astra compiles small programs into weights and decodes heavily obfuscated networks, but it stops at a runtime ceiling: when undoing an obfuscation would take more than about 2^18 operations, it declines instead of computing. Description length predicts how hard it thinks; runtime decides whether it tries at all."
 weight:
@@ -17,19 +17,13 @@ archived: false
 	- I show how Astra got a high score on Breakout: looking at its reasoning makes the answer quite simple. It *compiles* simple code into the weights! That's complex, but unsurprising, given that these models can already write thousands of lines of code.
 - I then made decoding harder by hiding the network behind stated operations that the model had to undo to make the same inference. Its reasoning tokens grew as the operations required more work. When decoding was impossible, as with SHA-256, the model simply refused to try to invert it.
 - I connect this last point to recent work on measuring intrinsic task complexity.
-	- One very famous work in the past years, Faith and Fate,  gets wrong what makes a task costly for these models. Its computation-graph size |V| predicts Astra's reasoning tokens on plain arithmetic (tokens ∝ |V|^0.98), but not when reading weights (ρ = +0.12), because the model decodes only the rows it needs. Its prediction that accuracy collapses after a few digits also no longer holds: Astra is exact at 120×120-digit multiplication.
-	- Standard complexity frameworks, such as Kolmogorov complexity, don't take running time into account. A short description can hide an infeasible computation: SHA-256 takes 48 bits to state but about 2²⁰ operations to undo, and that is exactly where Astra stops.
-	- The best current measure of intrinsic task complexity seems to be Levin's Kt complexity (description length + log of running time), capped by the model's reasoning budget. Description length predicts effort while the program is runnable (ρ = 0.90), and runtime decides whether the model attempts it at all (the break lies between about 2¹⁶ and 2²⁰ operations).
+
+
+When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of me trying to break weight programming (and failing). However, I think I found a limitation connected on some notion of complexity of the task.
 
 
 
-When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of breaking weight programming: of what makes models unreliable at such tasks.
-
-
-
-
-
-## 2. Finding one: it's compiling a 10-line program
+## Finding one: it's compiling a 10-line program
 
 Analyzing the summary of the reasoning trace, and the designed weights, we can understand what really was done under the hood to create a "weight-program" that performs so well.
 
@@ -37,7 +31,7 @@ Astra's design statement, in full:
 
 > *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
 
-This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. 
+This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. Looking around in the literature, one can also find that the technique is known[[@lindnerTracrCompiledTransformers2023]]. But still surprising to see such model being able to do it in a one-shot manner.
 
 With some work, Claude asserts that the whole program that is implemented is just a very simple python program:
 
@@ -53,7 +47,7 @@ Check [[#Appendix D Decoding Astra's Program]]. Such compilation would have take
 Since the games that were studied were easy to manage, this specific experiment is not that much surprising.
 We can actually study the *level of complexity* that a program needs to be before it breaks, even for complex frontier LLMs like Astra.
 
-## 3. Finding two: Models still have Complexity Limits
+## Finding two: Models still have Complexity Limits
 
 Writing weights is compiling is an activity very similar to writing pure machine code. Just that this machine code instead of writing registers or memories writes numbers directly. It makes me wonder what computation as we know it today could have developed if we worked with such hardware instead of the Von Neumann Architecture. Some decisions in history have long influence.
 
@@ -64,14 +58,18 @@ From my experience in past work of my supervisor on simulation of programs with 
 I asked my agent to obfuscate the weights given for it to recognize using some stardard operations. Clearly it should not classify pure noise looking input as an atari game. But if there was a pattern, that should be retrieved. And looks like **cost of computing the inverse function raised reasoning length**, in a precise understandable manner. That is **reasoning grew sub-exponentially**, at about the square root of the operations needed ($\approx \text{operations}^{0.45}$):  
 
 ![[ops_vs_reasoning_tokens.png| Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs 'by hand'; Line is median and band is 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
-In addition, it seemed to follow a procedure during decoding. So it correctly understood what was the *decompilation* process for a known forward process in this case.
+In addition, it seemed to follow a procedure during decoding. So it correctly understood what was the *decompilation* process for a known forward process in this case. See [[#How Astra reads the weights, and what did not break it]].
 
+Similar phenomena where seen in [[@shojaeeIllusionThinkingUnderstanding2025]]. But evidence here seems to point that Astra is just effective at not using many tokens when its accuracy seems to decrease. I test other similar scenarios in [[#C.1.2 Faith-and-Fate arithmetic tasks]].
+
+I tried to analyze complexity of such tasks, and it seems connected to classical Minimum Description Length principles. The computational difficulty analyzed in [[@dziriFaithFateLimits2023]] seems much less relevant.
+See Table in [[#What predicts the effort]].
 
 ## Finding Three: Models Self Verify in Chain of Though
 
-A claim that Faith and Fate[[@dziriFaithFateLimits2023]] made was that inevitably all reasoning tokens would collapse accuracy given some inherent error in the production of the sentence. But empirically, having my agent analyzing the logs, it looks like astra produced very often tokens to verify its own results in the CoT. The agent reported strings such as "Checking p75 arithmetic" or "Recounting early indices" or "Verifying multiplication results", for more than 30% of its reasoning steps.
+A claim that Faith and Fate[[@dziriFaithFateLimits2023]] made was that inevitably all reasoning tokens would collapse accuracy given some inherent error in the production of the sentence. But empirically, having my agent analyzing the logs, it looks like astra produced very often tokens to verify its own results in the CoT. The agent reported strings such as "Checking p75 arithmetic" or "Recounting early indices" or "Verifying multiplication results", for more than 30% of its reasoning steps. Astra also computed modular checksums during the reasoning. This seems to align with the result in [[@stechlySelfVerificationLimitationsLarge2024]], just that instead of needing an external verification, even internal reasoning-led verification is enough, just more costly in terms of compute.
 
-It might be possible that this was a **inherent defense to the collapse arguments**. That is: models need to allocate some tokens for verification to balance the compounding risk. So I think one could take this argument further by computing some lower bound of verification tokens to guarantee some X correctness.
+It might be possible that verification traces were a **inherent defense to the collapse arguments**. That is: models need to allocate some tokens for verification to balance the compounding risk. So I think one could take this argument further by computing some lower bound of verification tokens to guarantee some X correctness.
 
 The point is that the paper's original argument of error is not so dooming for models, but at the same time it shows a clear limitation of putting logical reasoning into the CoT!
 More data  in [[#Faith and Fate Probing]].
@@ -89,26 +87,13 @@ Given the results in experiments 6,7,8 in the post, it looks like **single model
 
 
 ## Conclusions
-The complexity arguments in finding two make the case that 
 
+I will now conclude with some simple thoughts on the topic. It is clear that the simple possibility of having LLM optimizing another LLM directly without using any external tool is unheard of. This is clearly a very creative contribution of the authors to the community.
 
-## 4. What I now believe
+It's also interesting to see that research might move a lot more into dynamic blog-post or conversation format information exchange. This idea would have been probably got a very interesting reception at conferences, but conferences being swamped by slop seems to create incentives to publish elsewhere. And publishing in this manner is a fast way to spread one's work and have others build on top of this.
 
-> **Frontier models can write and read programs in esoteric languages, and neural-network weights are one such language.**
+On my complexity side, I was surprised to see that all tasks cited in [[@dziriFaithFateLimits2023]] on the limits of transformers were basically all solved with almost 100% accuracy; I had to stretch the task by a quite big number to find the current limit, see [[#Faith and Fate Probing]], from that you can also have an idea of really how better is Astra compared to good old gpt-4. For reference it is . Only doing benchmaxxxing would probably not lead to such behaviours. This means there seems there is something that such frontier models are learning that are generalizable enough to solve such a wide range of tasks. But as far as I know, we don't know yet what is this factor.
 
-Weight programming has everything that makes an esoteric language hard:
-- no names, only hand-computed indices;
-- no control flow, only saturated nonlinearities;
-- global interference between every term;
-- no debugger.
-
-Astra handles it with an ordinary programmer's workflow. On the reading side it decodes stated transformations it has never seen, and its effort tracks the size of what it has to look up.
-
-This makes a prediction. If the skill is general, it shouldn't matter that the language is weights. A model should be able to program in a language **invented the morning of the test**, given only its spec. The paper half-tests this already: the edits language was invented by the authors, and Astra's 92 statements in it all parsed and applied with 0 errors. The clean version would specify a brand-new instruction set in the prompt and ask for a Breakout controller in it.
-
-The honest framing for the viral claim is therefore narrower but still striking: these models are not mind-readers of neural networks; they are unusually reliable programmers in languages nobody programs in.
-
----
 
 
 # The AI Appendix
@@ -342,6 +327,20 @@ For fun, I gave Astra the paper's own algorithmic tasks: zero-shot, no tools, ex
 
 Some declines hand back the program instead of the number: *"I have not evaluated this on your sequence"*, followed by the recurrence in Python. The likely difference from multiplication is input length: a 5,000-number sequence is long to read, and an off-by-one slip anywhere in it compounds silently, which Astra's checks don't catch.
 
+
+#### Compared with GPT-4 in the original paper
+
+How far has the limit moved since 2023? I read GPT-4's zero-shot accuracies off Figure 2a of Faith and Fate and placed both models on the same scale: the size |V| of the computation graph (from my own graph builder, used for both models), at the point where accuracy crosses 50%.
+
+| Task | GPT-4, zero-shot (2023) | GPT-4 at 50% | Astra, high reasoning (2026) | Astra at 50% | Astra / GPT-4 |
+|---|---|---|---|---|---|
+| n×n-digit multiplication | 99% at 2×2, 59% at 3×3, 4% at 4×4, 0% at 5×5 | about 3×3 digits, \|V\| ≈ 32 | exact to 120×120, declines from 140×140 | about 130×130 digits, \|V\| ≈ 34,000 | **≈ 1,050× in \|V\|** (41× in digits) |
+| DP over a sequence | 88%, 63%, 45%, 38%, 31% for lengths 2–6 | about 3.7 elements, \|V\| ≈ 13 | exact to 2,560 elements, 2 of 4 at 5,120 | 5,120 elements, \|V\| ≈ 15,000 | **≈ 1,170× in \|V\|** (about 1,400× in length) |
+
+- **Astra handles about a thousand times larger computation graphs than GPT-4 before dropping to 50%.**
+- **The factor is nearly the same for both tasks** (about 1,050× and 1,170×), even though their breaking points in |V| differ by about 2×. So |V| does not set one task-independent limit, but the jump from GPT-4 to Astra is roughly a constant multiple of it.
+- **It isn't a like-for-like comparison of models alone.** GPT-4 answered zero-shot in 2023, while Astra reasons for up to tens of thousands of tokens before answering, and that thinking budget is most of the difference.
+- **The DP comparison flatters Astra.** Faith and Fate's DP task asks for the chosen subsequence itself, while mine asks only for its maximum sum. The graph sizes come from my builder, not the paper's.
 
 #### Where the limit should be
 

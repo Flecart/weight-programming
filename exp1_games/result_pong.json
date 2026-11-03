@@ -1,0 +1,231 @@
+{
+ "id": "dfc6cb65",
+ "game": "pong",
+ "rules": [
+  "Agent: vertical paddle 3 cells tall in column 1 (rows 1-8), starts centred (rows 4-6); up/down move it one cell, no-op/left/right do nothing.",
+  "Opponent: CPU paddle 2 cells tall in column 8, drawn in the moving-objects channel; each step with probability 0.7 it moves one cell toward the ball's row; it is re-centred at every serve.",
+  "Ball: one cell moving diagonally (one row and one column per step) between columns 2 and 7; reflects off the top/bottom walls.",
+  "Agent return: when the ball would move into column 1, it is returned if the paddle covers the ball's current row or its landing row; otherwise the agent loses the point (-1).",
+  "Opponent return: when the ball would move into column 8, the opponent returns it only if it covers the landing row; otherwise the agent wins the point (+1).",
+  "After every point the ball is re-served from column 5 at a random row, moving toward the agent with random vertical direction.",
+  "Episode ends after 5 points (or 200 steps). Column 9 (rows 1-8) is permanently shown in the reward-target channel; the wall ring is in the obstacle channel."
+ ],
+ "params": {
+  "L": 3,
+  "opp": true,
+  "Lo": 2,
+  "opp_mode": "prob",
+  "opp_p": 0.7,
+  "opp_track": "center",
+  "opp_reset": true,
+  "hit": "landing_or_current",
+  "opp_hit": "landing",
+  "serve_col": 5,
+  "serve_row": "random",
+  "serve_dir": "left",
+  "points": 5,
+  "pad0": "center",
+  "pad_reset": false,
+  "target_col": true
+ },
+ "prev0": "zeros",
+ "verdict": "approximate",
+ "metrics": {
+  "ours": {
+   "sample_return": 4.959908361970218,
+   "sample_return_se": 0.0070888543108036375,
+   "sample_len": 70.51260022909507,
+   "greedy_return": 5.0,
+   "greedy_len": 71.59130434782608,
+   "random_return": -1.0621797061838059,
+   "random_len": 42.76563033823027,
+   "action_usage": [
+    0.1899,
+    0.2404,
+    0.2302,
+    0.1744,
+    0.1651
+   ],
+   "greedy_action_usage": [
+    0.374,
+    0.2609,
+    0.2597,
+    0.0839,
+    0.0215
+   ],
+   "td_residual": 0.11472507725236937,
+   "critic_v0": 2.594653367996216,
+   "empirical_disc_return0": 3.373246255946684
+  },
+  "reference": {
+   "sample_return": 4.96055269241333,
+   "sample_len": 73.71148862654765,
+   "greedy_return": 4.977259635925293,
+   "greedy_len": 73.69027058146229,
+   "random_return": -1.0200339555740356,
+   "random_len": 39.4513792572045,
+   "action_usage": [
+    0.1949,
+    0.2203,
+    0.2288,
+    0.1839,
+    0.1721
+   ],
+   "greedy_action_usage": [
+    0.3241,
+    0.2535,
+    0.2674,
+    0.1329,
+    0.0221
+   ]
+  },
+  "rejected_variants": [
+   {
+    "params": {
+     "opp": false,
+     "L": 3,
+     "hit": "landing_or_current",
+     "serve_col": 8,
+     "serve_dir": "left",
+     "points": 5
+    },
+    "td_residual": 0.14570957984887142,
+    "sample_return": -1.671875,
+    "sample_len": 199.1375,
+    "random_return": -4.940207972270364,
+    "random_len": 103.99220103986136,
+    "what": "no opponent (single-player wall pong, ball reflects off col 9, only misses are scored); also tried earlier in stages 1-2 with +1 for wall hits / paddle hits: trained policy then misses often (sampled 1-4.2) and action usage is off"
+   },
+   {
+    "params": {
+     "L": 3,
+     "opp": true,
+     "Lo": 1,
+     "opp_mode": "prob",
+     "opp_p": 0.5,
+     "opp_track": "center",
+     "opp_reset": true,
+     "hit": "landing_or_current",
+     "opp_hit": "landing_or_current",
+     "serve_col": 5,
+     "serve_row": "random",
+     "serve_dir": "left",
+     "points": 5,
+     "pad0": "center",
+     "pad_reset": false,
+     "target_col": true
+    },
+    "td_residual": 0.12829754521185532,
+    "sample_return": 4.821528165086447,
+    "sample_len": 69.00446179587284,
+    "random_return": -1.2392869386355845,
+    "random_len": 42.90195406239287,
+    "what": "1-cell opponent moving with p=0.5, symmetric hit rule"
+   },
+   {
+    "params": {
+     "L": 3,
+     "opp": true,
+     "Lo": 3,
+     "opp_mode": "prob",
+     "opp_p": 0.7,
+     "opp_track": "center",
+     "opp_reset": true,
+     "hit": "landing_or_current",
+     "opp_hit": "landing",
+     "serve_col": 5,
+     "serve_row": "random",
+     "serve_dir": "left",
+     "points": 5,
+     "pad0": "center",
+     "pad_reset": false,
+     "target_col": true
+    },
+    "td_residual": 0.08581247889317804,
+    "sample_return": 4.988926746166951,
+    "sample_len": 103.08347529812606,
+    "random_return": -2.3446372239747633,
+    "random_len": 49.33556782334385,
+    "what": "3-cell opponent (lower TD residual, but points take far too long: sampled length 103 vs 73.7, random -2.34 vs -1.02)"
+   },
+   {
+    "params": {
+     "L": 3,
+     "opp": true,
+     "Lo": 2,
+     "opp_mode": "alternate",
+     "opp_p": 0.7,
+     "opp_track": "center",
+     "opp_reset": true,
+     "hit": "landing_or_current",
+     "opp_hit": "landing_or_current",
+     "serve_col": 5,
+     "serve_row": "random",
+     "serve_dir": "random",
+     "points": 5,
+     "pad0": "center",
+     "pad_reset": false,
+     "target_col": true
+    },
+    "td_residual": 0.11270903372159227,
+    "sample_return": 4.980703745743473,
+    "sample_len": 69.87116912599319,
+    "random_return": -0.8904606456293073,
+    "random_len": 45.291621327529924,
+    "what": "opponent moves every other step, symmetric hit rule, serve in random direction"
+   },
+   {
+    "params": {
+     "L": 3,
+     "opp": true,
+     "Lo": 2,
+     "opp_mode": "prob",
+     "opp_p": 0.7,
+     "opp_track": "center",
+     "opp_reset": true,
+     "hit": "landing",
+     "opp_hit": "landing",
+     "serve_col": 5,
+     "serve_row": "random",
+     "serve_dir": "left",
+     "points": 5,
+     "pad0": "center",
+     "pad_reset": false,
+     "target_col": true
+    },
+    "td_residual": 0.11865733197564259,
+    "sample_return": 4.534577387486279,
+    "sample_len": 67.70032930845225,
+    "random_return": -2.2890173410404624,
+    "random_len": 36.410404624277454,
+    "what": "agent returns only if paddle covers the landing row (trained policy then misses: 4.53)"
+   },
+   {
+    "params": {
+     "contact_stay": true,
+     "(rest)": "BEST"
+    },
+    "what": "ball stays in place on paddle contact (Breakout-style)",
+    "td_residual": 0.105,
+    "sample_return": 4.973,
+    "sample_len": 80.08,
+    "random_return": -1.066,
+    "random_len": 46.97
+   },
+   {
+    "params": {
+     "contact_stay": true,
+     "opp_hit": "landing_or_current",
+     "(rest)": "BEST"
+    },
+    "what": "stay on contact + symmetric opponent hit rule",
+    "td_residual": 0.077,
+    "sample_return": 4.592,
+    "sample_len": 152.07,
+    "random_return": -2.941,
+    "random_len": 58.98
+   }
+  ]
+ },
+ "notes": "Strong evidence: paddle in col 1 is 3 cells (policy probes are decisive only for length 3); a CPU opponent in col 8 exists (adding it fixes trained return 4.2->4.96 and sampled action usage, and the critic's value depends on the opponent's position relative to the incoming ball); 5 points per episode with +1/-1 per point (reference random return -1.02 with std 2.2 is Binomial(5, 0.4)). Uncertain/fitted: opponent length (2 vs 3) and its movement rule (prob 0.7 per step is a fit, not read off weights); the asymmetric hit rules (agent: current-or-landing row, opponent: landing row only); serve position/direction. Remaining misfits: random episodes too long (42.8 vs 39.5), sampled length 70.5 vs 73.7, greedy action usage puts more on no-op (0.37 vs 0.32) and less on 'left' (0.08 vs 0.13). TD residual is not decisive here: the critic is nearly flat (V~2.6 almost everywhere), so all opponent variants give 0.09-0.13, and the 3-cell-opponent variant has a lower residual (0.086) than the chosen one (0.115) despite fitting the episode statistics far worse. Critic V(s0)=2.59 vs empirical discounted return 3.37 (ours), i.e. the critic expects the first points to come later than in our env. Follow-up pass (next-state ranking, pong_next.py; implied reward V(s)-0.99V(s') per event, pong_implied.py): free-flight/wall/paddle-contact steps have implied reward ~0 (|err| 0.04-0.09) but so do many alternative next-ball cells, because V is flat; at the opponent-miss (+1) steps the critic implies only +0.34 instead of +1, and at the 5th (terminal) point it implies +2.86 (it does not expect the episode to end). So the critic barely anticipates the points in our env: either the point mechanism (opponent / scoring) differs from the real one, or the real points are unpredictable from the observation. Ball-stays-in-place-on-contact (the rule that fixed Breakout) gives td 0.105 vs 0.113 but worse lengths (sampled 80.1, random 47.0), so it was not adopted. Within this family the TD residual mainly falls when points become rarer (e.g. symmetric opponent + stay: 0.077 with sampled length 152), so it cannot pick the rules here."
+}

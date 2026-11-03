@@ -1,0 +1,1394 @@
+{
+ "breakout": {
+  "id": "a9f535cc",
+  "game": "breakout",
+  "rules": [
+   "Wall ring; paddle (agent) is 3 cells wide on row 8 and starts at cols 3-5; left/right move it one cell (clipped to cols 1-8); no-op/up/down do nothing.",
+   "Bricks (reward targets) fill rows 1-3, cols 1-8 (24 bricks); +1 per brick; the full wall of bricks respawns when the last one is broken.",
+   "Ball (moving object) starts at (6,1) heading down-right or (6,8) heading down-left (50/50), and is held still on the first step.",
+   "Ball moves one cell diagonally per step. Each step: paddle moves first, then the ball.",
+   "Side/top walls: the matching direction component flips and the ball moves on in the new direction the same step.",
+   "Bricks: the brick straight ahead vertically (row y+dy, same column) is checked first, otherwise the diagonal brick (y+dy, x+dx); the hit brick is removed, dy flips, and the ball stays in its cell for that step (no horizontal brick check).",
+   "Paddle: when the ball is on row 7 heading down, it is caught if the paddle covers its landing column (x+dx after any wall flip). The ball stays in its cell that step with dy flipped; if only the landing cell (not the ball's own column) is covered, dx also flips.",
+   "Miss: -1 and the episode ends immediately (the ball is never shown on row 8). 200-step cap.",
+   "Previous-frame channel at reset = copy of the current paddle+ball cells."
+  ],
+  "params": {
+   "physics": "axis",
+   "wall_stay": false,
+   "brick_stay": true,
+   "pad_stay": true,
+   "diag": "dy",
+   "horiz": false,
+   "catch": "edge_stay",
+   "hit": "landing",
+   "width": 3,
+   "pad0": 3,
+   "start_row": 6,
+   "start_cols": [
+    1,
+    8
+   ],
+   "start_dir": "inward_down",
+   "pause": 1,
+   "order": "paddle_first",
+   "miss_penalty": 1.0,
+   "respawn": "cleared"
+  },
+  "prev0": "same",
+  "metrics": {
+   "ours": {
+    "sample_return": 21.9640625,
+    "sample_return_se": 0.027250888634987383,
+    "sample_len": 199.68125,
+    "greedy_return": 22.0,
+    "greedy_len": 200.0,
+    "random_return": -0.4163349016769212,
+    "random_len": 7.671612981059235,
+    "action_usage": [
+     0.1777,
+     0.1844,
+     0.1677,
+     0.2335,
+     0.2367
+    ],
+    "greedy_action_usage": [
+     0.061,
+     0.4082,
+     0.0379,
+     0.2331,
+     0.2599
+    ],
+    "td_residual": 0.006474114243691067,
+    "critic_v0": 10.573507308959961,
+    "empirical_disc_return0": 9.858226105991335
+   },
+   "reference": {
+    "sample_return": 21.710155487060547,
+    "sample_len": 200.0,
+    "greedy_return": 21.710155487060547,
+    "greedy_len": 200.0,
+    "random_return": -0.40360817313194275,
+    "random_len": 7.8412153883852,
+    "action_usage": [
+     0.178,
+     0.1832,
+     0.1679,
+     0.2371,
+     0.2337
+    ],
+    "greedy_action_usage": [
+     0.0627,
+     0.3528,
+     0.0395,
+     0.2438,
+     0.3013
+    ]
+   },
+   "rejected_variants": [
+    {
+     "name": "earlier best (MinAtar-style: ball slides on brick/paddle contact, corner catch reverses, start row 4, prev0 zeros)",
+     "params": {
+      "width": 3,
+      "pad0": 4,
+      "start_row": 4,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "wall": "reflect",
+      "catch": "minatar",
+      "brick": "minatar",
+      "top": "reflect"
+     },
+     "prev0": "zeros",
+     "td_residual": 0.7579647138902673,
+     "sample_return": 4.107142857142857,
+     "sample_len": 49.42,
+     "random_return": 0.9456145866079849,
+     "random_len": 19.6762024520591
+    },
+    {
+     "name": "MinAtar brick rule (diagonal brick, ball slides sideways) with otherwise best rules",
+     "params": {
+      "physics": "minatar",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "flip_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared",
+      "brick": "minatar"
+     },
+     "prev0": "same",
+     "td_residual": 0.8222655231706788,
+     "sample_return": 17.538071065989847,
+     "sample_len": 176.48730964467006,
+     "random_return": -0.25850556438791733,
+     "random_len": 8.033449920508744
+    },
+    {
+     "name": "best but ball keeps moving after brick contact",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": false,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.23415732918091683,
+     "sample_return": 11.261904761904763,
+     "sample_len": 101.51785714285714,
+     "random_return": -0.4196527932339194,
+     "random_len": 7.064544847540619
+    },
+    {
+     "name": "best but ball keeps moving after paddle contact",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": false,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.2605202754781413,
+     "sample_return": 21.291666666666668,
+     "sample_len": 196.83854166666666,
+     "random_return": -0.41702008928571427,
+     "random_len": 7.083537946428572
+    },
+    {
+     "name": "best but horizontal brick check too",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": true,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.28927535848353936,
+     "sample_return": 21.46875,
+     "sample_len": 192.60416666666666,
+     "random_return": -0.41308967275818104,
+     "random_len": 7.696254022220873
+    },
+    {
+     "name": "best but ball pauses on wall contact",
+     "params": {
+      "physics": "axis",
+      "wall_stay": true,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.08413734766029832,
+     "sample_return": 19.979166666666668,
+     "sample_len": 199.484375,
+     "random_return": -0.4034600735911174,
+     "random_len": 8.152281970176231
+    },
+    {
+     "name": "best but catch if paddle under ball OR landing cell (either)",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "either",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.006983403806882305,
+     "sample_return": 22.0,
+     "sample_len": 200.0,
+     "random_return": -0.2310556285589137,
+     "random_len": 9.178712220762154
+    },
+    {
+     "name": "best but no 1-step serve pause",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 0,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.010673957547573788,
+     "sample_return": 22.0,
+     "sample_len": 200.0,
+     "random_return": -0.4053032319897769,
+     "random_len": 6.760449390341303
+    },
+    {
+     "name": "best but ball moves before paddle",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 6,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "ball_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 1.5469228602945804,
+     "sample_return": -0.43449092344119966,
+     "sample_len": 7.524467245461721,
+     "random_return": -0.40671641791044777,
+     "random_len": 7.747369708832885
+    },
+    {
+     "name": "best but ball serves from row 5",
+     "params": {
+      "physics": "axis",
+      "wall_stay": false,
+      "brick_stay": true,
+      "pad_stay": true,
+      "diag": "dy",
+      "horiz": false,
+      "catch": "edge_stay",
+      "hit": "landing",
+      "width": 3,
+      "pad0": 3,
+      "start_row": 5,
+      "start_cols": [
+       1,
+       8
+      ],
+      "start_dir": "inward_down",
+      "pause": 1,
+      "order": "paddle_first",
+      "miss_penalty": 1.0,
+      "respawn": "cleared"
+     },
+     "prev0": "same",
+     "td_residual": 0.30841982967806697,
+     "sample_return": 20.239583333333332,
+     "sample_len": 197.66666666666666,
+     "random_return": 0.15725593667546175,
+     "random_len": 13.292242744063325
+    }
+   ]
+  },
+  "verdict": "validated",
+  "notes": "Validated on all main criteria. Sampled return is 21.96 vs 21.71 (+1.2%), random play is -0.42 / 7.67 steps vs -0.40 / 7.84, and the critic TD residual is 0.0065, against 0.08-1.5 for every structural alternative. Two caveats. (1) The TD residual cannot tell 'catch if paddle under ball OR landing cell' or 'no serve pause' apart from the best rules (0.007-0.011); only the random-play stats separate them (random -0.23 / 9.2 and -0.41 / 6.8 respectively). The 1-step serve pause is indistinguishable from the reference counting one extra step per episode. (2) Our returns are nearly deterministic (2 mirror-image starts), while the reference has sd ~1.11, so the true start set probably has a little more variety (ball start cols 1-8 or a random paddle start made the trained policy lose and broke the random stats). The trained policy also loses very rarely in ours (mean length 199.7), but never in the reference. The corner-catch dx flip is almost never exercised."
+ },
+ "pong": {
+  "id": "dfc6cb65",
+  "game": "pong",
+  "rules": [
+   "Agent: vertical paddle 3 cells tall in column 1 (rows 1-8), starts centred (rows 4-6); up/down move it one cell, no-op/left/right do nothing.",
+   "Opponent: CPU paddle 2 cells tall in column 8, drawn in the moving-objects channel; each step with probability 0.7 it moves one cell toward the ball's row; it is re-centred at every serve.",
+   "Ball: one cell moving diagonally (one row and one column per step) between columns 2 and 7; reflects off the top/bottom walls.",
+   "Agent return: when the ball would move into column 1, it is returned if the paddle covers the ball's current row or its landing row; otherwise the agent loses the point (-1).",
+   "Opponent return: when the ball would move into column 8, the opponent returns it only if it covers the landing row; otherwise the agent wins the point (+1).",
+   "After every point the ball is re-served from column 5 at a random row, moving toward the agent with random vertical direction.",
+   "Episode ends after 5 points (or 200 steps). Column 9 (rows 1-8) is permanently shown in the reward-target channel; the wall ring is in the obstacle channel."
+  ],
+  "params": {
+   "L": 3,
+   "opp": true,
+   "Lo": 2,
+   "opp_mode": "prob",
+   "opp_p": 0.7,
+   "opp_track": "center",
+   "opp_reset": true,
+   "hit": "landing_or_current",
+   "opp_hit": "landing",
+   "serve_col": 5,
+   "serve_row": "random",
+   "serve_dir": "left",
+   "points": 5,
+   "pad0": "center",
+   "pad_reset": false,
+   "target_col": true
+  },
+  "prev0": "zeros",
+  "verdict": "approximate",
+  "metrics": {
+   "ours": {
+    "sample_return": 4.959908361970218,
+    "sample_return_se": 0.0070888543108036375,
+    "sample_len": 70.51260022909507,
+    "greedy_return": 5.0,
+    "greedy_len": 71.59130434782608,
+    "random_return": -1.0621797061838059,
+    "random_len": 42.76563033823027,
+    "action_usage": [
+     0.1899,
+     0.2404,
+     0.2302,
+     0.1744,
+     0.1651
+    ],
+    "greedy_action_usage": [
+     0.374,
+     0.2609,
+     0.2597,
+     0.0839,
+     0.0215
+    ],
+    "td_residual": 0.11472507725236937,
+    "critic_v0": 2.594653367996216,
+    "empirical_disc_return0": 3.373246255946684
+   },
+   "reference": {
+    "sample_return": 4.96055269241333,
+    "sample_len": 73.71148862654765,
+    "greedy_return": 4.977259635925293,
+    "greedy_len": 73.69027058146229,
+    "random_return": -1.0200339555740356,
+    "random_len": 39.4513792572045,
+    "action_usage": [
+     0.1949,
+     0.2203,
+     0.2288,
+     0.1839,
+     0.1721
+    ],
+    "greedy_action_usage": [
+     0.3241,
+     0.2535,
+     0.2674,
+     0.1329,
+     0.0221
+    ]
+   },
+   "rejected_variants": [
+    {
+     "params": {
+      "opp": false,
+      "L": 3,
+      "hit": "landing_or_current",
+      "serve_col": 8,
+      "serve_dir": "left",
+      "points": 5
+     },
+     "td_residual": 0.14570957984887142,
+     "sample_return": -1.671875,
+     "sample_len": 199.1375,
+     "random_return": -4.940207972270364,
+     "random_len": 103.99220103986136,
+     "what": "no opponent (single-player wall pong, ball reflects off col 9, only misses are scored); also tried earlier in stages 1-2 with +1 for wall hits / paddle hits: trained policy then misses often (sampled 1-4.2) and action usage is off"
+    },
+    {
+     "params": {
+      "L": 3,
+      "opp": true,
+      "Lo": 1,
+      "opp_mode": "prob",
+      "opp_p": 0.5,
+      "opp_track": "center",
+      "opp_reset": true,
+      "hit": "landing_or_current",
+      "opp_hit": "landing_or_current",
+      "serve_col": 5,
+      "serve_row": "random",
+      "serve_dir": "left",
+      "points": 5,
+      "pad0": "center",
+      "pad_reset": false,
+      "target_col": true
+     },
+     "td_residual": 0.12829754521185532,
+     "sample_return": 4.821528165086447,
+     "sample_len": 69.00446179587284,
+     "random_return": -1.2392869386355845,
+     "random_len": 42.90195406239287,
+     "what": "1-cell opponent moving with p=0.5, symmetric hit rule"
+    },
+    {
+     "params": {
+      "L": 3,
+      "opp": true,
+      "Lo": 3,
+      "opp_mode": "prob",
+      "opp_p": 0.7,
+      "opp_track": "center",
+      "opp_reset": true,
+      "hit": "landing_or_current",
+      "opp_hit": "landing",
+      "serve_col": 5,
+      "serve_row": "random",
+      "serve_dir": "left",
+      "points": 5,
+      "pad0": "center",
+      "pad_reset": false,
+      "target_col": true
+     },
+     "td_residual": 0.08581247889317804,
+     "sample_return": 4.988926746166951,
+     "sample_len": 103.08347529812606,
+     "random_return": -2.3446372239747633,
+     "random_len": 49.33556782334385,
+     "what": "3-cell opponent (lower TD residual, but points take far too long: sampled length 103 vs 73.7, random -2.34 vs -1.02)"
+    },
+    {
+     "params": {
+      "L": 3,
+      "opp": true,
+      "Lo": 2,
+      "opp_mode": "alternate",
+      "opp_p": 0.7,
+      "opp_track": "center",
+      "opp_reset": true,
+      "hit": "landing_or_current",
+      "opp_hit": "landing_or_current",
+      "serve_col": 5,
+      "serve_row": "random",
+      "serve_dir": "random",
+      "points": 5,
+      "pad0": "center",
+      "pad_reset": false,
+      "target_col": true
+     },
+     "td_residual": 0.11270903372159227,
+     "sample_return": 4.980703745743473,
+     "sample_len": 69.87116912599319,
+     "random_return": -0.8904606456293073,
+     "random_len": 45.291621327529924,
+     "what": "opponent moves every other step, symmetric hit rule, serve in random direction"
+    },
+    {
+     "params": {
+      "L": 3,
+      "opp": true,
+      "Lo": 2,
+      "opp_mode": "prob",
+      "opp_p": 0.7,
+      "opp_track": "center",
+      "opp_reset": true,
+      "hit": "landing",
+      "opp_hit": "landing",
+      "serve_col": 5,
+      "serve_row": "random",
+      "serve_dir": "left",
+      "points": 5,
+      "pad0": "center",
+      "pad_reset": false,
+      "target_col": true
+     },
+     "td_residual": 0.11865733197564259,
+     "sample_return": 4.534577387486279,
+     "sample_len": 67.70032930845225,
+     "random_return": -2.2890173410404624,
+     "random_len": 36.410404624277454,
+     "what": "agent returns only if paddle covers the landing row (trained policy then misses: 4.53)"
+    },
+    {
+     "params": {
+      "contact_stay": true,
+      "(rest)": "BEST"
+     },
+     "what": "ball stays in place on paddle contact (Breakout-style)",
+     "td_residual": 0.105,
+     "sample_return": 4.973,
+     "sample_len": 80.08,
+     "random_return": -1.066,
+     "random_len": 46.97
+    },
+    {
+     "params": {
+      "contact_stay": true,
+      "opp_hit": "landing_or_current",
+      "(rest)": "BEST"
+     },
+     "what": "stay on contact + symmetric opponent hit rule",
+     "td_residual": 0.077,
+     "sample_return": 4.592,
+     "sample_len": 152.07,
+     "random_return": -2.941,
+     "random_len": 58.98
+    }
+   ]
+  },
+  "notes": "Strong evidence: paddle in col 1 is 3 cells (policy probes are decisive only for length 3); a CPU opponent in col 8 exists (adding it fixes trained return 4.2->4.96 and sampled action usage, and the critic's value depends on the opponent's position relative to the incoming ball); 5 points per episode with +1/-1 per point (reference random return -1.02 with std 2.2 is Binomial(5, 0.4)). Uncertain/fitted: opponent length (2 vs 3) and its movement rule (prob 0.7 per step is a fit, not read off weights); the asymmetric hit rules (agent: current-or-landing row, opponent: landing row only); serve position/direction. Remaining misfits: random episodes too long (42.8 vs 39.5), sampled length 70.5 vs 73.7, greedy action usage puts more on no-op (0.37 vs 0.32) and less on 'left' (0.08 vs 0.13). TD residual is not decisive here: the critic is nearly flat (V~2.6 almost everywhere), so all opponent variants give 0.09-0.13, and the 3-cell-opponent variant has a lower residual (0.086) than the chosen one (0.115) despite fitting the episode statistics far worse. Critic V(s0)=2.59 vs empirical discounted return 3.37 (ours), i.e. the critic expects the first points to come later than in our env. Follow-up pass (next-state ranking, pong_next.py; implied reward V(s)-0.99V(s') per event, pong_implied.py): free-flight/wall/paddle-contact steps have implied reward ~0 (|err| 0.04-0.09) but so do many alternative next-ball cells, because V is flat; at the opponent-miss (+1) steps the critic implies only +0.34 instead of +1, and at the 5th (terminal) point it implies +2.86 (it does not expect the episode to end). So the critic barely anticipates the points in our env: either the point mechanism (opponent / scoring) differs from the real one, or the real points are unpredictable from the observation. Ball-stays-in-place-on-contact (the rule that fixed Breakout) gives td 0.105 vs 0.113 but worse lengths (sampled 80.1, random 47.0), so it was not adopted. Within this family the TD residual mainly falls when points become rarer (e.g. symmetric opponent + stay: 0.077 with sampled length 152), so it cannot pick the rules here."
+ },
+ "pacman": {
+  "id": "bdf99279",
+  "game": "pacman",
+  "rules": [
+   "Fixed symmetric maze: inner walls at (2,2),(2,3),(2,6),(2,7),(3,2),(3,7),(4,4),(4,5),(5,4),(5,5),(6,2),(6,7),(7,2),(7,3),(7,6),(7,7); 48 open cells.",
+   "Pac-Man starts at (7,4) every episode; a pellet (+1) on every other open cell (47 pellets, including under the ghosts).",
+   "Two ghosts start at (2,4) and (2,5) with a random initial heading.",
+   "Ghosts move one cell every second step (half Pac-Man's speed), never reversing unless forced; on each move a ghost takes the step that minimises maze (BFS) distance to Pac-Man with prob 0.7, otherwise a random legal non-reversing step.",
+   "Step order: ghosts move (on their steps), then Pac-Man moves (moves into walls leave him in place, no-op stays); Pac-Man dies if he ends on a ghost cell or swaps cells with a ghost.",
+   "Eating a pellet gives +1; death gives -1 and ends the episode; eating the last pellet ends the episode (no clear bonus); 200-step cap.",
+   "Observation: ch0 Pac-Man, ch1 ghosts, ch2 pellets, ch3 walls (ring + maze), ch4 previous Pac-Man+ghost cells (at reset = the current cells)."
+  ],
+  "params": {
+   "n_ghosts": 2,
+   "pac_start": [
+    7,
+    4
+   ],
+   "ghost_start": [
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ]
+   ],
+   "order": "ghost_first",
+   "swap_kills": true,
+   "ghost_period": 2,
+   "chase_p": 0.7,
+   "chase_metric": "bfs",
+   "ghost_reverse": false,
+   "death_penalty": 1.0,
+   "clear": "end",
+   "clear_bonus": 0.0,
+   "pellet_reward": 1.0,
+   "pellet_under_ghost": true
+  },
+  "prev0": "same",
+  "verdict": "approximate",
+  "metrics": {
+   "ours": {
+    "sample_return": 43.9945,
+    "sample_return_se": 0.2118,
+    "sample_len": 83.8201,
+    "greedy_return": 44.8283,
+    "greedy_len": 84.0975,
+    "random_return": 3.9817,
+    "random_len": 18.9674,
+    "action_usage": [
+     0.0657,
+     0.254,
+     0.2255,
+     0.2287,
+     0.2261
+    ],
+    "greedy_action_usage": [
+     0.0568,
+     0.257,
+     0.2215,
+     0.234,
+     0.2308
+    ],
+    "td_residual": 0.2715,
+    "critic_v0": 32.2475,
+    "empirical_disc_return0": 33.4296
+   },
+   "reference": {
+    "sample_return": 41.85799789428711,
+    "sample_len": 85.13468573328899,
+    "greedy_return": 42.35383224487305,
+    "greedy_len": 84.1828345938836,
+    "random_return": 3.9929144382476807,
+    "random_len": 19.71657424522489,
+    "action_usage": [
+     0.0337,
+     0.2803,
+     0.2338,
+     0.225,
+     0.2271
+    ],
+    "greedy_action_usage": [
+     0.0281,
+     0.2817,
+     0.2336,
+     0.2282,
+     0.2285
+    ]
+   },
+   "rejected_variants": [
+    {
+     "name": "deterministic chasers (chase_p=1.0): lowest TD but too easy (return 47, random dies too fast)",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": [
+       7,
+       4
+      ],
+      "ghost_start": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 2,
+      "chase_p": 1.0,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "same",
+     "td_residual": 0.1825,
+     "sample_return": 46.9343,
+     "sample_len": 81.2908,
+     "random_return": 3.4447,
+     "random_len": 15.8735,
+     "critic_v0": 32.2475,
+     "empirical_disc_return0": 36.1345
+    },
+    {
+     "name": "purely random ghosts (chase_p=0), same starts",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": [
+       7,
+       4
+      ],
+      "ghost_start": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 2,
+      "chase_p": 0.0,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "same",
+     "td_residual": 0.4415,
+     "sample_return": 38.3117,
+     "sample_len": 125.816,
+     "random_return": 7.7359,
+     "random_len": 45.8415,
+     "critic_v0": 32.2475,
+     "empirical_disc_return0": 26.6264
+    },
+    {
+     "name": "random ghosts moving every step, same starts",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": [
+       7,
+       4
+      ],
+      "ghost_start": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 1,
+      "chase_p": 0.0,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "same",
+     "td_residual": 0.5743,
+     "sample_return": 39.3054,
+     "sample_len": 105.3795,
+     "random_return": 5.1905,
+     "random_len": 27.1681,
+     "critic_v0": 32.2475,
+     "empirical_disc_return0": 27.9576
+    },
+    {
+     "name": "random Pac-Man start, ghosts random >=3 cells away, random ghosts every step",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": "random",
+      "ghost_start": "random_far",
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 1,
+      "chase_p": 0.0,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "same",
+     "td_residual": 1.2658,
+     "sample_return": 25.1208,
+     "sample_len": 83.6636,
+     "random_return": 4.0256,
+     "random_len": 23.4779,
+     "critic_v0": 25.3592,
+     "empirical_disc_return0": 17.7359
+    },
+    {
+     "name": "best rules but previous-frame channel zero at reset",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": [
+       7,
+       4
+      ],
+      "ghost_start": [
+       [
+        2,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 2,
+      "chase_p": 0.7,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "zeros",
+     "td_residual": 0.3701,
+     "sample_return": 44.0507,
+     "sample_len": 83.8392,
+     "random_return": 3.9817,
+     "random_len": 18.9674,
+     "critic_v0": 23.0471,
+     "empirical_disc_return0": 33.5558
+    },
+    {
+     "name": "ghosts start at (3,4),(3,5)",
+     "params": {
+      "n_ghosts": 2,
+      "pac_start": [
+       7,
+       4
+      ],
+      "ghost_start": [
+       [
+        3,
+        4
+       ],
+       [
+        3,
+        5
+       ]
+      ],
+      "order": "ghost_first",
+      "swap_kills": true,
+      "ghost_period": 2,
+      "chase_p": 0.7,
+      "chase_metric": "bfs",
+      "ghost_reverse": false,
+      "death_penalty": 1.0,
+      "clear": "end",
+      "clear_bonus": 0.0,
+      "pellet_reward": 1.0,
+      "pellet_under_ghost": true
+     },
+     "prev0": "same",
+     "td_residual": 0.3254,
+     "sample_return": 42.3716,
+     "sample_len": 90.7635,
+     "random_return": 3.5076,
+     "random_len": 16.5713,
+     "critic_v0": 31.7426,
+     "empirical_disc_return0": 30.9951
+    }
+   ],
+   "followup": {
+    "expected_residual_by_rule": {
+     "alternate,chase0.7,bfs,rev": 0.259,
+     "every,chase0,bfs,rev": 0.241,
+     "alternate,chase0,bfs,rev": 0.254,
+     "every,chase0.5,manhattan,rev(states with prev0 run)": 0.245,
+     "alternate,chase1.0,bfs,noreverse": 0.789,
+     "pellet_reward_0.5": 0.432,
+     "pellet_reward_0.7": 0.313
+    },
+    "every_step_ghost_variants": [
+     {
+      "chase_p": 0.15,
+      "sample_return": 38.55,
+      "sample_len": 87.1,
+      "random_return": 4.18,
+      "random_len": 20.7,
+      "td_residual": 0.589,
+      "noop": 0.045
+     },
+     {
+      "chase_p": 0.3,
+      "sample_return": 37.0,
+      "sample_len": 73.5,
+      "random_return": 3.46,
+      "random_len": 16.5,
+      "td_residual": 0.59,
+      "noop": 0.038
+     },
+     {
+      "chase_p": 0.3,
+      "ghost_reverse": true,
+      "sample_return": 43.81,
+      "sample_len": 98.6,
+      "random_return": 4.28,
+      "random_len": 21.6,
+      "td_residual": 0.4,
+      "noop": 0.055
+     }
+    ]
+   }
+  },
+  "notes": "Structure (maze, fixed starts, 2 half-speed ghosts that mostly chase, +1 pellet / -1 death / end on clear, prev-frame at reset = current cells) is well supported: TD residual drops from ~1.4 (random starts) and ~0.6 (random ghosts) to ~0.27, and critic V(s0) matches the empirical discounted return only with these starts and prev0='same'. Not pinned down: the ghosts' chase probability (0.6-1.0 all plausible; 1.0 gives a lower TD residual but return 47 and random length 16, so 0.7 was chosen on the joint fit), tie-breaking and exact ghost targeting rule (BFS vs Manhattan nearly indistinguishable), initial ghost headings. Our trained policy uses no-op ~2x more often than the reference (0.065 vs 0.034); sampled return is ~5% above the reference. FOLLOW-UP PASS (pm_next.py, pm_rules.py, pm_noop.py): computed the critic's policy-expected Bellman residual per state for exact ghost-rule distributions (removes sampling noise). It does not single out a ghost rule: chase prob 0-1, BFS vs Manhattan, reversal allowed or not, and alternate-step vs every-step timing all land at 0.24-0.30 (alternate, chase 0.7: 0.26; every step, chase 0: 0.24). The ~0.25 floor is far above Breakout's 0.005, so something is still off; it is not the ghost rule alone. Pellet reward 1 is confirmed: 0.5 and 0.7 give 0.43 and 0.31. No-op gap: our extra no-ops are spread across contexts, mostly when ghosts are 3-4 cells away, and grow with ghost randomness. Ghosts moving every step bring no-op down to 0.035-0.045 (ref .034), but the sampled TD residual rises to ~0.59 and the return falls to 37-38, so the fit is worse. Kept BEST unchanged. Verdict downgraded to approximate: the always-chasing variant has a lower sampled residual (0.18) yet misses the return and random length, and the residual floor suggests an unidentified rule difference."
+ },
+ "freeway": {
+  "id": "0bbcc3ea",
+  "game": "freeway",
+  "rules": [
+   "Wall ring; goal strip on row 1 (reward-target channel, always shown on cols 1-8); six one-way traffic lanes on rows 2-7; safe start strip on row 8.",
+   "Agent is one cell; it starts at (8,4). Up/down/left/right move it one cell, clipped to rows 1-8 and cols 1-8; no-op stays.",
+   "Each lane holds two cars 4 columns apart that wrap around cols 1-8, at a random phase each episode.",
+   "Lane directions rows 2..7: right, left, right, left, right, left. A lane moves one cell every 1,2,3,2,1,3 steps respectively, all on one shared clock starting at t=0 (lane moves on steps where t is a multiple of its interval).",
+   "Each step: agent moves, then cars move. Reaching row 1 gives +1 and puts the agent back at (8,4).",
+   "Collision (agent on a car cell after the cars move, or agent and car swapping cells within a lane) sends the agent back to (8,4); no penalty, the episode continues.",
+   "No terminal state: every episode lasts exactly 200 steps.",
+   "Previous-frame channel at reset is a copy of the current agent+car cells (not zeros)."
+  ],
+  "params": {
+   "speeds": "fixed",
+   "dirs": "fixed",
+   "fixed_dirs": [
+    1,
+    -1,
+    1,
+    -1,
+    1,
+    -1
+   ],
+   "fixed_speeds": [
+    1,
+    2,
+    3,
+    2,
+    1,
+    3
+   ],
+   "timer": "zero",
+   "collision": "reset",
+   "start_col": 4,
+   "swap_check": true
+  },
+  "prev0": "same",
+  "verdict": "validated",
+  "metrics": {
+   "ours": {
+    "sample_return": 24.071875,
+    "sample_return_se": 0.05722649584040486,
+    "sample_len": 200.0,
+    "greedy_return": 24.109375,
+    "greedy_len": 200.0,
+    "random_return": 0.010333333333333333,
+    "random_len": 200.0,
+    "action_usage": [
+     0.0263,
+     0.8645,
+     0.0131,
+     0.0364,
+     0.0597
+    ],
+    "greedy_action_usage": [
+     0.0253,
+     0.8663,
+     0.0172,
+     0.0339,
+     0.0572
+    ],
+    "td_residual": 0.1131954513827161,
+    "critic_v0": 7.2079877853393555,
+    "empirical_disc_return0": 10.113244761694753,
+    "random_return_se": 0.0013055366428890176,
+    "random_episodes": 6000
+   },
+   "reference": {
+    "sample_return": 24.041406631469727,
+    "sample_len": 200.0,
+    "greedy_return": 24.135936737060547,
+    "greedy_len": 200.0,
+    "random_return": 0.010937499813735485,
+    "random_len": 200.0,
+    "action_usage": [
+     0.0261,
+     0.8645,
+     0.0143,
+     0.035,
+     0.0601
+    ],
+    "greedy_action_usage": [
+     0.0256,
+     0.8666,
+     0.0165,
+     0.0327,
+     0.0586
+    ]
+   },
+   "rejected_variants": [
+    {
+     "name": "no_swap_check",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "zero",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": false
+     },
+     "prev0": "same",
+     "td_residual": 0.11320854902417217,
+     "sample_return": 24.071875,
+     "greedy_return": 24.109375,
+     "random_return": 0.015,
+     "random_len": 200.0,
+     "critic_v0": 7.2079877853393555
+    },
+    {
+     "name": "collision_back1",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "zero",
+      "collision": "back1",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.11377159932150913,
+     "sample_return": 24.053125,
+     "greedy_return": 24.065625,
+     "random_return": 0.033666666666666664,
+     "random_len": 200.0,
+     "critic_v0": 7.2079877853393555
+    },
+    {
+     "name": "clock_random_offset",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "global_rand",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.11654936793311757,
+     "sample_return": 24.065625,
+     "greedy_return": 24.15,
+     "random_return": 0.00625,
+     "random_len": 200.0,
+     "critic_v0": 7.195370674133301
+    },
+    {
+     "name": "prev0_zeros",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "zero",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "zeros",
+     "td_residual": 0.13600578769414345,
+     "sample_return": 24.046875,
+     "greedy_return": 24.071875,
+     "random_return": 0.003125,
+     "random_len": 200.0,
+     "critic_v0": 1.6185035705566406
+    },
+    {
+     "name": "independent_lane_timers",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "random",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.1473899868490109,
+     "sample_return": 23.825,
+     "greedy_return": 24.071875,
+     "random_return": 0.015625,
+     "random_len": 200.0,
+     "critic_v0": 7.207690238952637
+    },
+    {
+     "name": "lane7_speed1",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       1
+      ],
+      "timer": "zero",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.1453606901007082,
+     "sample_return": 22.040625,
+     "greedy_return": 22.5,
+     "random_return": 0.0125,
+     "random_len": 200.0,
+     "critic_v0": 7.2079877853393555
+    },
+    {
+     "name": "start_col5",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "zero",
+      "collision": "reset",
+      "start_col": 5,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.18672371838410295,
+     "sample_return": 18.58125,
+     "greedy_return": 18.30625,
+     "random_return": 0.0125,
+     "random_len": 200.0,
+     "critic_v0": 6.9040207862854
+    },
+    {
+     "name": "dirs_reversed",
+     "params": {
+      "speeds": "fixed",
+      "dirs": "fixed",
+      "fixed_dirs": [
+       -1,
+       1,
+       -1,
+       1,
+       -1,
+       1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "zero",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.2686426318021276,
+     "sample_return": 6.309375,
+     "greedy_return": 6.653125,
+     "random_return": 0.0125,
+     "random_len": 200.0,
+     "critic_v0": 7.2079877853393555
+    },
+    {
+     "name": "random_lane_dynamics",
+     "params": {
+      "speeds": "random",
+      "dirs": "random",
+      "fixed_dirs": [
+       1,
+       -1,
+       1,
+       -1,
+       1,
+       -1
+      ],
+      "fixed_speeds": [
+       1,
+       2,
+       3,
+       2,
+       1,
+       3
+      ],
+      "timer": "random",
+      "collision": "reset",
+      "start_col": 4,
+      "swap_check": true
+     },
+     "prev0": "same",
+     "td_residual": 0.271111034673063,
+     "sample_return": 6.253125,
+     "greedy_return": 5.765625,
+     "random_return": 0.0125,
+     "random_len": 200.0,
+     "critic_v0": 7.207477569580078
+    }
+   ]
+  },
+  "notes": "Lane directions/speeds were identified per lane from the trained policy's hit rates and confirmed by the critic TD residual (0.113 best vs 0.136-0.27 for alternatives). Critic V(s0)=7.2 vs empirical discounted return 10.1: expected, the critic cannot see the step counter and PPO treated the 200-step cap as termination, so its value averages over the remaining horizon (~6.9 predicted for 0.12 reward/step); with prev0=zeros V(s0) drops to 1.6, which is why the start prev frame is taken to be a copy of the first frame. Weakly constrained details: the clock offset (t=0 vs a random offset gives the same stats; TD 0.113 vs 0.117), the swap-collision rule and reset-to-start vs reset-row-only (the trained policy almost never collides; only the random-policy return 0.010 vs ref 0.011 favours swap collisions, without them 0.017-0.025; push-back-one-row gives 0.03-0.055 and is rejected), and the start column (4 fits far better than 3, 5 or random). Collision penalty: none (ref random return is positive; -1 penalty would make it negative)."
+ },
+ "minatar_breakout_baseline": {
+  "source": "official MinAtar Breakout (pip minatar 1.0.15), scripted landing-tracking paddle, sticky actions 0.1",
+  "return": 18.0,
+  "length": 200,
+  "note": "Not a reconstruction: official MinAtar Breakout (pip minatar 1.0.15, GPL-3.0) on its native 10x10 grid (no wall ring, paddle row 9, 1-cell paddle), played by a scripted landing-tracking paddle (games/minatar_baseline.py, seed 0)."
+ }
+}

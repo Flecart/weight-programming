@@ -1,0 +1,395 @@
+{
+ "id": "a9f535cc",
+ "game": "breakout",
+ "rules": [
+  "Wall ring; paddle (agent) is 3 cells wide on row 8 and starts at cols 3-5; left/right move it one cell (clipped to cols 1-8); no-op/up/down do nothing.",
+  "Bricks (reward targets) fill rows 1-3, cols 1-8 (24 bricks); +1 per brick; the full wall of bricks respawns when the last one is broken.",
+  "Ball (moving object) starts at (6,1) heading down-right or (6,8) heading down-left (50/50), and is held still on the first step.",
+  "Ball moves one cell diagonally per step. Each step: paddle moves first, then the ball.",
+  "Side/top walls: the matching direction component flips and the ball moves on in the new direction the same step.",
+  "Bricks: the brick straight ahead vertically (row y+dy, same column) is checked first, otherwise the diagonal brick (y+dy, x+dx); the hit brick is removed, dy flips, and the ball stays in its cell for that step (no horizontal brick check).",
+  "Paddle: when the ball is on row 7 heading down, it is caught if the paddle covers its landing column (x+dx after any wall flip). The ball stays in its cell that step with dy flipped; if only the landing cell (not the ball's own column) is covered, dx also flips.",
+  "Miss: -1 and the episode ends immediately (the ball is never shown on row 8). 200-step cap.",
+  "Previous-frame channel at reset = copy of the current paddle+ball cells."
+ ],
+ "params": {
+  "physics": "axis",
+  "wall_stay": false,
+  "brick_stay": true,
+  "pad_stay": true,
+  "diag": "dy",
+  "horiz": false,
+  "catch": "edge_stay",
+  "hit": "landing",
+  "width": 3,
+  "pad0": 3,
+  "start_row": 6,
+  "start_cols": [
+   1,
+   8
+  ],
+  "start_dir": "inward_down",
+  "pause": 1,
+  "order": "paddle_first",
+  "miss_penalty": 1.0,
+  "respawn": "cleared"
+ },
+ "prev0": "same",
+ "metrics": {
+  "ours": {
+   "sample_return": 21.9640625,
+   "sample_return_se": 0.027250888634987383,
+   "sample_len": 199.68125,
+   "greedy_return": 22.0,
+   "greedy_len": 200.0,
+   "random_return": -0.4163349016769212,
+   "random_len": 7.671612981059235,
+   "action_usage": [
+    0.1777,
+    0.1844,
+    0.1677,
+    0.2335,
+    0.2367
+   ],
+   "greedy_action_usage": [
+    0.061,
+    0.4082,
+    0.0379,
+    0.2331,
+    0.2599
+   ],
+   "td_residual": 0.006474114243691067,
+   "critic_v0": 10.573507308959961,
+   "empirical_disc_return0": 9.858226105991335
+  },
+  "reference": {
+   "sample_return": 21.710155487060547,
+   "sample_len": 200.0,
+   "greedy_return": 21.710155487060547,
+   "greedy_len": 200.0,
+   "random_return": -0.40360817313194275,
+   "random_len": 7.8412153883852,
+   "action_usage": [
+    0.178,
+    0.1832,
+    0.1679,
+    0.2371,
+    0.2337
+   ],
+   "greedy_action_usage": [
+    0.0627,
+    0.3528,
+    0.0395,
+    0.2438,
+    0.3013
+   ]
+  },
+  "rejected_variants": [
+   {
+    "name": "earlier best (MinAtar-style: ball slides on brick/paddle contact, corner catch reverses, start row 4, prev0 zeros)",
+    "params": {
+     "width": 3,
+     "pad0": 4,
+     "start_row": 4,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "wall": "reflect",
+     "catch": "minatar",
+     "brick": "minatar",
+     "top": "reflect"
+    },
+    "prev0": "zeros",
+    "td_residual": 0.7579647138902673,
+    "sample_return": 4.107142857142857,
+    "sample_len": 49.42,
+    "random_return": 0.9456145866079849,
+    "random_len": 19.6762024520591
+   },
+   {
+    "name": "MinAtar brick rule (diagonal brick, ball slides sideways) with otherwise best rules",
+    "params": {
+     "physics": "minatar",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "flip_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared",
+     "brick": "minatar"
+    },
+    "prev0": "same",
+    "td_residual": 0.8222655231706788,
+    "sample_return": 17.538071065989847,
+    "sample_len": 176.48730964467006,
+    "random_return": -0.25850556438791733,
+    "random_len": 8.033449920508744
+   },
+   {
+    "name": "best but ball keeps moving after brick contact",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": false,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.23415732918091683,
+    "sample_return": 11.261904761904763,
+    "sample_len": 101.51785714285714,
+    "random_return": -0.4196527932339194,
+    "random_len": 7.064544847540619
+   },
+   {
+    "name": "best but ball keeps moving after paddle contact",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": false,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.2605202754781413,
+    "sample_return": 21.291666666666668,
+    "sample_len": 196.83854166666666,
+    "random_return": -0.41702008928571427,
+    "random_len": 7.083537946428572
+   },
+   {
+    "name": "best but horizontal brick check too",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": true,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.28927535848353936,
+    "sample_return": 21.46875,
+    "sample_len": 192.60416666666666,
+    "random_return": -0.41308967275818104,
+    "random_len": 7.696254022220873
+   },
+   {
+    "name": "best but ball pauses on wall contact",
+    "params": {
+     "physics": "axis",
+     "wall_stay": true,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.08413734766029832,
+    "sample_return": 19.979166666666668,
+    "sample_len": 199.484375,
+    "random_return": -0.4034600735911174,
+    "random_len": 8.152281970176231
+   },
+   {
+    "name": "best but catch if paddle under ball OR landing cell (either)",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "either",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.006983403806882305,
+    "sample_return": 22.0,
+    "sample_len": 200.0,
+    "random_return": -0.2310556285589137,
+    "random_len": 9.178712220762154
+   },
+   {
+    "name": "best but no 1-step serve pause",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 0,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.010673957547573788,
+    "sample_return": 22.0,
+    "sample_len": 200.0,
+    "random_return": -0.4053032319897769,
+    "random_len": 6.760449390341303
+   },
+   {
+    "name": "best but ball moves before paddle",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 6,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "ball_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 1.5469228602945804,
+    "sample_return": -0.43449092344119966,
+    "sample_len": 7.524467245461721,
+    "random_return": -0.40671641791044777,
+    "random_len": 7.747369708832885
+   },
+   {
+    "name": "best but ball serves from row 5",
+    "params": {
+     "physics": "axis",
+     "wall_stay": false,
+     "brick_stay": true,
+     "pad_stay": true,
+     "diag": "dy",
+     "horiz": false,
+     "catch": "edge_stay",
+     "hit": "landing",
+     "width": 3,
+     "pad0": 3,
+     "start_row": 5,
+     "start_cols": [
+      1,
+      8
+     ],
+     "start_dir": "inward_down",
+     "pause": 1,
+     "order": "paddle_first",
+     "miss_penalty": 1.0,
+     "respawn": "cleared"
+    },
+    "prev0": "same",
+    "td_residual": 0.30841982967806697,
+    "sample_return": 20.239583333333332,
+    "sample_len": 197.66666666666666,
+    "random_return": 0.15725593667546175,
+    "random_len": 13.292242744063325
+   }
+  ]
+ },
+ "verdict": "validated",
+ "notes": "Validated on all main criteria. Sampled return is 21.96 vs 21.71 (+1.2%), random play is -0.42 / 7.67 steps vs -0.40 / 7.84, and the critic TD residual is 0.0065, against 0.08-1.5 for every structural alternative. Two caveats. (1) The TD residual cannot tell 'catch if paddle under ball OR landing cell' or 'no serve pause' apart from the best rules (0.007-0.011); only the random-play stats separate them (random -0.23 / 9.2 and -0.41 / 6.8 respectively). The 1-step serve pause is indistinguishable from the reference counting one extra step per episode. (2) Our returns are nearly deterministic (2 mirror-image starts), while the reference has sd ~1.11, so the true start set probably has a little more variety (ball start cols 1-8 or a random paddle start made the trained policy lose and broke the random stats). The trained policy also loses very rarely in ours (mean length 199.7), but never in the reference. The corner-catch dx flip is almost never exercised."
+}

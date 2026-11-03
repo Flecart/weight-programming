@@ -1,0 +1,359 @@
+{
+ "id": "bdf99279",
+ "game": "pacman",
+ "rules": [
+  "Fixed symmetric maze: inner walls at (2,2),(2,3),(2,6),(2,7),(3,2),(3,7),(4,4),(4,5),(5,4),(5,5),(6,2),(6,7),(7,2),(7,3),(7,6),(7,7); 48 open cells.",
+  "Pac-Man starts at (7,4) every episode; a pellet (+1) on every other open cell (47 pellets, including under the ghosts).",
+  "Two ghosts start at (2,4) and (2,5) with a random initial heading.",
+  "Ghosts move one cell every second step (half Pac-Man's speed), never reversing unless forced; on each move a ghost takes the step that minimises maze (BFS) distance to Pac-Man with prob 0.7, otherwise a random legal non-reversing step.",
+  "Step order: ghosts move (on their steps), then Pac-Man moves (moves into walls leave him in place, no-op stays); Pac-Man dies if he ends on a ghost cell or swaps cells with a ghost.",
+  "Eating a pellet gives +1; death gives -1 and ends the episode; eating the last pellet ends the episode (no clear bonus); 200-step cap.",
+  "Observation: ch0 Pac-Man, ch1 ghosts, ch2 pellets, ch3 walls (ring + maze), ch4 previous Pac-Man+ghost cells (at reset = the current cells)."
+ ],
+ "params": {
+  "n_ghosts": 2,
+  "pac_start": [
+   7,
+   4
+  ],
+  "ghost_start": [
+   [
+    2,
+    4
+   ],
+   [
+    2,
+    5
+   ]
+  ],
+  "order": "ghost_first",
+  "swap_kills": true,
+  "ghost_period": 2,
+  "chase_p": 0.7,
+  "chase_metric": "bfs",
+  "ghost_reverse": false,
+  "death_penalty": 1.0,
+  "clear": "end",
+  "clear_bonus": 0.0,
+  "pellet_reward": 1.0,
+  "pellet_under_ghost": true
+ },
+ "prev0": "same",
+ "verdict": "approximate",
+ "metrics": {
+  "ours": {
+   "sample_return": 43.9945,
+   "sample_return_se": 0.2118,
+   "sample_len": 83.8201,
+   "greedy_return": 44.8283,
+   "greedy_len": 84.0975,
+   "random_return": 3.9817,
+   "random_len": 18.9674,
+   "action_usage": [
+    0.0657,
+    0.254,
+    0.2255,
+    0.2287,
+    0.2261
+   ],
+   "greedy_action_usage": [
+    0.0568,
+    0.257,
+    0.2215,
+    0.234,
+    0.2308
+   ],
+   "td_residual": 0.2715,
+   "critic_v0": 32.2475,
+   "empirical_disc_return0": 33.4296
+  },
+  "reference": {
+   "sample_return": 41.85799789428711,
+   "sample_len": 85.13468573328899,
+   "greedy_return": 42.35383224487305,
+   "greedy_len": 84.1828345938836,
+   "random_return": 3.9929144382476807,
+   "random_len": 19.71657424522489,
+   "action_usage": [
+    0.0337,
+    0.2803,
+    0.2338,
+    0.225,
+    0.2271
+   ],
+   "greedy_action_usage": [
+    0.0281,
+    0.2817,
+    0.2336,
+    0.2282,
+    0.2285
+   ]
+  },
+  "rejected_variants": [
+   {
+    "name": "deterministic chasers (chase_p=1.0): lowest TD but too easy (return 47, random dies too fast)",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": [
+      7,
+      4
+     ],
+     "ghost_start": [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 2,
+     "chase_p": 1.0,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "same",
+    "td_residual": 0.1825,
+    "sample_return": 46.9343,
+    "sample_len": 81.2908,
+    "random_return": 3.4447,
+    "random_len": 15.8735,
+    "critic_v0": 32.2475,
+    "empirical_disc_return0": 36.1345
+   },
+   {
+    "name": "purely random ghosts (chase_p=0), same starts",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": [
+      7,
+      4
+     ],
+     "ghost_start": [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 2,
+     "chase_p": 0.0,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "same",
+    "td_residual": 0.4415,
+    "sample_return": 38.3117,
+    "sample_len": 125.816,
+    "random_return": 7.7359,
+    "random_len": 45.8415,
+    "critic_v0": 32.2475,
+    "empirical_disc_return0": 26.6264
+   },
+   {
+    "name": "random ghosts moving every step, same starts",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": [
+      7,
+      4
+     ],
+     "ghost_start": [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 1,
+     "chase_p": 0.0,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "same",
+    "td_residual": 0.5743,
+    "sample_return": 39.3054,
+    "sample_len": 105.3795,
+    "random_return": 5.1905,
+    "random_len": 27.1681,
+    "critic_v0": 32.2475,
+    "empirical_disc_return0": 27.9576
+   },
+   {
+    "name": "random Pac-Man start, ghosts random >=3 cells away, random ghosts every step",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": "random",
+     "ghost_start": "random_far",
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 1,
+     "chase_p": 0.0,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "same",
+    "td_residual": 1.2658,
+    "sample_return": 25.1208,
+    "sample_len": 83.6636,
+    "random_return": 4.0256,
+    "random_len": 23.4779,
+    "critic_v0": 25.3592,
+    "empirical_disc_return0": 17.7359
+   },
+   {
+    "name": "best rules but previous-frame channel zero at reset",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": [
+      7,
+      4
+     ],
+     "ghost_start": [
+      [
+       2,
+       4
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 2,
+     "chase_p": 0.7,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "zeros",
+    "td_residual": 0.3701,
+    "sample_return": 44.0507,
+    "sample_len": 83.8392,
+    "random_return": 3.9817,
+    "random_len": 18.9674,
+    "critic_v0": 23.0471,
+    "empirical_disc_return0": 33.5558
+   },
+   {
+    "name": "ghosts start at (3,4),(3,5)",
+    "params": {
+     "n_ghosts": 2,
+     "pac_start": [
+      7,
+      4
+     ],
+     "ghost_start": [
+      [
+       3,
+       4
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     "order": "ghost_first",
+     "swap_kills": true,
+     "ghost_period": 2,
+     "chase_p": 0.7,
+     "chase_metric": "bfs",
+     "ghost_reverse": false,
+     "death_penalty": 1.0,
+     "clear": "end",
+     "clear_bonus": 0.0,
+     "pellet_reward": 1.0,
+     "pellet_under_ghost": true
+    },
+    "prev0": "same",
+    "td_residual": 0.3254,
+    "sample_return": 42.3716,
+    "sample_len": 90.7635,
+    "random_return": 3.5076,
+    "random_len": 16.5713,
+    "critic_v0": 31.7426,
+    "empirical_disc_return0": 30.9951
+   }
+  ],
+  "followup": {
+   "expected_residual_by_rule": {
+    "alternate,chase0.7,bfs,rev": 0.259,
+    "every,chase0,bfs,rev": 0.241,
+    "alternate,chase0,bfs,rev": 0.254,
+    "every,chase0.5,manhattan,rev(states with prev0 run)": 0.245,
+    "alternate,chase1.0,bfs,noreverse": 0.789,
+    "pellet_reward_0.5": 0.432,
+    "pellet_reward_0.7": 0.313
+   },
+   "every_step_ghost_variants": [
+    {
+     "chase_p": 0.15,
+     "sample_return": 38.55,
+     "sample_len": 87.1,
+     "random_return": 4.18,
+     "random_len": 20.7,
+     "td_residual": 0.589,
+     "noop": 0.045
+    },
+    {
+     "chase_p": 0.3,
+     "sample_return": 37.0,
+     "sample_len": 73.5,
+     "random_return": 3.46,
+     "random_len": 16.5,
+     "td_residual": 0.59,
+     "noop": 0.038
+    },
+    {
+     "chase_p": 0.3,
+     "ghost_reverse": true,
+     "sample_return": 43.81,
+     "sample_len": 98.6,
+     "random_return": 4.28,
+     "random_len": 21.6,
+     "td_residual": 0.4,
+     "noop": 0.055
+    }
+   ]
+  }
+ },
+ "notes": "Structure (maze, fixed starts, 2 half-speed ghosts that mostly chase, +1 pellet / -1 death / end on clear, prev-frame at reset = current cells) is well supported: TD residual drops from ~1.4 (random starts) and ~0.6 (random ghosts) to ~0.27, and critic V(s0) matches the empirical discounted return only with these starts and prev0='same'. Not pinned down: the ghosts' chase probability (0.6-1.0 all plausible; 1.0 gives a lower TD residual but return 47 and random length 16, so 0.7 was chosen on the joint fit), tie-breaking and exact ghost targeting rule (BFS vs Manhattan nearly indistinguishable), initial ghost headings. Our trained policy uses no-op ~2x more often than the reference (0.065 vs 0.034); sampled return is ~5% above the reference. FOLLOW-UP PASS (pm_next.py, pm_rules.py, pm_noop.py): computed the critic's policy-expected Bellman residual per state for exact ghost-rule distributions (removes sampling noise). It does not single out a ghost rule: chase prob 0-1, BFS vs Manhattan, reversal allowed or not, and alternate-step vs every-step timing all land at 0.24-0.30 (alternate, chase 0.7: 0.26; every step, chase 0: 0.24). The ~0.25 floor is far above Breakout's 0.005, so something is still off; it is not the ghost rule alone. Pellet reward 1 is confirmed: 0.5 and 0.7 give 0.43 and 0.31. No-op gap: our extra no-ops are spread across contexts, mostly when ghosts are 3-4 cells away, and grow with ghost randomness. Ghosts moving every step bring no-op down to 0.035-0.045 (ref .034), but the sampled TD residual rises to ~0.59 and the return falls to 37-38, so the fit is worse. Kept BEST unchanged. Verdict downgraded to approximate: the always-chasing variant has a lower sampled residual (0.18) yet misses the return and random length, and the residual floor suggests an unidentified rule difference."
+}

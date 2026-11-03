@@ -1,0 +1,401 @@
+{
+ "id": "0bbcc3ea",
+ "game": "freeway",
+ "rules": [
+  "Wall ring; goal strip on row 1 (reward-target channel, always shown on cols 1-8); six one-way traffic lanes on rows 2-7; safe start strip on row 8.",
+  "Agent is one cell; it starts at (8,4). Up/down/left/right move it one cell, clipped to rows 1-8 and cols 1-8; no-op stays.",
+  "Each lane holds two cars 4 columns apart that wrap around cols 1-8, at a random phase each episode.",
+  "Lane directions rows 2..7: right, left, right, left, right, left. A lane moves one cell every 1,2,3,2,1,3 steps respectively, all on one shared clock starting at t=0 (lane moves on steps where t is a multiple of its interval).",
+  "Each step: agent moves, then cars move. Reaching row 1 gives +1 and puts the agent back at (8,4).",
+  "Collision (agent on a car cell after the cars move, or agent and car swapping cells within a lane) sends the agent back to (8,4); no penalty, the episode continues.",
+  "No terminal state: every episode lasts exactly 200 steps.",
+  "Previous-frame channel at reset is a copy of the current agent+car cells (not zeros)."
+ ],
+ "params": {
+  "speeds": "fixed",
+  "dirs": "fixed",
+  "fixed_dirs": [
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   -1
+  ],
+  "fixed_speeds": [
+   1,
+   2,
+   3,
+   2,
+   1,
+   3
+  ],
+  "timer": "zero",
+  "collision": "reset",
+  "start_col": 4,
+  "swap_check": true
+ },
+ "prev0": "same",
+ "verdict": "validated",
+ "metrics": {
+  "ours": {
+   "sample_return": 24.071875,
+   "sample_return_se": 0.05722649584040486,
+   "sample_len": 200.0,
+   "greedy_return": 24.109375,
+   "greedy_len": 200.0,
+   "random_return": 0.010333333333333333,
+   "random_len": 200.0,
+   "action_usage": [
+    0.0263,
+    0.8645,
+    0.0131,
+    0.0364,
+    0.0597
+   ],
+   "greedy_action_usage": [
+    0.0253,
+    0.8663,
+    0.0172,
+    0.0339,
+    0.0572
+   ],
+   "td_residual": 0.1131954513827161,
+   "critic_v0": 7.2079877853393555,
+   "empirical_disc_return0": 10.113244761694753,
+   "random_return_se": 0.0013055366428890176,
+   "random_episodes": 6000
+  },
+  "reference": {
+   "sample_return": 24.041406631469727,
+   "sample_len": 200.0,
+   "greedy_return": 24.135936737060547,
+   "greedy_len": 200.0,
+   "random_return": 0.010937499813735485,
+   "random_len": 200.0,
+   "action_usage": [
+    0.0261,
+    0.8645,
+    0.0143,
+    0.035,
+    0.0601
+   ],
+   "greedy_action_usage": [
+    0.0256,
+    0.8666,
+    0.0165,
+    0.0327,
+    0.0586
+   ]
+  },
+  "rejected_variants": [
+   {
+    "name": "no_swap_check",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "zero",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": false
+    },
+    "prev0": "same",
+    "td_residual": 0.11320854902417217,
+    "sample_return": 24.071875,
+    "greedy_return": 24.109375,
+    "random_return": 0.015,
+    "random_len": 200.0,
+    "critic_v0": 7.2079877853393555
+   },
+   {
+    "name": "collision_back1",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "zero",
+     "collision": "back1",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.11377159932150913,
+    "sample_return": 24.053125,
+    "greedy_return": 24.065625,
+    "random_return": 0.033666666666666664,
+    "random_len": 200.0,
+    "critic_v0": 7.2079877853393555
+   },
+   {
+    "name": "clock_random_offset",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "global_rand",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.11654936793311757,
+    "sample_return": 24.065625,
+    "greedy_return": 24.15,
+    "random_return": 0.00625,
+    "random_len": 200.0,
+    "critic_v0": 7.195370674133301
+   },
+   {
+    "name": "prev0_zeros",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "zero",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "zeros",
+    "td_residual": 0.13600578769414345,
+    "sample_return": 24.046875,
+    "greedy_return": 24.071875,
+    "random_return": 0.003125,
+    "random_len": 200.0,
+    "critic_v0": 1.6185035705566406
+   },
+   {
+    "name": "independent_lane_timers",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "random",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.1473899868490109,
+    "sample_return": 23.825,
+    "greedy_return": 24.071875,
+    "random_return": 0.015625,
+    "random_len": 200.0,
+    "critic_v0": 7.207690238952637
+   },
+   {
+    "name": "lane7_speed1",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      1
+     ],
+     "timer": "zero",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.1453606901007082,
+    "sample_return": 22.040625,
+    "greedy_return": 22.5,
+    "random_return": 0.0125,
+    "random_len": 200.0,
+    "critic_v0": 7.2079877853393555
+   },
+   {
+    "name": "start_col5",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "zero",
+     "collision": "reset",
+     "start_col": 5,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.18672371838410295,
+    "sample_return": 18.58125,
+    "greedy_return": 18.30625,
+    "random_return": 0.0125,
+    "random_len": 200.0,
+    "critic_v0": 6.9040207862854
+   },
+   {
+    "name": "dirs_reversed",
+    "params": {
+     "speeds": "fixed",
+     "dirs": "fixed",
+     "fixed_dirs": [
+      -1,
+      1,
+      -1,
+      1,
+      -1,
+      1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "zero",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.2686426318021276,
+    "sample_return": 6.309375,
+    "greedy_return": 6.653125,
+    "random_return": 0.0125,
+    "random_len": 200.0,
+    "critic_v0": 7.2079877853393555
+   },
+   {
+    "name": "random_lane_dynamics",
+    "params": {
+     "speeds": "random",
+     "dirs": "random",
+     "fixed_dirs": [
+      1,
+      -1,
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "fixed_speeds": [
+      1,
+      2,
+      3,
+      2,
+      1,
+      3
+     ],
+     "timer": "random",
+     "collision": "reset",
+     "start_col": 4,
+     "swap_check": true
+    },
+    "prev0": "same",
+    "td_residual": 0.271111034673063,
+    "sample_return": 6.253125,
+    "greedy_return": 5.765625,
+    "random_return": 0.0125,
+    "random_len": 200.0,
+    "critic_v0": 7.207477569580078
+   }
+  ]
+ },
+ "notes": "Lane directions/speeds were identified per lane from the trained policy's hit rates and confirmed by the critic TD residual (0.113 best vs 0.136-0.27 for alternatives). Critic V(s0)=7.2 vs empirical discounted return 10.1: expected, the critic cannot see the step counter and PPO treated the 200-step cap as termination, so its value averages over the remaining horizon (~6.9 predicted for 0.12 reward/step); with prev0=zeros V(s0) drops to 1.6, which is why the start prev frame is taken to be a copy of the first frame. Weakly constrained details: the clock offset (t=0 vs a random offset gives the same stats; TD 0.113 vs 0.117), the swap-collision rule and reset-to-start vs reset-row-only (the trained policy almost never collides; only the random-policy return 0.010 vs ref 0.011 favours swap collisions, without them 0.017-0.025; push-back-one-row gives 0.03-0.055 and is rejected), and the start column (4 fits far better than 3, 5 or random). Collision penalty: none (ref random return is positive; -1 penalty would make it negative)."
+}

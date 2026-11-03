@@ -1,0 +1,31 @@
+d  1.87 td 0.142 S  4.69 len  65.7 | R -1.03 len  38.8 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  1.99 td 0.139 S  4.79 len  68.2 | R -1.26 len  39.2 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  2.62 td 0.118 S  4.93 len  76.1 | R -0.74 len  44.6 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': True}
+d  2.91 td 0.122 S  4.75 len  70.3 | R -1.60 len  39.2 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  2.94 td 0.139 S  4.78 len  64.8 | R -1.41 len  39.5 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  2.94 td 0.134 S  4.88 len  64.2 | R -1.41 len  39.0 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  3.10 td 0.122 S  4.86 len  72.7 | R -0.43 len  42.7 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': False}
+d  3.32 td 0.116 S  4.73 len  75.4 | R -0.68 len  45.4 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': True}
+d  3.46 td 0.114 S  4.76 len  77.4 | R -0.71 len  45.5 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': False}
+d  3.61 td 0.143 S  4.12 len  64.9 | R -1.15 len  38.5 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'random', 'serve_dir': 'left', 'opp_reset': True}
+d  3.62 td 0.145 S  4.74 len  58.5 | R -0.94 len  36.5 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  3.68 td 0.112 S  4.90 len  79.8 | R -0.70 len  46.1 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': False}
+d  3.70 td 0.122 S  4.80 len  71.5 | R -1.84 len  40.8 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  3.70 td 0.145 S  4.34 len  64.5 | R -1.23 len  37.7 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'random', 'serve_dir': 'left', 'opp_reset': False}
+d  3.73 td 0.127 S  4.63 len  72.3 | R -0.41 len  42.9 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'when_coming', 'opp_p': 0.3, 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': True}
+d  3.78 td 0.133 S  4.50 len  76.2 | R -1.65 len  41.1 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  3.99 td 0.121 S  4.90 len  82.8 | R -0.62 len  44.5 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.7, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': True}
+d  4.14 td 0.127 S  4.93 len  77.9 | R -0.40 len  45.1 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.7, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': False}
+d  4.21 td 0.133 S  4.63 len  77.9 | R -1.70 len  42.3 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'when_coming', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  4.26 td 0.148 S  4.70 len  58.1 | R -0.81 len  36.2 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  4.29 td 0.113 S  4.60 len  81.8 | R -0.89 len  47.4 | {'hit': 'landing_or_current', 'Lo': 3, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': True}
+d  4.31 td 0.106 S  4.95 len  80.9 | R -0.65 len  47.6 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': True}
+d  4.38 td 0.127 S  4.51 len  70.9 | R -0.30 len  42.2 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.7, 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': True}
+d  4.47 td 0.122 S  4.21 len  70.6 | R -1.75 len  39.1 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'prob', 'opp_p': 0.3, 'serve_col': 'random', 'serve_dir': 'left', 'opp_reset': False}
+d  4.47 td 0.138 S  4.17 len  62.1 | R -1.22 len  37.2 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'prob', 'opp_p': 0.5, 'serve_col': 'random', 'serve_dir': 'left', 'opp_reset': True}
+d  2.91 td 0.107 S  4.98 len  73.7 | R -0.54 len  44.6 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'alternate', 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': True}
+d  4.15 td 0.109 S  4.80 len  72.3 | R -2.00 len  40.9 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'alternate', 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': True}
+d  4.26 td 0.112 S  4.92 len  69.4 | R -0.33 len  44.5 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'alternate', 'serve_col': 'center', 'serve_dir': 'random', 'opp_reset': False}
+d  4.35 td 0.143 S  4.80 len  54.5 | R -1.18 len  36.5 | {'hit': 'landing_or_current', 'Lo': 1, 'opp_mode': 'alternate', 'serve_col': 'center', 'serve_dir': 'left', 'opp_reset': False}
+d  4.47 td 0.123 S  4.64 len  63.0 | R -0.45 len  41.1 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'alternate', 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': False}
+d  4.53 td 0.120 S  4.58 len  64.5 | R -0.47 len  42.0 | {'hit': 'landing_or_current', 'Lo': 2, 'opp_mode': 'alternate', 'serve_col': 'random', 'serve_dir': 'random', 'opp_reset': True}

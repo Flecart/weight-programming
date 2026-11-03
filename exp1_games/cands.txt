@@ -1,0 +1,4 @@
+{"Lo":2,"opp_p":0.5,"opp_reset":true,"hit":"landing_or_current","serve_col":5,"serve_dir":"random","opp_mode":"alternate"}
+{"Lo":2,"opp_p":0.5,"opp_reset":true,"hit":"landing_or_current","serve_col":"center","serve_dir":"loser","opp_mode":"alternate"}
+{"Lo":3,"opp_p":0.5,"opp_reset":true,"hit":"landing","serve_col":4,"serve_dir":"loser","opp_mode":"alternate","serve_row":"edge"}
+{"Lo":2,"opp_p":0.5,"opp_reset":true,"hit":"landing","serve_col":"center","serve_dir":"winner","opp_mode":"alternate","serve_row":"edge"}

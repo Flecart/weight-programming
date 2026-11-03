@@ -16,24 +16,23 @@ archived: false
 - I replicated some of the results in the Weight Programming blog post, and I can confirm that Astra really does it. Opus 5.5 can do it too, but at maximum effort it spends its whole 128k-token output budget thinking and never answers.
 	- I show how Astra got a high score on Breakout: looking at its reasoning makes the answer quite simple. It *compiles* simple code into the weights! That's complex, but unsurprising, given that these models can already write thousands of lines of code.
 - I then made decoding harder by hiding the network behind stated operations that the model had to undo to make the same inference. Its reasoning tokens grew as the operations required more work. When decoding was impossible, as with SHA-256, the model simply refused to try to invert it.
-- I connect this last point to recent work on measuring intrinsic task complexity.
+	- I relate this behaviour to ways of measuring intrinsic task complexity.
 
 
-When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of me trying to break weight programming (and failing). However, I think I found a limitation connected on some notion of complexity of the task.
-
+When I first read the viral [work from the MIT lab](https://rikiyat.github.io/blog/weight-space-programming/), I was highly skeptical. It made no sense to me that frontier LLMs were able to work directly on the weights. I was confident that, at some point, things would break. This blog post is the story of me trying to break weight programming (and failing). However, I think I found a limitation connected to some notion of the task's complexity.
 
 
 ## Finding one: it's compiling a 10-line program
 
-Analyzing the summary of the reasoning trace, and the designed weights, we can understand what really was done under the hood to create a "weight-program" that performs so well.
+By analyzing the summary of the reasoning trace and the designed weights, we can understand what was really done under the hood to create a "weight program" that performs so well.
 
 Astra's design statement, in full:
 
 > *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
 
-This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. Looking around in the literature, one can also find that the technique is known[[@lindnerTracrCompiledTransformers2023]]. But still surprising to see such model being able to do it in a one-shot manner.
+This is indeed an ad-hoc solution to a problem that can be understood in other, more familiar terms. Looking around in the literature, one can also find that the technique is known [[@lindnerTracrCompiledTransformers2023]]. Still, it is surprising to see a model able to do it in a one-shot manner.
 
-With some work, Claude asserts that the whole program that is implemented is just a very simple python program:
+With some work, Claude showed that the whole program being implemented is just a very simple Python program:
 
 ```python
 d = direction(trail)                       # units 4-5: two sign bits
@@ -43,61 +42,61 @@ elif gap > 0: move_right()
 else: stay()
 ```
 
-Check [[#Appendix D Decoding Astra's Program]]. Such compilation would have taken a human several hours of time to manually tune. But it doesn't seem to be that spectacular at the end.
-Since the games that were studied were easy to manage, this specific experiment is not that much surprising.
-We can actually study the *level of complexity* that a program needs to be before it breaks, even for complex frontier LLMs like Astra.
+See [[#Appendix D Decoding Astra's Program]]. Such a compilation would have taken a human several hours to tune by hand. But in the end, it doesn't seem that spectacular.
+Since the games that were studied are easy to handle, this specific experiment is not that surprising.
+What we can actually study is the *level of complexity* a program needs to reach before it breaks, even for frontier LLMs like Astra.
 
 ## Finding two: Models still have Complexity Limits
 
-Writing weights is compiling is an activity very similar to writing pure machine code. Just that this machine code instead of writing registers or memories writes numbers directly. It makes me wonder what computation as we know it today could have developed if we worked with such hardware instead of the Von Neumann Architecture. Some decisions in history have long influence.
+Writing weights is compiling, an activity very similar to writing pure machine code. The only difference is that, instead of writing registers or memory, this machine code writes numbers directly. It makes me wonder how computation as we know it today would have developed if we had worked with such hardware instead of the Von Neumann architecture. Some decisions in history have a long influence.
 
-The idea in this section is finding the limit of complexity where recognizing the game was off-limits.
+The idea in this section is to find the level of complexity at which recognizing the game becomes out of reach.
 
-From my experience in past work of my supervisor on simulation of programs with LLMs [[@malfaCodeSimulationProxy2025]], I knew there would be a point from where the behaviour starts to break. I tried to attack the most obvious direction I could find.
+From my experience with my supervisor's past work on simulating programs with LLMs [[@malfaCodeSimulationProxy2025]], I knew there would be a point where the behaviour starts to break. I attacked the most obvious direction I could find.
 
-I asked my agent to obfuscate the weights given for it to recognize using some stardard operations. Clearly it should not classify pure noise looking input as an atari game. But if there was a pattern, that should be retrieved. And looks like **cost of computing the inverse function raised reasoning length**, in a precise understandable manner. That is **reasoning grew sub-exponentially**, at about the square root of the operations needed ($\approx \text{operations}^{0.45}$):  
+I asked my agent to obfuscate the weights given to the model for recognition, using some standard operations. Clearly, the model should not classify pure noise-looking input as an Atari game. But if there was a pattern, it should be retrieved. And it looks like **the cost of computing the inverse function raised the reasoning length**, in a precise and understandable manner. That is, **reasoning grew sub-exponentially**, at about the square root of the operations needed ($\approx \text{operations}^{0.45}$):
 
 ![[ops_vs_reasoning_tokens.png| Reasoning tokens per reply against the operations needed to decode one shuffled row. Blue: rules Astra runs 'by hand'; Line is median and band is 50% of replies. Effort climbs to 64 rounds, then collapses at 128 rounds and for SHA-256 (orange), where Astra gives up. Hollow dots are wrong answers.]]
-In addition, it seemed to follow a procedure during decoding. So it correctly understood what was the *decompilation* process for a known forward process in this case. See [[#How Astra reads the weights, and what did not break it]].
+In addition, it seemed to follow a procedure during decoding, so in this case it correctly understood the *decompilation* process for a known forward process. See [[#How Astra reads the weights, and what did not break it]].
 
-Similar phenomena where seen in [[@shojaeeIllusionThinkingUnderstanding2025]]. But evidence here seems to point that Astra is just effective at not using many tokens when its accuracy seems to decrease. I test other similar scenarios in [[#C.1.2 Faith-and-Fate arithmetic tasks]].
+Similar phenomena were seen in [[@shojaeeIllusionThinkingUnderstanding2025]]. But the evidence here suggests that Astra is simply effective at not spending many tokens when its accuracy is likely to drop. I test other similar scenarios in [[#C.1.2 Faith-and-Fate arithmetic tasks]].
 
-I tried to analyze complexity of such tasks, and it seems connected to classical Minimum Description Length principles. The computational difficulty analyzed in [[@dziriFaithFateLimits2023]] seems much less relevant.
-See Table in [[#What predicts the effort]].
+I tried to analyze the complexity of such tasks, and it seems connected to classical Minimum Description Length principles. The computational difficulty analyzed in [[@dziriFaithFateLimits2023]] seems much less relevant.
+See the table in [[#What predicts the effort]].
 
-## Finding Three: Models Self Verify in Chain of Though
+## Finding three: Models Self-Verify in Chain of Thought
 
-A claim that Faith and Fate[[@dziriFaithFateLimits2023]] made was that inevitably all reasoning tokens would collapse accuracy given some inherent error in the production of the sentence. But empirically, having my agent analyzing the logs, it looks like astra produced very often tokens to verify its own results in the CoT. The agent reported strings such as "Checking p75 arithmetic" or "Recounting early indices" or "Verifying multiplication results", for more than 30% of its reasoning steps. Astra also computed modular checksums during the reasoning. This seems to align with the result in [[@stechlySelfVerificationLimitationsLarge2024]], just that instead of needing an external verification, even internal reasoning-led verification is enough, just more costly in terms of compute.
+One claim that Faith and Fate [[@dziriFaithFateLimits2023]] made was that reasoning chains would inevitably collapse in accuracy, given some inherent error in producing each step. But empirically, when my agent analyzed the logs, it looked like Astra very often produced tokens to verify its own results in the chain of thought. The agent reported strings such as "Checking p75 arithmetic", "Recounting early indices" or "Verifying multiplication results" for more than 30% of its reasoning steps. Astra also computed modular checksums during its reasoning. This seems to align with the result in [[@stechlySelfVerificationLimitationsLarge2024]], except that instead of needing an external verifier, internal, reasoning-led verification is enough, just more costly in terms of compute.
 
-It might be possible that verification traces were a **inherent defense to the collapse arguments**. That is: models need to allocate some tokens for verification to balance the compounding risk. So I think one could take this argument further by computing some lower bound of verification tokens to guarantee some X correctness.
+It might be that verification traces are an **inherent defense against the collapse arguments**. That is, models need to allocate some tokens to verification to balance the compounding risk. So I think one could take this argument further by computing a lower bound on the number of verification tokens needed to guarantee a given level of correctness.
 
-The point is that the paper's original argument of error is not so dooming for models, but at the same time it shows a clear limitation of putting logical reasoning into the CoT!
-More data  in [[#Faith and Fate Probing]].
+The point is that the paper's original error argument is not so damning for models, but at the same time it shows a clear limitation of putting logical reasoning into the chain of thought!
+More data in [[#Faith and Fate Probing]].
 
 
 
 ## On the Limitations of Weight Programming
 
-The possibility of having LLMs writing weights directly it's still very surprising. I would say also a very creative idea, so my congrats to the authors too!
-However, this posts should highlight some of the inherent limitations of this novel technique:
-Compilation into a *weight program* is still limited by the complexity of such process. We have seen that reasoning length increases sub-exponentially with increasing task complexity and drops when a task is outside the capability of the model.
+The possibility of LLMs writing weights directly is still very surprising. I would also call it a very creative idea, so congratulations to the authors!
+However, this post should highlight some of the inherent limitations of this novel technique:
+Compilation into a *weight program* is still limited by the complexity of the process. We have seen that reasoning length increases sub-exponentially with task complexity, and drops when a task is beyond the model's capability.
 
-Given the results in experiments 6,7,8 in the post, it looks like **single model edits are within such complexity boundaries**, meaning the model can effectively edit some weights in a meaningful manner for optimization. This is a very interesting result.
+Given the results of Experiments 6, 7 and 8 in the post, it looks like **single model edits are within such complexity boundaries**, meaning the model can edit some weights in a meaningful way for optimization. This is a very interesting result.
 
 
 
 ## Conclusions
 
-I will now conclude with some simple thoughts on the topic. It is clear that the simple possibility of having LLM optimizing another LLM directly without using any external tool is unheard of. This is clearly a very creative contribution of the authors to the community.
+I will now conclude with some simple thoughts on the topic. The very possibility of an LLM optimizing another LLM directly, without any external tool, is unheard of. This is a very creative contribution from the authors to the community, and I convinced myself that it's possible while writing this blog post.
 
-It's also interesting to see that research might move a lot more into dynamic blog-post or conversation format information exchange. This idea would have been probably got a very interesting reception at conferences, but conferences being swamped by slop seems to create incentives to publish elsewhere. And publishing in this manner is a fast way to spread one's work and have others build on top of this.
+It's also interesting to see that research might move much more towards dynamic formats for exchanging information, such as blog posts or conversations. This idea would probably have received a very interesting reception at conferences, but conferences being swamped by slop seems to create incentives to publish elsewhere. Publishing this way is also a fast way to spread one's work and let others build on top of it, which is what I am trying to do here :).
 
-On my complexity side, I was surprised to see that all tasks cited in [[@dziriFaithFateLimits2023]] on the limits of transformers were basically all solved with almost 100% accuracy; I had to stretch the task by a quite big number to find the current limit, see [[#Faith and Fate Probing]], from that you can also have an idea of really how better is Astra compared to good old gpt-4. For reference it is . Only doing benchmaxxxing would probably not lead to such behaviours. This means there seems there is something that such frontier models are learning that are generalizable enough to solve such a wide range of tasks. But as far as I know, we don't know yet what is this factor.
+On the complexity side, I was surprised to see that all the tasks cited in [[@dziriFaithFateLimits2023]] on the limits of transformers were basically solved with almost 100% accuracy. I had to stretch the tasks by quite a large factor to find the current limit (see [[#Faith and Fate Probing]]). From that you can also get an idea of how much better Astra is than good old GPT-4: for reference, about 1,000–1,200 times, see [[#Compared with GPT-4 in the original paper]]. Benchmaxxing alone would probably not lead to such behaviours. This might indicate that frontier models are learning something general enough to solve such a wide range of tasks. But as far as I know, we don't yet know what this factor is, how models acquire it, or whether there are inherent limits on this capability. Perhaps these simple logical measures are another capability to maximize and report for every model. I would be happy to hear from any reader on this topic.
 
 
 
 # The AI Appendix
-This section is written by AI (Opus 5.5) completely, it's intended for your agent to get more interesting data for your own experiments or have it summarize it to you. Very often I find AI written reports to be inconclusive or too verbose. But interesting data could still be there.  I guess humans would just get data-overwhelmed. But you can take a look too!
+This section was written entirely by AI (Opus 5.5). It's intended for your agent, to get more interesting data for your own experiments or to have it summarized for you. I very often find AI-written reports inconclusive or too verbose, but interesting data could still be there. I guess humans would just get overwhelmed by the data. But you can take a look too!
 
 
 ## Appendix A: Additional Results

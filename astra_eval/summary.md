@@ -32,6 +32,8 @@ Protocol: repo/exp1_which_game (description + question + weights, one message, n
 | P_xs_8 | 8/8 | 8 | 100% | 89.4 | – | 2/2 | 2/2 | 2/2 | 2/2 |
 | P_xs_16 | 8/8 | 6 | 75% | 77.9 | 63.5 | 1/2 | 2/2 | 1/2 | 2/2 |
 | P_xs_32 | 8/8 | 8 | 100% | 83.1 | – | 2/2 | 2/2 | 2/2 | 2/2 |
+| P_xs_64 | 8/8 | 6 | 75% | 64.4 | 27.5 | 2/2 | 2/2 | 0/2 | 2/2 |
+| P_xs_128 | 8/8 | 6 | 75% | 49.5 | 22.5 | 2/2 | 2/2 | 0/2 | 2/2 |
 | P_sha | 8/8 | 6 | 75% | 43.8 | 20.0 | 2/2 | 2/2 | 0/2 | 2/2 |
 | P_sha_out | 8/8 | 2 | 25% | 15.6 | 11.7 | 1/2 | 1/2 | 0/2 | 0/2 |
 
@@ -70,6 +72,8 @@ Mean (min–max) per run. Ours: Responses API `usage` (input_tokens, input_token
 | P_xs_8 | 8 | 80,933 (80,408–81,205) | 0 (0–0) | 6,560 (4,754–10,066) | 5,382 (3,624–8,804) | 223.8 (171.9–284.7) |
 | P_xs_16 | 8 | 81,045 (80,520–81,317) | 0 (0–0) | 8,082 (4,645–13,694) | 7,001 (3,624–12,430) | 266.1 (160.7–351.4) |
 | P_xs_32 | 8 | 81,269 (80,744–81,541) | 0 (0–0) | 11,713 (8,516–16,144) | 10,577 (7,250–15,020) | 348.8 (246.8–466.9) |
+| P_xs_64 | 8 | 81,717 (81,192–81,989) | 0 (0–0) | 13,444 (8,961–19,157) | 12,464 (7,962–18,126) | 422.8 (312.1–558.1) |
+| P_xs_128 | 8 | 82,613 (82,088–82,885) | 10,336 (0–82,688) | 2,959 (1,016–14,272) | 2,141 (228–13,226) | 107.8 (43.0–480.2) |
 | P_sha | 8 | 80,761 (80,236–81,033) | 0 (0–0) | 1,200 (951–1,474) | 399 (208–516) | 49.0 (37.1–61.5) |
 | P_sha_out | 8 | 80,892 (80,362–81,163) | 0 (0–0) | 1,204 (973–1,585) | 467 (304–865) | 48.9 (36.4–66.3) |
 
@@ -92,8 +96,12 @@ Per game, paper vs our original condition (mean of 3):
 - **P_sha_out / pacman (bdf99279) r1** -> `other`, confidence 0.0: Game: "Not reliably identified from this manual inspection."
 - **P_sha_out / pacman (bdf99279) r2** -> `other`, confidence 0.0: Game: "Not reliably identified from my analysis of these weights."
 - **P_sha_out / pong (dfc6cb65) r1** -> `breakout`, confidence 30.0: Game: "Tentatively Breakout—a paddle-and-ball brick-breaking game. The stronger conclusion is merely “a one-axis paddle/control game.”"
+- **P_xs_128 / pacman (bdf99279) r1** -> `other`, confidence 20.0: Game: "Tentative guess: Snake. This is a low-confidence guess, not a decoded identification."
+- **P_xs_128 / pacman (bdf99279) r2** -> `other`, confidence 25.0: Game: "Not reliably identified. The most specific defensible characterization from my analysis is a likely four-direction grid-movement game, rather than a confidently identified named game."
 - **P_xs_16 / breakout (a9f535cc) r2** -> `other`, confidence 82.0: Game: "Space Invaders-style, probably an automatically firing grid-based variant."
 - **P_xs_16 / pacman (bdf99279) r2** -> `other`, confidence 45.0: Game: "Best guess: Dodge — an open-grid moving-enemy avoidance/survival game."
+- **P_xs_64 / pacman (bdf99279) r1** -> `other`, confidence 30.0: Game: "Tentatively, “Dodge”: a full-grid moving-enemy avoidance/survival game."
+- **P_xs_64 / pacman (bdf99279) r2** -> `other`, confidence 25.0: Game: "Best guess: a “Chase” or moving-target collection game. The exact game remains undetermined."
 
 ## All Game: lines
 
@@ -243,6 +251,14 @@ Per game, paper vs our original condition (mean of 3):
 | P_xs_1 | pacman | r2 | pacman | 85.0 | Pac-Man, or a simplified Pac-Man-style grid maze game. |
 | P_xs_1 | pong | r1 | pong | 93.0 | Pong — a grid-based version with an up/down-controlled paddle on the left, likely single-player wall Pong. |
 | P_xs_1 | pong | r2 | pong | 94.0 | Pong-style grid paddle-and-ball game, with the player’s vertical paddle on the left. |
+| P_xs_128 | freeway | r1 | freeway | 45.0 | Best guess: a simplified Frogger-style traffic-crossing game. |
+| P_xs_128 | freeway | r2 | freeway | 45.0 | Frogger — most likely a simplified grid-based traffic-crossing variant. |
+| P_xs_128 | breakout | r1 | breakout | 91.0 | Breakout — a small grid-based brick-breaker, in the Breakout/Arkanoid family. |
+| P_xs_128 | breakout | r2 | breakout | 35.0 | Best guess: a small-grid Breakout-style paddle-and-ball game. The firmer conclusion is a horizontally controlled interception game. |
+| P_xs_128 | pacman | r1 | other | 20.0 | Tentative guess: Snake. This is a low-confidence guess, not a decoded identification. |
+| P_xs_128 | pacman | r2 | other | 25.0 | Not reliably identified. The most specific defensible characterization from my analysis is a likely four-direction grid-movement game, rather than a confidently identified named game. |
+| P_xs_128 | pong | r1 | pong | 65.0 | Best guess: a grid-based Pong variant, with a vertically moving paddle. |
+| P_xs_128 | pong | r2 | pong | 70.0 | Probably a small grid-based version of Pong, with a vertically moving paddle. |
 | P_xs_16 | freeway | r1 | freeway | 87.0 | Frogger-like traffic crossing, most likely a simplified grid version of Frogger. |
 | P_xs_16 | freeway | r2 | freeway | 84.0 | Most likely Frogger — a simplified upward, lane-crossing game, possibly closer to Freeway if its hazards are exclusively traffic. |
 | P_xs_16 | breakout | r1 | breakout | 91.0 | Breakout — a grid-based brick-breaking paddle-and-ball game. |
@@ -275,6 +291,14 @@ Per game, paper vs our original condition (mean of 3):
 | P_xs_4 | pacman | r2 | pacman | 83.0 | Pac-Man-style maze chase, most likely a small grid-based Pac-Man implementation. |
 | P_xs_4 | pong | r1 | pong | 93.0 | Pong — a grid-based version with the player controlling the left vertical paddle. |
 | P_xs_4 | pong | r2 | pong | 93.0 | Pong, most likely a grid-based version with the player controlling the left-hand vertical paddle. |
+| P_xs_64 | freeway | r1 | freeway | 70.0 | Frogger — most likely a simplified grid-based traffic-crossing variant. |
+| P_xs_64 | freeway | r2 | freeway | 70.0 | A simplified Frogger-like road-crossing game. |
+| P_xs_64 | breakout | r1 | breakout | 60.0 | Most likely a grid-based Breakout-style brick breaker. |
+| P_xs_64 | breakout | r2 | breakout | 82.0 | Breakout — a small grid-based brick-breaker variant. |
+| P_xs_64 | pacman | r1 | other | 30.0 | Tentatively, “Dodge”: a full-grid moving-enemy avoidance/survival game. |
+| P_xs_64 | pacman | r2 | other | 25.0 | Best guess: a “Chase” or moving-target collection game. The exact game remains undetermined. |
+| P_xs_64 | pong | r1 | pong | 90.0 | Pong — a grid-based vertical-paddle variant, with the player’s paddle on the left and a right-edge scoring target. |
+| P_xs_64 | pong | r2 | pong | 88.0 | Pong, or a close grid-based Pong variant, with the player controlling the left-hand vertical paddle. |
 | P_xs_8 | freeway | r1 | freeway | 93.0 | Frogger — specifically, a simplified grid-based traffic-crossing variant. |
 | P_xs_8 | freeway | r2 | freeway | 92.0 | Frogger — most likely a simplified Frogger/Freeway-style traffic-crossing game. |
 | P_xs_8 | breakout | r1 | breakout | 93.0 | Breakout — a grid-based brick-breaker variant. |
@@ -330,4 +354,5 @@ Per game, paper vs our original condition (mean of 3):
 
 ## Run problems (failed runs, retries, format breaks, missing reasoning summary)
 
-None.
+- P_xs_128/bdf99279/r2: ok=True errors=1 game_line=ok confidence=ok reasoning_summary=yes
+- P_xs_64/0bbcc3ea/r2: ok=True errors=1 game_line=ok confidence=ok reasoning_summary=yes

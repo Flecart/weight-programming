@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 51.1,
+ "total_s": 889.7,
+ "status": "completed",
+ "response_id": "resp_0ebcccf1a7e0a618016ae92f2954f48191b93d6336f4b70aa8",
+ "usage": {
+  "input_tokens": 82885,
+  "cached_input_tokens": 0,
+  "output_tokens": 1310,
+  "reasoning_output_tokens": 461
+ },
+ "reasoning_summary": [
+  "**Inferring Pong vertical outputs****Assessing channel assignments****Separating evidence from hypotheses**"
+ ],
+ "non_message_items": []
+}

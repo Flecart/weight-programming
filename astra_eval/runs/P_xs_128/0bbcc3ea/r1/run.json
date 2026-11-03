@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 43.0,
+ "total_s": 505.9,
+ "status": "completed",
+ "response_id": "resp_04b16c958bc0f73a016ae92db1e83c819197d538001d2101bd",
+ "usage": {
+  "input_tokens": 82088,
+  "cached_input_tokens": 0,
+  "output_tokens": 1016,
+  "reasoning_output_tokens": 228
+ },
+ "reasoning_summary": [
+  "**Estimating Frogger likelihood****Checking duplicated obstacle features**"
+ ],
+ "non_message_items": []
+}

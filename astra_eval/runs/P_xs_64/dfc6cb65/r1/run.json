@@ -1,0 +1,43 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 385.5,
+ "total_s": 462.9,
+ "status": "completed",
+ "response_id": "resp_01b388a21d72d88f016ae92c301d288191b7fac80376d5e958",
+ "usage": {
+  "input_tokens": 81989,
+  "cached_input_tokens": 0,
+  "output_tokens": 12307,
+  "reasoning_output_tokens": 11285
+ },
+ "reasoning_summary": [
+  "**Decoding likely Pong actions****Mapping Pong action rows**",
+  "",
+  "**Computing sequence values****Strong ball confirmed**",
+  "**Selecting strong agent j8**",
+  "",
+  "**Computing next map value****Computing p3 map**",
+  "",
+  "**Calculating obstacle position****Analyzing obstacle layout**",
+  "",
+  "",
+  "**Checking agent position****Rechecking p1 arithmetic**",
+  "**Recomputing p1 history**",
+  "",
+  "**Preparing channel maps**",
+  "",
+  "**Checking p2=197 reward****Checking p3 agent**",
+  "**Inferring likely b1 walls**",
+  "",
+  "**Choosing obstacle sample**",
+  "",
+  "**Cross-checking calculations****Preparing observations table**",
+  "**Refining paddle mechanics**"
+ ],
+ "non_message_items": []
+}

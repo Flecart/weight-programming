@@ -1,0 +1,37 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 312.1,
+ "total_s": 838.6,
+ "status": "completed",
+ "response_id": "resp_05ebcde7439b4702016ae92df14fb081919f3f1123027eb6ea",
+ "usage": {
+  "input_tokens": 81838,
+  "cached_input_tokens": 0,
+  "output_tokens": 9031,
+  "reasoning_output_tokens": 8174
+ },
+ "reasoning_summary": [
+  "**Inspecting selected rows****Computing first channel sample**",
+  "",
+  "",
+  "**Computing p1 value**",
+  "",
+  "",
+  "**Checking grid encoding****Testing p10 encoding**",
+  "",
+  "**Computing p3 position****Inspecting p8 medium**",
+  "**Comparing border row gradients****Checking goal placement**",
+  "",
+  "**Analyzing moving objects****Decoding reward channels**",
+  "**Assessing partial observations**",
+  "",
+  "**Computing channel mapping****Checking channel 2 mapping**",
+  "**Checking hazard cars****Checking game pattern**"
+ ],
+ "non_message_items": []
+}

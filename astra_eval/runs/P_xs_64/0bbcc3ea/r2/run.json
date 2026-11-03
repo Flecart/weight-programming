@@ -1,0 +1,43 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 2,
+ "errors": [
+  {
+   "attempt": 1,
+   "exc": "RemoteProtocolError",
+   "msg": "Server disconnected without sending a response."
+  }
+ ],
+ "wall_s": 324.0,
+ "total_s": 1488.7,
+ "status": "completed",
+ "response_id": "resp_0311f8323b8c58d9016ae9306f7fb08191ba761e3054cf75d1",
+ "usage": {
+  "input_tokens": 81192,
+  "cached_input_tokens": 0,
+  "output_tokens": 8961,
+  "reasoning_output_tokens": 7962
+ },
+ "reasoning_summary": [
+  "**Analyzing game-state weights****Decoding weight rows**",
+  "**Computing sequence values****Computing sequence values**",
+  "**Decoding row2 border pattern****Decoding row1 values**",
+  "**Computing sequence values****Computing sequence values**",
+  "**Computing sequence values****Checking p1 placement**",
+  "",
+  "",
+  "**Checking sampled channel mapping****Checking rows 2 and 4**",
+  "",
+  "**Checking row 4 state**",
+  "",
+  "**Checking p4 row result****Selecting rows for decoding**",
+  "**Estimating repeated weight patterns****Verifying paired obstacle weights**",
+  "",
+  "**Checking agent row placement****Checking decoded row positions**",
+  "**Verifying arithmetic samples.**"
+ ],
+ "non_message_items": []
+}

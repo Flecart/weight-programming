@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 46.3,
+ "total_s": 526.5,
+ "status": "completed",
+ "response_id": "resp_0456a435f6d40524016ae92dc3002c8191843642d0a91f96f8",
+ "usage": {
+  "input_tokens": 82734,
+  "cached_input_tokens": 0,
+  "output_tokens": 1142,
+  "reasoning_output_tokens": 437
+ },
+ "reasoning_summary": [
+  "**Comparing action patterns****Checking channel assignments****Checking output channel mapping**"
+ ],
+ "non_message_items": []
+}

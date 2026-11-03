@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 52.1,
+ "total_s": 890.7,
+ "status": "completed",
+ "response_id": "resp_008c9b3fae06cb5b016ae92f295f0481918216e08db7ffbfe0",
+ "usage": {
+  "input_tokens": 82088,
+  "cached_input_tokens": 0,
+  "output_tokens": 1237,
+  "reasoning_output_tokens": 497
+ },
+ "reasoning_summary": [
+  "**Testing a Frogger hypothesis****Mapping channel patterns****Reviewing channel evidence**"
+ ],
+ "non_message_items": []
+}

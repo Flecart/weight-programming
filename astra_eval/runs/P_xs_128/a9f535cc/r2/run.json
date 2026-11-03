@@ -1,0 +1,24 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 77.4,
+ "total_s": 77.4,
+ "status": "completed",
+ "response_id": "resp_0886f444066bc4f6016ae92be2b9d88191955d23618e4e98ae",
+ "usage": {
+  "input_tokens": 82746,
+  "cached_input_tokens": 0,
+  "output_tokens": 2057,
+  "reasoning_output_tokens": 1246
+ },
+ "reasoning_summary": [
+  "**Guessing the game****Checking channel mapping****Comparing game hypotheses**",
+  "**Comparing W1 sign groups****Inferring game from weights**",
+  "**Identifying the paddle game****Explaining reconstruction limits**"
+ ],
+ "non_message_items": []
+}

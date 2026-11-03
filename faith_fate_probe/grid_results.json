@@ -1,0 +1,610 @@
+[
+ {
+  "task": "multiplication",
+  "size": 130,
+  "graph": {
+   "V": 34320,
+   "depth": 263,
+   "width": 16900
+  },
+  "truth": "51991153062788347311960911481145222117008829793462634857223375753346979175841575856891738143073102858363518487058520365979327717251679694274982554585507124033338777471442283236318333151201245608440809868244607893683465030380256612480388193527298562026260163002",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 130,
+  "graph": {
+   "V": 34320,
+   "depth": 263,
+   "width": 16900
+  },
+  "truth": "73221629984605929752390205930663731704867361300771780824740231173722430050412652628584594249209405605407830183804917305194710683766163679208157322179381448963499879266924816741342391793119638135923350377512809357703528507089058910924859667053727457345885237000",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 130,
+  "graph": {
+   "V": 34320,
+   "depth": 263,
+   "width": 16900
+  },
+  "truth": "31294532961951530498692652408552595882727481425092804035779711649570476162311018026389359494981269293300552511282561204921089798723903566352376211388844004691981414330918619170724298679375336281160902643186265653068621880931294550242226878965522544079481256560",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 130,
+  "graph": {
+   "V": 34320,
+   "depth": 263,
+   "width": 16900
+  },
+  "truth": "16426803751567448020643929527936885506408239079497864667944554702363014330265044984369201301564229003903833815804921858273847730937627535295694338050903445351100538044557182574414501905071903401844519245822101118655808992252589690195371071950253914517632089868",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 140,
+  "graph": {
+   "V": 39760,
+   "depth": 283,
+   "width": 19600
+  },
+  "truth": "2990642472187828174542847199701954353296126868284701536787904904888438559397153273105302000386344394591750769912939121924513501872888121178592854695507089656553270355904799501842329638888685248117864968031966221597137964158500710852404580484027192152085737395317192079734707456205",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 2456,
+  "output_tokens": 2488,
+  "wall_s": 98.81396341323853,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 280-digit product without tools, and I don\u2019t want to give you a fabricated number."
+ },
+ {
+  "task": "multiplication",
+  "size": 140,
+  "graph": {
+   "V": 39760,
+   "depth": 283,
+   "width": 19600
+  },
+  "truth": "4193749957840966506847939613064272838624125700698995183573202279765430847580446099810234050748744238486619509920373136154502181646522409873536897146261836016576393590651121058290969706988176467781318164538372524796256049573318665766366920234262553111393853147996107060648393679184",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 140,
+  "graph": {
+   "V": 39760,
+   "depth": 283,
+   "width": 19600
+  },
+  "truth": "2161743586015567431647581526296613943418962976410882946609771864378431169741229057461684622329635408347885818713264598122054724718032126568393395743227564372198408237101054712888902566567733518520554095603379298001245624172019155338214374768943231004331130936575318058876547111810",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 140,
+  "graph": {
+   "V": 39760,
+   "depth": 283,
+   "width": 19600
+  },
+  "truth": "3573551953172519672449713549753653097109198473947750059222218707562014113599165471826308304049091751915031243044725244413394531699918838796574307152718540676899234684402705770723671344762369996599713841641873578273232828674841407269071669794953682504729041829252388868622416571265",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 150,
+  "graph": {
+   "V": 45600,
+   "depth": 303,
+   "width": 22500
+  },
+  "truth": "251082352885411526349747594076009790830549615180955386725830155835115463491267639443130571298757935343025784656315455254697311716413880437421458255809642118303563437397308844772170508452886410066482440017760107450351982292696449099754045483961266634919713743868676522713708847254667479176904938671240",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 1695,
+  "output_tokens": 1727,
+  "wall_s": 71.64756870269775,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 300-digit product without tools, and I don\u2019t want to give you a fabricated number."
+ },
+ {
+  "task": "multiplication",
+  "size": 150,
+  "graph": {
+   "V": 45600,
+   "depth": 303,
+   "width": 22500
+  },
+  "truth": "83648435880823486473827176538686195282814403511852219066946734610275055459613031197430146336341049922260835236920858804684814229761405909638859780154209114857564048215919661395717948253377516455272506605923776822250109749677010026549391333002652493842854922266081855383454334483209938006091564389063",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 150,
+  "graph": {
+   "V": 45600,
+   "depth": 303,
+   "width": 22500
+  },
+  "truth": "535478656126821168825650605278628391615879162468278248618899716194639709747855647409834917869507722679046231324578607188958883814279254765105481361268301147950189243576963628513927120502481255964682821116129307644106438313904591328432279486399954629385954262005098629467140298139703800127813250254980",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 150,
+  "graph": {
+   "V": 45600,
+   "depth": 303,
+   "width": 22500
+  },
+  "truth": "186094925329645798151503378594620999673506579648544567182319800531788898346295336352879823311330229974729694181987008673473656656531442892100900441754885040437319540725917312909379766031712501775522344902080464703095714475690580469444370920909887536578986970681834959769788212469813185911134201622272",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 160,
+  "graph": {
+   "V": 51840,
+   "depth": 323,
+   "width": 25600
+  },
+  "truth": "12123751645491591506901454561859295187771249340842564050507066518835365491128029383094329013714698703007372890501465289646139153298910879036050245856585640232355130744068463164447918769860629298336885257716127302604513441792154600231922321197674332661041625195145021870957427152632397248828849323071926886909068362878216",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 160,
+  "graph": {
+   "V": 51840,
+   "depth": 323,
+   "width": 25600
+  },
+  "truth": "17810400863329467040521559244336611918134029517466228832924929546148435676151222165758149303524957967027358027776527154915771763498582871042899690229449131423571012074661379826036809285539512587462347717618497951051760593006838305935329474544037125577307550359556120169167454319009150752319087127959230417527594068273408",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 3910,
+  "output_tokens": 3942,
+  "wall_s": 142.8275101184845,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 320-digit product without tools, and I don\u2019t want to give you an incorrect number."
+ },
+ {
+  "task": "multiplication",
+  "size": 160,
+  "graph": {
+   "V": 51840,
+   "depth": 323,
+   "width": 25600
+  },
+  "truth": "5427966690797397628362905274575604142163982300549046487728785283227712287257320388890622791734207263566410708145240345124175206943607137331957648295996977991338823560607446005656633689678786939526654170119959404040588015278394652484875184545048402824010397863999752641858392125169019149616450822444966312239662335051175",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 2888,
+  "output_tokens": 2918,
+  "wall_s": 112.79139995574951,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 320-digit product without tools, and I don\u2019t want to invent an answer."
+ },
+ {
+  "task": "multiplication",
+  "size": 160,
+  "graph": {
+   "V": 51840,
+   "depth": 323,
+   "width": 25600
+  },
+  "truth": "33579401080235059638275893231607432059565976521706515663015444688669554321128827538703151272499546429313395529870112814878314898844750338516448639894329117428375106065280519081349251904250862142577301962998076407467913894085967840285624862162353057931921176376934086587562380942349725854655707932213700409258441490661046",
+  "answer": null,
+  "correct": false,
+  "outcome": "error",
+  "digit_accuracy": null,
+  "reasoning_tokens": null,
+  "output_tokens": null,
+  "wall_s": null,
+  "non_reasoning_items": [],
+  "reply_text": "ERROR RemoteDisconnected('Remote end closed connection without response')"
+ },
+ {
+  "task": "multiplication",
+  "size": 170,
+  "graph": {
+   "V": 58480,
+   "depth": 343,
+   "width": 28900
+  },
+  "truth": "2165185259886702459664509325471514577740088659732457591895568168410765274258193946767062262730139998779027999192307050445448435181243280692334931052197586255168200060677628836463302176420924535313844510498625033037489447837016278442948859120870180396022754450255739797911152289795567065908910496233288739451321192273487263641250560302908171",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 2565,
+  "output_tokens": 2597,
+  "wall_s": 85.89227724075317,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 340-digit product without tools, and I don\u2019t want to give you a fabricated number."
+ },
+ {
+  "task": "multiplication",
+  "size": 170,
+  "graph": {
+   "V": 58480,
+   "depth": 343,
+   "width": 28900
+  },
+  "truth": "913144992497473335587722594951647490238281996204619192620089748541997118820711711943350633766736713852709729947675267215450487974096176595060012242787142341798088226275168788270378271462983618243424504673884520704648355939395711731054563131730625789166652675705290946010450715785262373883226621894110559876948974912889636320316083573502105",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 1934,
+  "output_tokens": 1967,
+  "wall_s": 72.63882970809937,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this product exactly without tools, and I don\u2019t want to present an unverified number as the exact answer."
+ },
+ {
+  "task": "multiplication",
+  "size": 170,
+  "graph": {
+   "V": 58480,
+   "depth": 343,
+   "width": 28900
+  },
+  "truth": "2877990162803708971921751230479328241393866555328385041502263496250146520255922866657717745813028511436782857290140769546809173949458440103352149723224869314265970945430198089176335414511891333538510814569525204825181779136637627217734759534639983890849125280639033315179650702950055241228673522629458862519756456793769197536545080191603495",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 1552,
+  "output_tokens": 1581,
+  "wall_s": 56.024280309677124,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably calculate this exact product without tools, and I don\u2019t want to give you a fabricated number."
+ },
+ {
+  "task": "multiplication",
+  "size": 170,
+  "graph": {
+   "V": 58480,
+   "depth": 343,
+   "width": 28900
+  },
+  "truth": "1079116011507934091129611362705378388469243904982197895950415950718265715644525486061528192473231286383996341131773704232910178704621417387593304433968625923711398733283271173817518662924375301267609083819901480635373161701141077450060998110622315413340511378263606659337800224857325212960842574945545491869917472072306365053285155329382247",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 2139,
+  "output_tokens": 2172,
+  "wall_s": 91.69635939598083,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute this exact 340-digit product without calculation tools, and I don\u2019t want to give you an incorrect number."
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 5120,
+  "graph": {
+   "V": 15362,
+   "depth": 5122,
+   "width": 5121
+  },
+  "truth": "5043",
+  "answer": "5043",
+  "correct": true,
+  "outcome": "correct",
+  "digit_accuracy": null,
+  "reasoning_tokens": 23191,
+  "output_tokens": 23307,
+  "wall_s": 295.77195286750793,
+  "non_reasoning_items": [],
+  "reply_text": "Let \\(M_i\\) be the maximum sum obtainable from the first \\(i\\) numbers without choosing adjacent entries. Then\n\\[\nM_0=0,\\qquad M_1=\\max(0,a_1),\\qquad\nM_i=\\max\\bigl(M_{i-1},\\,M_{i-2}+a_i\\bigr).\n\\]\nThe two choices are to skip \\(a_i\\), or take it and skip its predecessor. Applying this recurrence to the sequence gives:\n\nANSWER: 5043"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 5120,
+  "graph": {
+   "V": 15362,
+   "depth": 5122,
+   "width": 5121
+  },
+  "truth": "5157",
+  "answer": "5159",
+  "correct": false,
+  "outcome": "wrong",
+  "digit_accuracy": null,
+  "reasoning_tokens": 22272,
+  "output_tokens": 22383,
+  "wall_s": 305.5708079338074,
+  "non_reasoning_items": [],
+  "reply_text": "Let \\(D_i\\) be the maximum sum obtainable from the first \\(i\\) numbers without choosing adjacent entries. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two options are to skip \\(a_i\\), or choose it and skip its predecessor. Applying this recurrence to the sequence gives:\n\nANSWER: 5159"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 5120,
+  "graph": {
+   "V": 15362,
+   "depth": 5122,
+   "width": 5121
+  },
+  "truth": "5110",
+  "answer": "5110",
+  "correct": true,
+  "outcome": "correct",
+  "digit_accuracy": null,
+  "reasoning_tokens": 19569,
+  "output_tokens": 19580,
+  "wall_s": 313.577360868454,
+  "non_reasoning_items": [],
+  "reply_text": "ANSWER: 5110"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 5120,
+  "graph": {
+   "V": 15362,
+   "depth": 5122,
+   "width": 5121
+  },
+  "truth": "5287",
+  "answer": "5292",
+  "correct": false,
+  "outcome": "wrong",
+  "digit_accuracy": null,
+  "reasoning_tokens": 18294,
+  "output_tokens": 18400,
+  "wall_s": 341.39290499687195,
+  "non_reasoning_items": [],
+  "reply_text": "Let \\(D_i\\) be the maximum sum using the first \\(i\\) entries. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two choices are to skip entry \\(i\\), or take it and skip its neighbor. Applying this recurrence to the sequence gives:\n\nANSWER: 5292"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 10240,
+  "graph": {
+   "V": 30722,
+   "depth": 10242,
+   "width": 10241
+  },
+  "truth": "10283",
+  "answer": "10282",
+  "correct": false,
+  "outcome": "wrong",
+  "digit_accuracy": null,
+  "reasoning_tokens": 40748,
+  "output_tokens": 40854,
+  "wall_s": 459.27921056747437,
+  "non_reasoning_items": [],
+  "reply_text": "Let \\(D_i\\) be the maximum sum using the first \\(i\\) numbers. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two options respectively skip \\(a_i\\), or select it and skip its neighbor. Applying this recurrence to the given sequence gives:\n\nANSWER: 10282"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 10240,
+  "graph": {
+   "V": 30722,
+   "depth": 10242,
+   "width": 10241
+  },
+  "truth": "10181",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 390,
+  "output_tokens": 580,
+  "wall_s": 23.768483877182007,
+  "non_reasoning_items": [],
+  "reply_text": "I can give the exact method, but I can\u2019t reliably calculate a verified numeric answer for a sequence this long without tools, and I don\u2019t want to invent one.\n\nLet \\(D_i\\) be the maximum sum using the first \\(i\\) numbers. Then\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i).\n\\]\nThe two cases are skipping \\(a_i\\), or choosing it and skipping its neighbor.\n\nThis computes the requested answer in one pass:\n```python\ndef maximum_sum(sequence):\n    previous, current = 0, 0\n    for number in sequence:\n        previous, current = current, max(current, previous + number)\n    return current\n\nprint(f\"ANSWER: {maximum_sum(sequence)}\")\n```"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 10240,
+  "graph": {
+   "V": 30722,
+   "depth": 10242,
+   "width": 10241
+  },
+  "truth": "10452",
+  "answer": "10439",
+  "correct": false,
+  "outcome": "wrong",
+  "digit_accuracy": null,
+  "reasoning_tokens": 32526,
+  "output_tokens": 32616,
+  "wall_s": 572.7653238773346,
+  "non_reasoning_items": [],
+  "reply_text": "Use the recurrence\n\\[\nD_i=\\max\\!\\left(D_{i-1},\\,D_{i-2}+a_i\\right),\n\\]\nwith \\(D_0=0\\) and \\(D_1=\\max(0,a_1)\\). It compares skipping each number with choosing it and skipping its predecessor.\n\nFor the given sequence, the maximum sum is:\n\nANSWER: 10439"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 10240,
+  "graph": {
+   "V": 30722,
+   "depth": 10242,
+   "width": 10241
+  },
+  "truth": "10358",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 496,
+  "output_tokens": 686,
+  "wall_s": 31.21393084526062,
+  "non_reasoning_items": [],
+  "reply_text": "The exact maximum is obtained by dynamic programming. Let \\(M_i\\) be the maximum sum using the first \\(i\\) numbers. Then\n\\[\nM_0=0,\\qquad M_1=\\max(0,a_1),\\qquad\nM_i=\\max(M_{i-1},\\,M_{i-2}+a_i).\n\\]\nThe two choices are to skip \\(a_i\\), or take it and skip its neighbor.\n\nI can\u2019t reliably evaluate this entire sequence by hand without tools, so I won\u2019t invent a numerical answer. This code computes the exact result and prints it in your requested format:\n\n```python\na = [...]  # Paste the supplied sequence here.\n\nprevious, current = 0, 0\nfor x in a:\n    previous, current = current, max(current, previous + x)\n\nprint(f\"ANSWER: {current}\")\n```"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 20480,
+  "graph": {
+   "V": 61442,
+   "depth": 20482,
+   "width": 20481
+  },
+  "truth": "20682",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 453,
+  "output_tokens": 585,
+  "wall_s": 29.97068214416504,
+  "non_reasoning_items": [],
+  "reply_text": "Let \\(D_i\\) be the maximum sum using the first \\(i\\) integers. The exact recurrence is\n\\[\nD_0=0,\\qquad D_1=\\max(0,a_1),\\qquad\nD_i=\\max\\bigl(D_{i-1},\\,D_{i-2}+a_i\\bigr).\n\\]\nThe two cases respectively skip \\(a_i\\), or choose it and exclude its neighbor.\n\nI can give this method, but I can\u2019t reliably evaluate it across this entire sequence without tools. I won\u2019t invent a numerical maximum.\n\nANSWER: not computed"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 20480,
+  "graph": {
+   "V": 61442,
+   "depth": 20482,
+   "width": 20481
+  },
+  "truth": "20837",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 516,
+  "output_tokens": 676,
+  "wall_s": 31.88460946083069,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably calculate the exact numerical total for this very long sequence without tools, and I don\u2019t want to invent an answer.\n\nThe exact solution uses\n\\[\nD_i=\\max(D_{i-1},\\,D_{i-2}+a_i),\\qquad D_{-1}=D_0=0.\n\\]\nHere, \\(D_i\\) is the maximum sum using the first \\(i\\) entries. This handles negative values and allows the empty subsequence.\n\nWith the supplied sequence assigned to `numbers`, this computes the requested result:\n```python\nprevious = best = 0\nfor x in numbers:\n    previous, best = best, max(best, previous + x)\nprint(f\"ANSWER: {best}\")\n```"
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 20480,
+  "graph": {
+   "V": 61442,
+   "depth": 20482,
+   "width": 20481
+  },
+  "truth": "20760",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 421,
+  "output_tokens": 595,
+  "wall_s": 25.3664231300354,
+  "non_reasoning_items": [],
+  "reply_text": "I can\u2019t reliably compute an exact total for this many integers without tools, and I don\u2019t want to invent a number.\n\nThe maximum is determined by\n\\[\nM_0=0,\\qquad M_1=\\max(0,a_1),\\qquad\nM_i=\\max(M_{i-1},\\,M_{i-2}+a_i).\n\\]\nThe two choices are to skip \\(a_i\\), or choose it and therefore skip \\(a_{i-1}\\).\n\nThis computes the result in one pass:\n```python\nprevious = current = 0\nfor x in sequence:\n    previous, current = current, max(current, previous + x)\nprint(f\"ANSWER: {current}\")\n```\n\nI have not evaluated this on your sequence, so I cannot provide a verified numerical answer."
+ },
+ {
+  "task": "dp_nonadjacent",
+  "size": 20480,
+  "graph": {
+   "V": 61442,
+   "depth": 20482,
+   "width": 20481
+  },
+  "truth": "20935",
+  "answer": null,
+  "correct": false,
+  "outcome": "declined",
+  "digit_accuracy": null,
+  "reasoning_tokens": 317,
+  "output_tokens": 442,
+  "wall_s": 22.383053064346313,
+  "non_reasoning_items": [],
+  "reply_text": "The exact maximum is given by the recurrence\n\\[\nM_0=0,\\qquad M_1=\\max(0,a_1),\\qquad\nM_i=\\max\\bigl(M_{i-1},\\,M_{i-2}+a_i\\bigr).\n\\]\nAt each position, this compares skipping the number with choosing it and skipping its predecessor. The answer is \\(M_n\\).\n\nI can\u2019t reliably evaluate this recurrence over the entire supplied sequence by hand without tools, so I don\u2019t have a verified number to put on the requested last line."
+ }
+]

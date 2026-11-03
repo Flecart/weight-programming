@@ -1,0 +1,22 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 1,
+ "errors": [],
+ "wall_s": 52.5,
+ "total_s": 538.4,
+ "status": "completed",
+ "response_id": "resp_095b74429af8fb15016ae92dc88d6881919bd50273911121d3",
+ "usage": {
+  "input_tokens": 82885,
+  "cached_input_tokens": 0,
+  "output_tokens": 1362,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Inferring game controls****Checking control mapping****Inferring Pong controls**"
+ ],
+ "non_message_items": []
+}

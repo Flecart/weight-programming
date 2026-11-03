@@ -1,0 +1,1 @@
+**Comparing action patterns****Checking channel assignments****Checking output channel mapping**

@@ -32,6 +32,8 @@ Every condition computes exactly the same function as the original network (chec
 | P_xs_8 | P | 8 | 16 | 42.0 | 41.984 | 16 | 5.83 | 288 | 1.011 |  | 8 | 100% | 89.4 | 5,382 (3,624–8,804) | 80,933 |
 | P_xs_16 | P | 16 | 32 | 82.9 | 82.944 | 32 | 6.12 | 544 | 0.991 |  | 8 | 75% | 77.9 | 7,001 (3,624–12,430) | 81,045 |
 | P_xs_32 | P | 32 | 64 | 164.9 | 164.864 | 64 | 6.42 | 1056 | 0.987 |  | 8 | 100% | 83.1 | 10,577 (7,250–15,020) | 81,269 |
+| P_xs_64 | P | 64 | 128 | 328.7 | 328.704 | 128 | 6.72 | 2080 | 0.981 |  | 8 | 75% | 64.4 | 12,464 (7,962–18,126) | 81,717 |
+| P_xs_128 | P | 128 | 256 | 655.1 | 655.102 | 256 | 7.02 | 4128 | 1.009 |  | 8 | 75% | 49.5 | 2,141 (228–13,226) | 82,613 |
 | P_sha | P | 1 | 1 | 1152483.0 | 1152483 | 1 | 10.27 | 48 | 1.010 |  | 8 | 75% | 43.8 | 399 (208–516) | 80,761 |
 | P_sha_out | P | 2 | 2 | 1152483.0 | 1152483 | 1 | 10.27 | 64 | 1.010 |  | 8 | 25% | 15.6 | 467 (304–865) | 80,892 |
 
@@ -39,9 +41,9 @@ Every condition computes exactly the same function as the original network (chec
 
 | Measure | runs | failures | slope (per unit) | C50 | bootstrap 95% CI of C50 (1,000 resamples) | largest value tested | note |
 |---|---|---|---|---|---|---|---|
-| log10_V | 228 | 10 | -0.916 | 10.2 | [9.1, 11.5] | 10.3 |  |
-| desc_bits | 228 | 10 | 0.00074 | -3.8e+03 | [∞, ∞] | 8.23e+03 | accuracy does not fall as this measure grows (failures sit at low values): no C50 |
-| surface_disruption | 228 | 10 | -3.46 | 1.72 | [1.47, 2.04] | 1.31 | C50 beyond the largest value tested |
+| log10_V | 244 | 14 | -0.807 | 9.9 | [8.77, 11.4] | 10.3 |  |
+| desc_bits | 244 | 14 | 4.32e-06 | -6.47e+05 | [1.52e+04, ∞] | 8.23e+03 | accuracy does not fall as this measure grows (failures sit at low values): no C50 |
+| surface_disruption | 244 | 14 | -3.35 | 1.67 | [1.44, 1.94] | 1.31 | C50 beyond the largest value tested |
 
 Bootstrap resamples with no failure count as C50 = ∞ (no break inside the resample).
 

@@ -1,0 +1,1 @@
+**Inferring Pong vertical outputs****Assessing channel assignments****Separating evidence from hypotheses**

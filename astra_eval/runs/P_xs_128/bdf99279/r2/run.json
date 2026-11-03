@@ -1,0 +1,28 @@
+{
+ "ok": true,
+ "model": "gpt-6-astra",
+ "effort": "high",
+ "summary_requested": "detailed",
+ "attempts": 2,
+ "errors": [
+  {
+   "attempt": 1,
+   "exc": "RemoteProtocolError",
+   "msg": "Server disconnected without sending a response."
+  }
+ ],
+ "wall_s": 59.7,
+ "total_s": 1194.7,
+ "status": "completed",
+ "response_id": "resp_0eacd3a97dd037a5016ae93051b4ac819190d79b19538f1aa9",
+ "usage": {
+  "input_tokens": 82734,
+  "cached_input_tokens": 0,
+  "output_tokens": 1275,
+  "reasoning_output_tokens": 516
+ },
+ "reasoning_summary": [
+  "**Inferring model structure****Estimating game type****Estimating grid game type**"
+ ],
+ "non_message_items": []
+}

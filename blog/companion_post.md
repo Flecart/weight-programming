@@ -37,13 +37,23 @@ The results held up. So the question changed from "is it real?" to "what is it a
 
 Analyzing the summary of the reasoning trace, and the designed weights, we can understand what really was done under the hood to create a "weight-program" that performs so well.
 
-
 Astra's design statement, in full:
 
 > *"The first layer computes four landing-position errors and two direction indicators. Descending predictions include wall reflections; ascending predictions anticipate the earliest possible brick bounce and revise as the ball climbs. Early positioning favors preserving horizontal direction to sweep through bricks; near the bottom, either valid catch column is accepted. The second layer gates left/right decisions, choosing no-op when positioned correctly."*
 
-This is indeed an ad-hoc solution for a problem that is understandable under other terms. Some 
+This is indeed an ad-hoc solution for a problem that is understandable under other more familiar terms. Some 
 
+We can study the weights that were produced directly and understand how this network used.
+
+```edits
+W1[540:600:6, 0] = [0, -0.02, -0.04, ..., -0.18]    # paddle row: unit 0 gets -0.02 × paddle column
+W1[3:60:6, 0]    = [0.16, 0.18, 0.18, 0.16, ...]    # ball in row 0: a table over the ball's column
+W1[63:120:6, 0]  = [0.14, 0.16, 0.18, 0.18, ...]    # ball in row 1: the same table, shifted
+```
+
+- **Layer 1 is lookup tables.** Each ball cell feeds a hidden unit a hand-computed value encoding where that ball will land. The paddle row subtracts a linear ramp of the paddle's column, so each unit's input is a landing-position error.
+- **Layer 2 is ±1 logic.** Huge weights (up to 1,000 in W2, 415 in b2) push every tanh to ±1, so each unit acts as an AND/OR/threshold gate.
+- **Most of the network is empty.** Only 815 of 20,486 weights are nonzero, written in 92 statements.
 
 ### What Astra was given
 
@@ -69,17 +79,6 @@ Its reasoning summaries read like a programmer's log. These are the section head
 
 Spec, edge cases, lookup tables, register allocation, emit code, check syntax.
 
-The weights themselves are very simple:
-
-```edits
-W1[540:600:6, 0] = [0, -0.02, -0.04, ..., -0.18]    # paddle row: unit 0 gets -0.02 × paddle column
-W1[3:60:6, 0]    = [0.16, 0.18, 0.18, 0.16, ...]    # ball in row 0: a table over the ball's column
-W1[63:120:6, 0]  = [0.14, 0.16, 0.18, 0.18, ...]    # ball in row 1: the same table, shifted
-```
-
-- **Layer 1 is lookup tables.** Each ball cell feeds a hidden unit a hand-computed value encoding where that ball will land. The paddle row subtracts a linear ramp of the paddle's column, so each unit's input is a landing-position error.
-- **Layer 2 is ±1 logic.** Huge weights (up to 1,000 in W2, 415 in b2) push every tanh to ±1, so each unit acts as an AND/OR/threshold gate.
-- **Most of the network is empty.** Only 815 of 20,486 weights are nonzero, written in 92 statements.
 
 ### How hard is that program?
 
@@ -211,11 +210,10 @@ More data  in [[#Faith and Fate Probing]].
 
 
 
-### Where the limit should be
+### Breaking Weight Decompilation
+From my experience in past work of my supervisor on simulation of programs with LLMs [[@malfaCodeSimulationProxy2025]], I knew there would be a point from where the behaviour starts to break. I tried to attack the most obvious direction I could find.
 
-In Hutter's terms (*Universal Artificial Intelligence*), the weight-reading results look like description length (a stand-in for Kolmogorov complexity) matters more than raw computation, because Astra decodes only what it needs. The arithmetic results show the other side: when every step must actually be executed, effort grows with the computation itself. But Kolmogorov complexity ignores running time. The runtime-aware measure is Levin's Kt = length + log(time). Reasoning tokens buy time only linearly, and errors compound with every step. So I don't expect "just reason more" to be unbounded.
-
-### Where it finally breaks
+I asked my agent to obfuscate the weights given for it to recognize. Clearly it should not classify pure noise looking input as an atari game. But if there was a pattern, that should be retrieved. And looks like **cost of computing the inverse function raised reasoning length**, in a precise understandable manner. That is **reasoning grew sub-exponentially**:  
 
 So I kept the description short and raised the computation. Every condition shuffles the 500 inputs by a rule stated in the prompt, not by a table. To decode any row, Astra has to run the rule by hand.
 
@@ -225,6 +223,7 @@ So I kept the description short and raised the computation. Every condition shuf
 
 *Astra thinks harder the more work a rule needs, until the work is impossible.* Each dot is one reply naming the game behind a shuffled network: 4 networks × 2 replies per rule, plus 3 per network for the unshuffled original. The x-axis is the number of operations needed to decode one input row, on a log scale; the y-axis is reasoning tokens.
 - **Blue (rules it can run by hand):** effort rises with the work, from about 1,000 tokens with no shuffle to about 11,000 at 32 rounds of multiply-add and XOR. The line joins the median of each rule.
+- **The growth is subexponential: roughly a square root.** Reasoning tokens grow as about ops^0.45 (95% CI 0.42–0.49, 76 replies including 64 rounds); an exponential fits worst. Each doubling of the work per row costs only about 37% more reasoning, plausibly because Astra decodes fewer rows as each gets more expensive. On plain arithmetic, where every step must be executed, growth is linear instead (see [[#Growth rate of reasoning effort]]). Neither comes close to exponential.
 - **Orange (SHA-256):** about a million operations per row, yet only about 400 tokens. Astra judges the hashing infeasible and gives up instead of trying.
 - **Hollow dots are wrong answers.** The two blue ones are both at 16 rounds:
   - one Breakout reply never decoded a row and guessed "Space Invaders-style" at 82% confidence;
@@ -241,7 +240,10 @@ What happened:
   - With only the inputs hashed, it falls back on the unshuffled output layer and still names 3 of 4 games.
   - With the output columns hashed too, accuracy drops to **2 of 8**, and most answers are "Undetermined" at confidence 0.
 - **Effort collapses at the limit.** On infeasible tasks Astra thinks less, not more: about 400 tokens instead of about 10,000. That is exactly the rise-then-drop pattern of *The Illusion of Thinking*. Here it shows up as an honest judgment of what's feasible, not a confused failure.
-- **The breaking point is between about 2¹⁶ and 2²⁰ operations.** A logistic fit of correctness against log₂(operations) gives C₅₀ ≈ 20.5 (95% CI 19.7–23.1). Nothing was tested between 16.3 and 20.1, so the true edge lies somewhere in that gap.
+- **Effort collapses at 128 rounds.** At 64 rounds Astra is still decoding by hand, spending the most of any run (up to 18,126 tokens), and its first arithmetic errors appear (34 of 41 decoded values correct). At 128 rounds, 7 of 8 replies stop after a few hundred tokens (median 506). One writes: *"I have not decoded the 128-round input permutation. Consequently, I cannot honestly assign the large first-layer weights to particular grid cells or channels."* Breakout, Pong and Freeway are still named correctly from the unshuffled output layer; Pac-Man fails.
+- **The breaking point, measured.** Effort collapses at about 2^18 operations in total (128 rounds). A logistic fit of correctness gives C₅₀ ≈ 2^20.4 (95% CI 2^19.5–2^22.7). Accuracy falls more slowly than effort, because the unshuffled output layer still carries three of the four games.
+
+**How hard was writing the Breakout network, on this scale?** Writing Experiment 5's Breakout network took Astra 16,828 reasoning tokens. Inverting the effort curve, that's the effort of decoding a shuffle of about 118–123 rounds. I then ran 128 rounds, and that is exactly where Astra stops computing and gives up. The paper's headline result sits right at the edge of Astra's reasoning budget.
 
 **The answer to the Hutter question.** Description length predicts effort when the program is runnable. Whether it can be done at all is set by runtime. Astra will execute a short program for as long as about 15,000 reasoning tokens allow. It refuses to start one it judges far beyond its budget, and that's where it breaks. This is Levin's picture rather than pure Kolmogorov: length + time, with a hard ceiling on time.
 
@@ -275,7 +277,7 @@ The honest framing for the viral claim is therefore narrower but still striking:
 ---
 
 
-# Appendix
+# The AI Appendix
 This section is written by AI (Opus 5.5) completely, it's intended for your agent to get more interesting data for your own experiments or have it summarize it to you. Very often I find AI written reports to be inconclusive or too verbose. But interesting data could still be there.  I guess humans would just get data-overwhelmed. But you can take a look too!
 
 
@@ -307,9 +309,26 @@ Recognition is cheap (about 1,000 tokens). Compiling is expensive: about 20 reas
 | … ×8 | 288 | 14.4 | 8/8 | 89.4 | 5,382 |
 | … ×16 | 544 | 15.3 | 6/8 | 77.9 | 7,001 |
 | … ×32 | 1,056 | 16.3 | 8/8 | 83.1 | **10,577** (max 15,020) |
+| … ×64 | 2,080 | 17.3 | 6/8 | 64.4 | **12,464** (max 18,126) |
+| … ×128 | 4,128 | 18.3 | 6/8 | 49.5 | **2,141** (median 506; 7 of 8 replies stop early) |
 | **Order by SHA-256** of "wp-" + j | 48 | 20.1 | **6/8** | **43.8** | **399** |
 | **SHA-256 on inputs and output columns** | 64 | 20.2 | **2/8** | **15.6** | **467** |
 ![What Astra sees as the shuffle gets harder](image/blog/breakout_obfuscation.gif)
+
+### Growth rate of reasoning effort
+
+How reasoning tokens grow with the work, fitted per reply. For the shuffles, x is the operations needed to decode one row (the 76 runs where Astra decoded by hand, up to 64 rounds; 128 rounds is excluded because effort collapses there). For the arithmetic, x is Faith and Fate's computation-graph size |V|, using exact answers only. R² is on the original scale, except where marked log.
+
+| Task | Best fit | Exponent 95% CI | Power-law R² | Linear R² | Exponential R² |
+|---|---|---|---|---|---|
+| Decoding a stated shuffle | tokens ≈ 900 · ops^**0.45** | 0.42–0.49 | log 0.87 | 0.76 | 0.54 |
+| n×n-digit multiplication | tokens ≈ 1.4 · \|V\|^**0.98** | 0.93–1.03 | 0.75 (log 0.98) | **0.90** | negative |
+| Best non-adjacent sum (DP) | tokens ≈ 3.7 · \|V\|^**0.94** | 0.85–1.04 | 0.69 (log 0.97) | **0.94** | negative |
+
+- **All three are subexponential.** An exponential is the worst fit in every case. For the arithmetic it's worse than a flat line, hence the negative R².
+- **Arithmetic is linear:** the exponents' intervals include 1, and the linear fit is the best one. Astra pays a roughly constant number of tokens per graph node, about 0.9 at 120×120 digits, because every node must actually be computed.
+- **Decoding is about a square root,** because Astra doesn't decode every row. As each row gets more expensive it samples fewer of them, so total effort grows much more slowly than the work per row.
+- **Both stop growing at the limit.** Beyond the breaking point, effort drops instead of rising: about 400 tokens for SHA-256, and 300–4,000 for declined multiplications and DP sums.
 
 
 
@@ -342,6 +361,10 @@ The two tasks are consistent with one per-node error rate, but the multiplicatio
 **[PENDING]** The DP problem is still being pushed past 2,560 elements.
 
 
+#### Where the limit should be
+
+In Hutter's terms (*Universal Artificial Intelligence*), the weight-reading results look like description length (a stand-in for Kolmogorov complexity) matters more than raw computation, because Astra decodes only what it needs. The arithmetic results show the other side: when every step must actually be executed, effort grows with the computation itself. But Kolmogorov complexity ignores running time. The runtime-aware measure is Levin's Kt = length + log(time). Reasoning tokens buy time only linearly, and errors compound with every step. So I don't expect "just reason more" to be unbounded.
+
 
 ## Appendix B: Rebuilding the paper's unreleased games
 
@@ -362,7 +385,55 @@ Breakout's rules came from asking the critic which next state it expects:
 
 Even the sampled action rates match: [.178 .184 .168 .234 .237] against the paper's [.178 .183 .168 .237 .234]. This is not MinAtar Breakout: MinAtar's rules squeezed into the 8×8 area make the trained network lose the ball on the first drop.
 
-## Appendix C: Methods
+## Appendix C: Experimental Setting
+See the source code:  github.com/Flecart/weight-programming2
+
+### C.1 Experimental setup
+
+**Model and inference.** All experiments query `gpt-6-astra` through an OpenAI-compatible gateway (Responses API) at reasoning effort `high`, with no tools available. Each query is a fresh, single-turn conversation; sampling temperature cannot be set for this model. We record the reply text, the reasoning summary where requested, and token usage (`output_tokens_details.reasoning_tokens`). Requests that fail at the gateway are retried with backoff. Those that still fail are excluded from every analysis, never counted as wrong.
+
+**C.1.1 Shuffled-network identification.**
+- *Networks.* The four PPO policies released with the original post (Breakout, Pong, Pac-Man, Freeway): 500 → 32 → 32 → 5 tanh MLPs whose input is a 10 × 10 grid with 5 channels.
+- *Prompt.* The paper's which-game prompt, rebuilt byte-for-byte, with one change: a sentence stating the transformation applied to the network, and the transformed weights.
+- *Transformation.* Every transformation is a permutation of the 500 input rows of W1, so the shown network computes exactly the same function. Each one is verified to be a bijection, and the shown and original forward passes agree to within 2 × 10⁻¹² at full precision. Weights are printed at the paper's precision. Row j of the shown W1 holds original input p(j), and p is given by a rule:
+  - **Affine:** p(j) = (337·j + 141) mod 500.
+  - **XOR-shift, k rounds:** start from x = j on the 9-bit domain 0..511 and apply, for r = 1..k, x ← (a_r·x + c_r) mod 512 (a_r odd), then x ← x ⊕ (x ≫ 3). Every round has its own constants (a_r, c_r), all listed in the prompt. If the result is ≥ 500, the k rounds are repeated (cycle-walking) until it falls in 0..499. We use k ∈ {1, 2, 4, 8, 16, 32, 64, 128}.
+  - **SHA-256:** rows are ordered by the hexadecimal SHA-256 digest of the string "wp-" + j. In the output variant, the five logit columns are also reordered by the digest of "wp-act-" + a.
+- *Replicates.* Two independent replies per network and condition (three for the untransformed control).
+- *Scoring.* The reply's `Game:` line is mapped to a game by keyword lists, and the earliest matching keyword wins. The reply is correct if the mapped game is the network's true game; "Undetermined" counts as wrong. Every decoded value the reply states in the form "p(j) = v" is parsed and compared with the true permutation.
+- *Complexity measures.*
+  - **Description length:** 16 bits per stated constant plus 32 bits for the rule's wording.
+  - **Operations per row:** the elementary operations needed to compute p(j) for one row. An affine map costs 3. An XOR-shift round costs 5, plus one comparison per cycle-walking pass (1.024 passes on average, measured). A SHA-256 hash costs about 2,300 word operations, and decoding one row requires hashing and sorting all 500 rows.
+  - **Total operations:** the same, summed over all 500 rows.
+  - **Kt:** description length + log₂(total operations).
+
+**C.1.2 Faith-and-Fate arithmetic tasks.**
+- *Multiplication.* Two integers drawn uniformly from [10ⁿ⁻¹, 10ⁿ). Prompt: *"What is a * b? You have no tools: no calculator, no code. Give the exact product on the last line in the form 'ANSWER: <number>' with no commas."*
+- *Best non-adjacent sum (DP).* A sequence of n integers drawn uniformly from {−5, …, 5}. The model is asked for the maximum sum of a subsequence with no two adjacent elements (the empty subsequence, sum 0, allowed), on a final `ANSWER:` line.
+- *Sizes and replicates.*
+
+  | Batch | Multiplication n (problems each) | DP length n (problems each) |
+  |---|---|---|
+  | Probe | 2, 3, 4, 5, 6, 8, 10, 15 (2) | 5, 10, 20, 40, 80 (2) |
+  | Limit run | 20, 30, 40, 60, 80, 120 (3) | 160, 320, 640, 1,280, 2,560 (3) |
+  | Search | 180, 240 (4) | — |
+  | Grid | 130, 140, 150, 160, 170 (4) | 5,120, 10,240, 20,480 (4) |
+
+  Problems are generated with a fixed seed per batch (0, 1, 2 and 3).
+- *Ground truth and outcome.* The exact answer is computed in Python with arbitrary-precision integers. A reply is *correct* if its last `ANSWER:` number matches exactly, *wrong* if it gives a different number, and *declined* if it gives no number. Declines are identified from the reply text and checked by hand. Correctness treats a decline as a failure.
+- *Computation graph.* Following Dziri et al. (2023), each problem is mapped to a graph with one node per elementary step, and |V|, depth and width are reported.
+  - **Multiplication:** one node per digit product a_i·b_j, one per carry-add while forming each partial product, and one per column sum when adding the partial products.
+  - **DP:** per element, take_i = skip_{i−1} + x_i and skip_i = max(take_{i−1}, skip_{i−1}), plus the final maximum.
+
+**C.1.3 Analysis.**
+- *Correlations:* Spearman's ρ, with 95% confidence intervals from 1,000–2,000 bootstrap resamples of the replies.
+- *Breaking point:* logistic regression of correctness on each complexity measure. C₅₀ is the value at which predicted accuracy is 50%, with a bootstrap 95% CI.
+- *Growth rate:* least squares of log(reasoning tokens) on log(work). The exponent is the slope, with a bootstrap CI. Linear and exponential fits are compared by R² on the original scale.
+- *Compounding error:* the per-node error rate ε in accuracy = (1 − ε)^|V| is fitted by maximum likelihood. When a task has no failures, we report the one-sided 95% upper bound.
+- *Verification share:* the fraction of reasoning-summary section headings matching check, verify, recount, recheck, correct, confirm or recompute. Reasoning summaries are condensed versions of the hidden reasoning, so this is a proxy.
+
+
+### C.2 Environments and other experiments
 
 - **Environments:** official MinAtar 1.0.15 (sticky actions 0.1, 10,000-step cap, actions sampled from the softmax); 1,000 episodes per network, 200 for scripted players. Kinetix `l/h2_car_ramp` with kinetix-env 3.0.2, 1,024 episodes per network.
 - **Networks:** the paper's released `.npz` files, loaded without running any of the authors' code.

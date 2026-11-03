@@ -136,7 +136,7 @@ def make_variants() -> dict:
     V = {}
     st, kt = make_aff()
     V["P_aff"] = LV.Variant("P_aff", "P", 1, 2, axis="kt", steps=[st], kt={**kt, "k": 0, "family": "aff"})
-    for k in [1, 2, 4, 8, 16, 32]:
+    for k in [1, 2, 4, 8, 16, 32, 64, 128]:
         st, kt = make_xs(k)
         V[f"P_xs_{k}"] = LV.Variant(f"P_xs_{k}", "P", k, 2 * k, axis="kt", steps=[st],
                                    kt={**kt, "k": k, "family": "xs"})
@@ -176,6 +176,15 @@ def row_kt(cond) -> dict:
 
 # ----------------------------------------------------------------------------- report
 
+DECLINE_RE = r"undetermined|not reliably|cannot (reliably )?(identify|determine|distinguish)|unable to|not identif"
+
+
+def is_decline(r) -> bool:
+    import re
+    gl = (r.get("game_line") or "").lower()
+    return bool(re.search(DECLINE_RE, gl)) or (r.get("confidence") is not None and r["confidence"] <= 20)
+
+
 def report(rows, root):
     import matplotlib
     matplotlib.use("Agg")
@@ -207,6 +216,67 @@ def report(rows, root):
                  f"{kt['kt_bits']:.1f} | {len(rs)} | {a['acc']:.0%} | {a['conf']:.1f} | {a['reas']:,.0f} "
                  f"({min(r['reasoning_tokens'] for r in rs):,}–{max(r['reasoning_tokens'] for r in rs):,}) | "
                  f"{np.mean([r['output_tokens'] for r in rs]):,.0f} | {np.mean([r['wall_s'] for r in rs]):.0f} |")
+    L += ["", "### Reasoning tokens (median, IQR), declines", "",
+          "| Condition | k | median reasoning tok | IQR | declines | decline Game: lines |", "|---|---|---|---|---|---|"]
+    for n in names:
+        rs = [r for r in kr if r["condition"] == n]
+        if not rs:
+            continue
+        t = np.array([r["reasoning_tokens"] for r in rs])
+        q1, med, q3 = np.percentile(t, [25, 50, 75])
+        dec = [r for r in rs if is_decline(r)]
+        L.append(f"| {n} | {VARIANTS[n].kt['k'] if VARIANTS[n].kt['k'] is not None else '–'} | {med:,.0f} | "
+                 f"{q1:,.0f}–{q3:,.0f} | {len(dec)}/{len(rs)} | " +
+                 "; ".join(f"\"{(r['game_line'] or '')[:70]}\"" for r in dec[:3]) + " |")
+    L += ["", "A decline = the Game: line says the game is undetermined / not reliably identified / cannot be "
+          "identified, or confidence <= 20.", ""]
+
+    # power law: reasoning tokens vs ops_per_index
+    import re as _re
+    def attempted(n):  # share of answers that wrote at least one p(j) = v (decoding attempted)
+        rs = [r for r in kr if r["condition"] == n]
+        hits = sum(bool(_re.search(r"p\(\d+\)\s*=\s*\d+", (root / "runs" / n / r["network"] / r["replica"] /
+                                                            "answer.md").read_text())) for r in rs)
+        return hits / len(rs) if rs else 0
+    rule = [n for n in names if VARIANTS[n].kt["family"] in ("aff", "xs")]
+    feasible = [n for n in rule if VARIANTS[n].kt["family"] == "aff" or attempted(n) >= 0.5]
+    orig = [r for r in ok if r["condition"] == "original"]
+
+    def fit(conds, per_condition=False):
+        rs = [r for r in kr if r["condition"] in conds]
+        if per_condition:
+            pts = [(max(1.0, VARIANTS[n].kt["ops_per_index"]),
+                    float(np.median([r["reasoning_tokens"] for r in rs if r["condition"] == n]))) for n in conds]
+            pts.append((1.0, float(np.median([r["reasoning_tokens"] for r in orig]))))
+        else:
+            pts = [(max(1.0, r["ops_per_index"]), r["reasoning_tokens"]) for r in rs] + \
+                  [(1.0, r["reasoning_tokens"]) for r in orig]
+        X = np.log([q[0] for q in pts]); Y = np.log([q[1] for q in pts])
+        b, a0 = np.polyfit(X, Y, 1)
+        r2 = 1 - np.sum((Y - (a0 + b * X)) ** 2) / np.sum((Y - Y.mean()) ** 2)
+        rng = np.random.default_rng(0)
+        bs = [np.polyfit(X[i_], Y[i_], 1)[0] for i_ in (rng.integers(0, len(X), len(X)) for _ in range(1000))
+              if len(set(X[i_])) > 1]
+        lo, hi = np.percentile(bs, [2.5, 97.5])
+        A = math.exp(a0)
+        ops_t = (16828 / A) ** (1 / b)
+        k_t = (ops_t / 1.024 - OPS_CMP) / OPS_XS_ROUND
+        return A, b, lo, hi, r2, len(pts), ops_t, k_t
+
+    L += ["## Power law: reasoning tokens vs ops_per_index", "",
+          "Feasible = P_aff plus every P_xs_k where at least half the answers wrote decoded p(j) values "
+          f"({', '.join(feasible)}); `original` is included with ops counted as 1. OLS on log–log, bootstrap 95% "
+          "CI of the exponent (1,000 resamples). The last column inverts the fit for 16,828 reasoning tokens "
+          "(Experiment 5, writing the Breakout network) and converts ops/index to rounds k.", "",
+          "| Fit set | points | tokens ≈ A · ops^b | exponent 95% CI | R² (log) | ops/index for 16,828 tok | k |",
+          "|---|---|---|---|---|---|---|"]
+    for lab, conds, pc in [("feasible, per run", feasible, False), ("feasible, per-condition medians", feasible, True),
+                           ("all P_aff + P_xs (incl. collapsed), per run", rule, False)]:
+        A, b, lo, hi, r2, npts, ops_t, k_t = fit(conds, pc)
+        L.append(f"| {lab} | {npts} | {A:,.0f} · ops^{b:.3f} | [{lo:.3f}, {hi:.3f}] | {r2:.2f} | {ops_t:,.0f} | "
+                 f"{k_t:,.0f} |")
+    L += ["", "Previous fit (from the k <= 32 data): 892 · ops^0.459, predicting k ≈ 116.", ""]
+
     L += ["", "P_xs cycle-walking (measured): " + "; ".join(
         f"k={VARIANTS[n].kt['k']}: {VARIANTS[n].kt['passes_mean']:.3f} passes/index (max "
         f"{VARIANTS[n].kt['passes_max']})" for n in names if VARIANTS[n].kt["family"] == "xs"), ""]

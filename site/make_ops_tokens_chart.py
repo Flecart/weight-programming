@@ -13,7 +13,7 @@ import matplotlib.patches
 ev, out = sys.argv[1], sys.argv[2]
 BLUE, ORANGE, INK, MUTED, GRID = "#086ddd", "#d98a00", "#1e1e1e", "#6c6c6c", "#eeeeee"
 FEASIBLE = [("original", "no shuffle"), ("P_aff", "affine rule"), ("P_xs_1", "XOR ×1"), ("P_xs_2", "×2"),
-            ("P_xs_4", "×4"), ("P_xs_8", "×8"), ("P_xs_16", "×16"), ("P_xs_32", "×32")]
+            ("P_xs_4", "×4"), ("P_xs_8", "×8"), ("P_xs_16", "×16"), ("P_xs_32", "×32"), ("P_xs_64", "×64"), ("P_xs_128", "×128")]
 SHA = [("P_sha", "SHA-256 on inputs"), ("P_sha_out", "SHA-256 on inputs + outputs")]
 
 rows = collections.defaultdict(list)
@@ -48,13 +48,14 @@ sy_all = [float(r['reasoning_tokens']) for c, _ in SHA for r in rows[c]]
 ax.errorbar([np.median(sx_all)], [np.median(sy_all)], yerr=[[np.median(sy_all) - np.percentile(sy_all, 25)], [np.percentile(sy_all, 75) - np.median(sy_all)]],
             fmt='none', ecolor=ORANGE, elinewidth=2, capsize=6, zorder=4)
 for (cond, label), x, y in zip(FEASIBLE, med_x, med_y):
-    off = {"XOR ×1": (-8, 12), "×8": (-10, 8), "×32": (10, -2)}
+    off = {"XOR ×1": (-8, 12), "×8": (-10, 8), "×32": (-14, 10), "×64": (10, 4), "×128": (10, -2)}
     if label in off:
         ax.annotate(label, (x, y), xytext=off[label], textcoords="offset points", ha="left" if off[label][0] > 0 else "right", color=INK, fontsize=10)
 sx = max(1.0, float(rows["P_sha"][0]["ops_per_index"]))
 ax.annotate("SHA-256", (1.2e6, 900), xytext=(0, 10), textcoords="offset points", ha="center", color=INK, fontsize=10)
 ax.set_xscale("log")
-ax.set_xlim(0.6, 5e6); ax.set_ylim(0, 16500)
+ax.set_xlim(0.6, 5e6); ax.set_ylim(0, 19500)
+ax.set_yticks(range(0, 19000, 3000))
 ax.set_xticks([1, 10, 100, 1e3, 1e4, 1e5, 1e6]); ax.set_xticklabels(["≤1", "10", "100", "1k", "10k", "100k", "1M"])
 ax.set_xlabel("Operations to decode one input row (log scale)", color=MUTED)
 ax.set_ylabel("Reasoning tokens per reply", color=MUTED)

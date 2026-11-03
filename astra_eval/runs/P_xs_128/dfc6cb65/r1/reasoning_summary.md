@@ -1,0 +1,1 @@
+**Inferring game controls****Checking control mapping****Inferring Pong controls**

@@ -11,10 +11,43 @@ Each condition permutes the 500 inputs (row j of the shown W1 holds original inp
 | P_xs_8 | 8 | 288 | 42.0 | 20,992 | 14.4 | 302.4 | 8 | 100% | 89.4 | 5,382 (3,624–8,804) | 6,560 | 224 |
 | P_xs_16 | 16 | 544 | 82.9 | 41,472 | 15.3 | 559.3 | 8 | 75% | 77.9 | 7,001 (3,624–12,430) | 8,082 | 266 |
 | P_xs_32 | 32 | 1056 | 164.9 | 82,432 | 16.3 | 1072.3 | 8 | 100% | 83.1 | 10,577 (7,250–15,020) | 11,713 | 349 |
+| P_xs_64 | 64 | 2080 | 328.7 | 164,352 | 17.3 | 2097.3 | 8 | 75% | 64.4 | 12,464 (7,962–18,126) | 13,444 | 423 |
+| P_xs_128 | 128 | 4128 | 655.1 | 327,551 | 18.3 | 4146.3 | 8 | 75% | 49.5 | 2,141 (228–13,226) | 2,959 | 108 |
 | P_sha | – | 48 | 1,152,483.0 | 1,152,483 | 20.1 | 68.1 | 8 | 75% | 43.8 | 399 (208–516) | 1,200 | 49 |
 | P_sha_out | – | 64 | 1,152,483.0 | 1,163,975 | 20.2 | 84.2 | 8 | 25% | 15.6 | 467 (304–865) | 1,204 | 49 |
 
-P_xs cycle-walking (measured): k=1: 1.024 passes/index (max 2); k=2: 1.024 passes/index (max 2); k=4: 1.024 passes/index (max 2); k=8: 1.024 passes/index (max 2); k=16: 1.024 passes/index (max 2); k=32: 1.024 passes/index (max 2)
+### Reasoning tokens (median, IQR), declines
+
+| Condition | k | median reasoning tok | IQR | declines | decline Game: lines |
+|---|---|---|---|---|---|
+| P_aff | 0 | 1,293 | 1,027–1,598 | 0/8 |  |
+| P_xs_1 | 1 | 2,444 | 1,726–2,988 | 0/8 |  |
+| P_xs_2 | 2 | 2,794 | 2,458–3,568 | 0/8 |  |
+| P_xs_4 | 4 | 2,730 | 2,376–3,236 | 0/8 |  |
+| P_xs_8 | 8 | 4,694 | 4,011–6,591 | 0/8 |  |
+| P_xs_16 | 16 | 6,760 | 5,373–7,967 | 0/8 |  |
+| P_xs_32 | 32 | 10,876 | 7,918–12,430 | 0/8 |  |
+| P_xs_64 | 64 | 12,102 | 10,507–14,598 | 1/8 | "Best guess: a “Chase” or moving-target collection game. The exact game" |
+| P_xs_128 | 128 | 506 | 455–698 | 2/8 | "Tentative guess: Snake. This is a low-confidence guess, not a decoded "; "Not reliably identified. The most specific defensible characterization" |
+| P_sha | – | 432 | 330–506 | 2/8 | "Undetermined. My best-supported classification is a four-direction gri"; "Tentatively, a two-dimensional target-collection gridworld; the specif" |
+| P_sha_out | – | 408 | 364–516 | 5/8 | "Undetermined—I cannot reliably identify the game from these permuted w"; "Undetermined from the analysis I can reliably perform under the no-too"; "A two-direction paddle-control game, plausibly Pong or Breakout. I can" |
+
+A decline = the Game: line says the game is undetermined / not reliably identified / cannot be identified, or confidence <= 20.
+
+## Power law: reasoning tokens vs ops_per_index
+
+Feasible = P_aff plus every P_xs_k where at least half the answers wrote decoded p(j) values (P_aff, P_xs_1, P_xs_2, P_xs_4, P_xs_8, P_xs_16, P_xs_32, P_xs_64); `original` is included with ops counted as 1. OLS on log–log, bootstrap 95% CI of the exponent (1,000 resamples). The last column inverts the fit for 16,828 reasoning tokens (Experiment 5, writing the Breakout network) and converts ops/index to rounds k.
+
+| Fit set | points | tokens ≈ A · ops^b | exponent 95% CI | R² (log) | ops/index for 16,828 tok | k |
+|---|---|---|---|---|---|---|
+| feasible, per run | 76 | 900 · ops^0.454 | [0.422, 0.490] | 0.87 | 633 | 123 |
+| feasible, per-condition medians | 9 | 866 · ops^0.463 | [0.421, 0.518] | 0.97 | 607 | 118 |
+| all P_aff + P_xs (incl. collapsed), per run | 84 | 1,382 · ops^0.229 | [0.109, 0.370] | 0.21 | 54,431 | 10,631 |
+
+Previous fit (from the k <= 32 data): 892 · ops^0.459, predicting k ≈ 116.
+
+
+P_xs cycle-walking (measured): k=1: 1.024 passes/index (max 2); k=2: 1.024 passes/index (max 2); k=4: 1.024 passes/index (max 2); k=8: 1.024 passes/index (max 2); k=16: 1.024 passes/index (max 2); k=32: 1.024 passes/index (max 2); k=64: 1.024 passes/index (max 2); k=128: 1.022 passes/index (max 2)
 
 Per game (correct / runs):
 
@@ -27,6 +60,8 @@ Per game (correct / runs):
 | P_xs_8 | 2/2 | 2/2 | 2/2 | 2/2 |
 | P_xs_16 | 1/2 | 2/2 | 1/2 | 2/2 |
 | P_xs_32 | 2/2 | 2/2 | 2/2 | 2/2 |
+| P_xs_64 | 2/2 | 2/2 | 0/2 | 2/2 |
+| P_xs_128 | 2/2 | 2/2 | 0/2 | 2/2 |
 | P_sha | 2/2 | 2/2 | 0/2 | 2/2 |
 | P_sha_out | 1/2 | 1/2 | 0/2 | 0/2 |
 
@@ -34,16 +69,16 @@ Per game (correct / runs):
 
 | Runs | n | vs desc_bits | vs log2(total_ops_all) | vs kt_bits |
 |---|---|---|---|---|
-| these runs (P_*) | 72 | 0.901 | -0.107 | 0.859 |
-| all runs pooled | 228 | 0.446 | -0.077 | 0.424 |
+| these runs (P_*) | 88 | 0.597 | -0.210 | 0.573 |
+| all runs pooled | 244 | 0.400 | -0.074 | 0.382 |
 
 Pooled runs use the earlier conditions' measures: desc_bits from complexity.py (permutation tables cost log2(500!)), total ops = V (ops to undo + table entries), so log2_total_ops = log2(1 + V).
 
 ## Logistic fit of correctness vs log2(total_ops_all) (all runs)
 
-slope -0.936 per bit, C50 = 20.5, bootstrap 95% CI [19.7, 23.1] (10 failures / 228 runs). C50 beyond the largest value tested
+slope -0.831 per bit, C50 = 20.4, bootstrap 95% CI [19.5, 22.7] (14 failures / 244 runs). C50 beyond the largest value tested
 
-P_* runs only: slope -0.579, C50 = 20.1, CI [18.7, 22.5].
+P_* runs only: slope -0.562, C50 = 20, CI [18.8, 22.3].
 
 ## Wrong answers
 
@@ -55,8 +90,12 @@ P_* runs only: slope -0.579, C50 = 20.1, CI [18.7, 22.5].
 - P_sha_out / pacman r1 -> `other` (conf 0.0): Game: "Not reliably identified from this manual inspection."
 - P_sha_out / pacman r2 -> `other` (conf 0.0): Game: "Not reliably identified from my analysis of these weights."
 - P_sha_out / pong r1 -> `breakout` (conf 30.0): Game: "Tentatively Breakout—a paddle-and-ball brick-breaking game. The stronger conclusion is merely “a one-axis paddle/control game.”"
+- P_xs_128 / pacman r1 -> `other` (conf 20.0): Game: "Tentative guess: Snake. This is a low-confidence guess, not a decoded identification."
+- P_xs_128 / pacman r2 -> `other` (conf 25.0): Game: "Not reliably identified. The most specific defensible characterization from my analysis is a likely four-direction grid-movement game, rather than a confidently identified named game."
 - P_xs_16 / breakout r2 -> `other` (conf 82.0): Game: "Space Invaders-style, probably an automatically firing grid-based variant."
 - P_xs_16 / pacman r2 -> `other` (conf 45.0): Game: "Best guess: Dodge — an open-grid moving-enemy avoidance/survival game."
+- P_xs_64 / pacman r1 -> `other` (conf 30.0): Game: "Tentatively, “Dodge”: a full-grid moving-enemy avoidance/survival game."
+- P_xs_64 / pacman r2 -> `other` (conf 25.0): Game: "Best guess: a “Chase” or moving-target collection game. The exact game remains undetermined."
 
 ## Did Astra compute p(j)? (every `p(j) = v` written in an answer, checked against the true p)
 
@@ -69,6 +108,8 @@ P_* runs only: slope -0.579, C50 = 20.1, CI [18.7, 22.5].
 | P_xs_8 | 7/8 | 101/101 | 0 |
 | P_xs_16 | 5/8 | 50/52 | 2 |
 | P_xs_32 | 6/8 | 62/62 | 0 |
+| P_xs_64 | 6/8 | 34/41 | 2 |
+| P_xs_128 | 0/8 | 0/0 | 2 |
 | P_sha | 0/8 | 0/0 | 2 |
 | P_sha_out | 0/8 | 0/0 | 6 |
 

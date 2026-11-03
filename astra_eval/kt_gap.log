@@ -1,0 +1,20 @@
+16 jobs to do; in-flight start 4, max 16 (halves on 429/5xx/drops)
+P_xs_128     a9f535cc r2: ok=True game=breakout conf=35.0 wall=77.4s errors=0 limit=4
+P_xs_64      dfc6cb65 r1: ok=True game=pong conf=90.0 wall=385.5s errors=0 limit=4
+P_xs_128     a9f535cc r1: ok=True game=breakout conf=91.0 wall=480.2s errors=0 limit=5
+P_xs_64      a9f535cc r1: ok=True game=breakout conf=60.0 wall=485.9s errors=0 limit=5
+P_xs_128     0bbcc3ea r1: ok=True game=freeway conf=45.0 wall=43.0s errors=0 limit=5
+P_xs_128     bdf99279 r1: ok=True game=other conf=20.0 wall=46.3s errors=0 limit=6
+P_xs_128     dfc6cb65 r1: ok=True game=pong conf=65.0 wall=52.5s errors=0 limit=6
+P_xs_64      a9f535cc r2: ok=True game=breakout conf=82.0 wall=554.7s errors=0 limit=6
+P_xs_64      bdf99279 r1: ok=True game=other conf=30.0 wall=312.1s errors=0 limit=7
+P_xs_64      dfc6cb65 r2: ok=True game=pong conf=88.0 wall=395.5s errors=0 limit=7
+P_xs_128     dfc6cb65 r2: ok=True game=pong conf=70.0 wall=51.1s errors=0 limit=7
+P_xs_128     0bbcc3ea r2: ok=True game=freeway conf=45.0 wall=52.1s errors=0 limit=8
+P_xs_64      bdf99279 r2: ok=True game=other conf=25.0 wall=366.2s errors=0 limit=8
+P_xs_64      0bbcc3ea r1: ok=True game=freeway conf=70.0 wall=558.1s errors=0 limit=8
+[/home/angeloh/Desktop/work/weight-programming/astra_eval/runs/P_xs_128/bdf99279/r2] attempt 1 failed ({'attempt': 1, 'exc': 'RemoteProtocolError', 'msg': 'Server disconnected without sending a response.'}); retry in 8s
+[/home/angeloh/Desktop/work/weight-programming/astra_eval/runs/P_xs_64/0bbcc3ea/r2] attempt 1 failed ({'attempt': 1, 'exc': 'RemoteProtocolError', 'msg': 'Server disconnected without sending a response.'}); retry in 10s
+P_xs_128     bdf99279 r2: ok=True game=other conf=25.0 wall=59.7s errors=1 limit=2
+P_xs_64      0bbcc3ea r2: ok=True game=freeway conf=70.0 wall=324.0s errors=1 limit=2
+limiter events: [(1793666498.545774, 'grow', 5), (1793666544.8254917, 'grow', 6), (1793666856.9349632, 'grow', 7), (1793666909.048065, 'grow', 8), (1793667144.8734944, 'shrink', 4), (1793667173.0508828, 'shrink', 2)]
